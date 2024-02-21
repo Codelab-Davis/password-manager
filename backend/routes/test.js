@@ -13,8 +13,7 @@ router.get('/', (req, res) => {
 router.post('/add', async(req, res) => {
     try {
         const user = await User.create(req.body);
-        const allUsers = await User.find(); // Retrieve all users after creating a new user
-        res.status(200).json(allUsers);
+        res.status(200).json(User);
     }
     catch (err) {
         console.log(err);
