@@ -34,18 +34,14 @@ class MyApp extends StatelessWidget {
 }
 
 void fetchData() async {
-  print('fetchData called');
   try {
-    final response = await http.get(Uri.parse('http://localhost:5000'));
-    print('HTTP request completed with status: ${response.statusCode}');
-
+    final response = await http.get(Uri.parse('http://localhost:5000/test/'));
     if (response.statusCode == 200) {
       _logger.info('Data from backend: ${response.body}');
     } else {
       _logger.warning('Failed to fetch data from backend with status code: ${response.statusCode}');
     }
   } catch (e) {
-    print('HTTP request failed: $e');
     _logger.severe('Failed to fetch data: $e');
   }
 }
