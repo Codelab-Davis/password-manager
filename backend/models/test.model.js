@@ -13,10 +13,7 @@ const userSchema = new Schema({
     },
     age: {
         type: Number,
-    },
-    hobbies: [{
-        type: String
-    }]
+    }
 }, { versionKey: false });
 
 // Export the model, adjusting the names to match your data
