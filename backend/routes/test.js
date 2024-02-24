@@ -61,6 +61,23 @@ router.delete('/del/:id', async (req, res) => {
 }
 );
 
-
+router.get('/filter/:field/:value', async (req, res) => {
+    try {
+        const field = req.params.field;
+        const value = req.params.value;
+        const user = await User.find({
+            [field]: value
+        });
+        if (!user) {
+            return res.status(400).json('No user found.' );
+        }
+        res.status(200).json(user);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json('Internal Server Error');
+    }
+}
+);
 
 module.exports = router;
