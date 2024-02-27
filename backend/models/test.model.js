@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     _id: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
     },
     name: {
         type: String,
@@ -13,10 +13,7 @@ const userSchema = new Schema({
     },
     age: {
         type: Number,
-    },
-    hobbies: [{
-        type: String
-    }]
+    }
 }, { versionKey: false });
 
 // Export the model, adjusting the names to match your data
