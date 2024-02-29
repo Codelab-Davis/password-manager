@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:otp/otp.dart';
+import 'package:timezone/timezone.dart' as timezone;
 
 void main() {
   runApp(const MyApp());
@@ -87,5 +89,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+void generateOTP() async {
+  while (true) {
+    final now = DateTime.now();
+    final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
+
+    final date = timezone.TZDateTime.from(now, pacificTimeZone);
+
+    final code = OTP.generateTOTPCodeString('ISHANT', date.millisecondsSinceEpoch,
+        length: 4, interval: 5, algorithm: Algorithm.SHA256, isGoogle: true);
+
+    print("Generated OTP: $code");
+
+    await Future.delayed(Duration(seconds: 5));
   }
 }
