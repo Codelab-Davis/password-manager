@@ -3,9 +3,11 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:otp/otp.dart';
 import 'package:timezone/timezone.dart' as timezone;
-
+import 'package:timezone/data/latest.dart' as timezone;
+  
 void main() {
   runApp(const MyApp());
+  timezone.initializeTimeZones();
   _setupLogging(); // Set up logging
 }
 
@@ -84,7 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+                _incrementCounter();
+                generateOTP(); // Call generateOTP here
+              },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
@@ -100,7 +105,7 @@ void generateOTP() async {
     final date = timezone.TZDateTime.from(now, pacificTimeZone);
 
     final code = OTP.generateTOTPCodeString('ISHANT', date.millisecondsSinceEpoch,
-        length: 4, interval: 5, algorithm: Algorithm.SHA256, isGoogle: true);
+        length: 6, interval: 5, algorithm: Algorithm.SHA256, isGoogle: true);
 
     print("Generated OTP: $code");
 
