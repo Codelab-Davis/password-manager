@@ -1,114 +1,105 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:logging/logging.dart';
 import 'package:otp/otp.dart';
-import 'package:timezone/timezone.dart' as timezone;
 import 'package:timezone/data/latest.dart' as timezone;
-  
+import 'package:timezone/timezone.dart' as timezone;
+
 void main() {
-  runApp(const MyApp());
-  timezone.initializeTimeZones();
-  _setupLogging(); // Set up logging
+  runApp(MyApp());
 }
-
-void _setupLogging() {
-  Logger.root.level = Level.ALL; // Log all levels
-  Logger.root.onRecord.listen((record) {
-    // Print log records to the console
-    print('${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
-  });
-}
-
-final Logger _logger = Logger('MyHomePageState');
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TOTP Display',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
-void fetchData() async {
-  try {
-    final response = await http.get(Uri.parse('http://localhost:5000/test/'));
-    if (response.statusCode == 200) {
-      _logger.info('Data from backend: ${response.body}');
-    } else {
-      _logger.warning('Failed to fetch data from backend with status code: ${response.statusCode}');
-    }
-  } catch (e) {
-    _logger.severe('Failed to fetch data: $e');
-  }
-}
-
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  late Timer _timer;
+  late String _otp;
+  late int _countdown;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  @override
+  void initState() {
+    super.initState();
+    timezone.initializeTimeZones();
+
+    _countdown = 30; // Set your TOTP interval here
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
+      final now = DateTime.now();
+      final date = timezone.TZDateTime.from(now, pacificTimeZone);
+
+      setState(() {
+        if (_countdown > 0) {
+          _countdown--;
+        } else {
+          _otp = generateTOTP('ABCDE', date.millisecondsSinceEpoch);
+          _countdown = 30; // Reset the countdown after each TOTP generation
+        }
+      });
     });
-    fetchData(); // Call fetchData here
+
+    // Initial TOTP generation
+    _otp = generateTOTP('ABCDE', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  String generateTOTP(String secret, int timestamp) {
+    return OTP.generateTOTPCodeString(
+      secret,
+      timestamp,
+      length: 6,
+      interval: 30, // Set your TOTP interval here
+      algorithm: Algorithm.SHA256,
+      isGoogle: true,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text('TOTP Display'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'TOTP:',
+              style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              _otp,
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Time until reset: $_countdown seconds',
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-                _incrementCounter();
-                generateOTP(); // Call generateOTP here
-              },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
-  }
-}
-
-void generateOTP() async {
-  while (true) {
-    final now = DateTime.now();
-    final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
-
-    final date = timezone.TZDateTime.from(now, pacificTimeZone);
-
-    final code = OTP.generateTOTPCodeString('ISHANT', date.millisecondsSinceEpoch,
-        length: 6, interval: 5, algorithm: Algorithm.SHA256, isGoogle: true);
-
-    print("Generated OTP: $code");
-
-    await Future.delayed(Duration(seconds: 5));
   }
 }
