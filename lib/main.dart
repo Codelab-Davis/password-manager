@@ -83,12 +83,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String otp = code;
 
-  void getCode() {
-    setState(() {
-      otp = code;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
