@@ -4,19 +4,22 @@ import 'package:otp/otp.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'package:clipboard/clipboard.dart';
 import 'package:http/http.dart' as http;
+import 'package:timezone/timezone.dart' as timezone;
+import 'package:logger/logger.dart';
+
 
 String code = "";
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
   timezone.initializeTimeZones();
-  _setupLogging(); // Set up logging
   generateOTP();
 }
 
 void generateOTP() async {
   while (true) {
     final now = DateTime.now();
+
     final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
 
     final date = timezone.TZDateTime.from(now, pacificTimeZone);
@@ -28,16 +31,8 @@ void generateOTP() async {
   }
 }
 
-void _setupLogging() {
-  Logger.root.level = Level.ALL; // Log all levels
-  Logger.root.onRecord.listen((record) {
-    // Print log records to the console
-    print(
-        '${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
-  });
-}
 
-final Logger _logger = Logger('MyHomePageState');
+final Logger _logger = Logger();
 
 class MyApp extends StatelessWidget {
   @override
@@ -53,19 +48,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void fetchData() async {
-  try {
-    final response = await http.get(Uri.parse('http://localhost:5000/test/'));
-    if (response.statusCode == 200) {
-      _logger.info('Data from backend: ${response.body}');
-    } else {
-      _logger.warning(
-          'Failed to fetch data from backend with status code: ${response.statusCode}');
-    }
-  } catch (e) {
-    _logger.severe('Failed to fetch data: $e');
-  }
-}
+
 
 class MyHomePage extends StatefulWidget {
   @override
