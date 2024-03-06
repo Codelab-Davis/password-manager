@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'package:clipboard/clipboard.dart';
 import 'package:timezone/timezone.dart' as timezone;
-import 'package:logger/logger.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,11 +63,14 @@ class GenerateTOTPPage extends StatefulWidget {
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   late String otp;
+  late int reloadTimer;
 
   @override
   void initState() {
     super.initState();
+    reloadTimer = 30; // Initial reload time in seconds
     generateOTP();
+    startReloadTimer();
   }
 
   @override
@@ -90,10 +93,16 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
+            Text(
+              'Reload in $reloadTimer seconds',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 setState(() {
                   generateOTP();
+                  reloadTimer = 30; // Reset reload time
                 });
               },
               child: Text('Reload'),
@@ -116,7 +125,17 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
     final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
     final date = timezone.TZDateTime.from(now, pacificTimeZone);
 
-    otp = OTP.generateTOTPCodeString('ISHANT', date.millisecondsSinceEpoch,
-        length: 6, interval: 5, algorithm: Algorithm.SHA256, isGoogle: true);
+    otp = OTP.generateTOTPCodeString('ABCDEF', date.millisecondsSinceEpoch,
+        length: 6, interval: 30, algorithm: Algorithm.SHA256, isGoogle: true);
+  }
+
+  void startReloadTimer() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (reloadTimer > 0) {
+          reloadTimer--;
+        }
+      });
+    });
   }
 }
