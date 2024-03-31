@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/home_page.dart';
 import 'package:password_manager/logger.dart';
-import 'package:password_manager/otp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 
 void main() {
   runApp(const MyApp());
   timezone.initializeTimeZones();
   setupLogging();
-  generateOTP();
 }
 
 class MyApp extends StatelessWidget {
