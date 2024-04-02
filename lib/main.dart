@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/home_page.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
+import 'welcome_screen.dart';
 
 void main() {
-  runApp(const MyApp());
   timezone.initializeTimeZones();
   setupLogging();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: WelcomeScreen(),
     );
   }
 }
