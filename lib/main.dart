@@ -5,9 +5,9 @@ import 'package:timezone/data/latest.dart' as timezone;
 import 'welcome_screen.dart';
 
 void main() {
-  runApp(const MyApp());
   timezone.initializeTimeZones();
   setupLogging();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

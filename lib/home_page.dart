@@ -11,8 +11,8 @@ import 'package:http/http.dart' as http;
 import 'welcome_screen.dart';
 
 void main() {
-  runApp(const MyApp());
   timezone.initializeTimeZones();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

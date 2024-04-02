@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
+import 'package:timezone/timezone.dart' as timezone;
+
 
 class GenerateTOTPPage extends StatefulWidget {
   @override
@@ -82,17 +84,20 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   void generateOTP() {
-    final now = DateTime.now();
-    var timezone;
-    final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
-    final date = timezone.TZDateTime.from(now, pacificTimeZone);
-
-    setState(() {
-      otp = OTP.generateTOTPCodeString('ABCDEF', date.millisecondsSinceEpoch,
-          length: 6, interval: 30, algorithm: Algorithm.SHA256, isGoogle: true);
-    });
-  }
-
+  final now = DateTime.now();
+  final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
+  final date = timezone.TZDateTime.from(now, pacificTimeZone);
+  setState(() {
+    otp = OTP.generateTOTPCodeString(
+      'Ishant',
+      date.millisecondsSinceEpoch,
+      length: 6,
+      interval: 30,
+      algorithm: Algorithm.SHA256,
+      isGoogle: true,
+    );
+  });
+}
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {

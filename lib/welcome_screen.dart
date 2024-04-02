@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 
 class WelcomeScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20, bottom: 20),
-                  child: Text(
+                  child: const Text(
                     'APP NAME',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -39,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        child: Text(
+                        child: const Text(
                           'Providing extra security for',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -53,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Container(
-                        child: Text(
+                        child: const Text(
                           'your passwords using 2FA',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -124,6 +125,10 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () {
                         // Handle button click action here
                         // For example, navigate to another screen or execute a function
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MyHomePage(title: "TOTP Generator")),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD9D9D9), // Background color
