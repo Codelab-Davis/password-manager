@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
           Padding (
-            padding: const EdgeInsets.only(left: 200.0, right: 200.0), // Adds padding of 20 pixels to the left and right
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
             child: TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(), 
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
             const SizedBox(height: 10),
             Padding (
-            padding: const EdgeInsets.only(left: 200.0, right: 200.0), // Adds padding of 20 pixels to the left and right
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
             child:
             TextField(
               obscureText: isHidden, // Use the isHidden variable here
