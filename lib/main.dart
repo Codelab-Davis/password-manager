@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/home_page.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'welcome_screen.dart';
