@@ -7,18 +7,44 @@ class AccountsPage extends StatefulWidget {
   State<AccountsPage> createState() => _AccountsPageState();
 }
 
-final style = ElevatedButton.styleFrom(
-  backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Background color
-  foregroundColor: const Color(0xFF404447), // Text color// Elevation
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(35),
-    side: const BorderSide(color: Colors.black) // BorderRadius
-  ),
-  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6), // Padding
-  shadowColor: const Color(0x3F000000), // Shadow color
-);
-
 class _AccountsPageState extends State<AccountsPage> {
+  var firstTap = false;
+  var secondTap = false;
+  var thirdTap = false;
+
+  changeButtons(button) {
+    setState(() {
+      if (button == 1) {
+        firstTap = !firstTap;
+        secondTap = false;
+        thirdTap = false;
+      } else if (button == 2) {
+        secondTap = !secondTap;
+        firstTap = false;
+        thirdTap = false;
+      } else if (button == 3) {
+        thirdTap = !thirdTap;
+        firstTap = false;
+        secondTap = false;
+      }
+    });
+  }
+
+  getStyle(buttonTap) {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(
+          buttonTap ? const Color.fromARGB(255, 220, 220, 220) : Colors.white),
+      foregroundColor:
+          MaterialStateProperty.all(const Color(0xFF404447)), // Text color
+      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(35),
+          side: const BorderSide(color: Colors.black) // BorderRadius
+          )),
+      padding: MaterialStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 6)), // Padding
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +59,9 @@ class _AccountsPageState extends State<AccountsPage> {
           children: [
             SearchBar(
               leading: const Icon(Icons.search),
-              backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 255, 255, 255)),
+              backgroundColor: MaterialStateProperty.all(
+                  const Color.fromARGB(255, 220, 220, 220)),
+              hintText: "Search passwords...",
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
@@ -42,26 +70,38 @@ class _AccountsPageState extends State<AccountsPage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ElevatedButton(
-                    style: style,
-                    onPressed: () {},
+                    style: getStyle(firstTap),
+                    onPressed: () => changeButtons(1),
                     child: const Text('Recently Added'),
                   ),
                   const SizedBox(width: 10),
                   ElevatedButton(
-                    style: style,
-                    onPressed: () {},
+                    style: getStyle(secondTap),
+                    onPressed: () => changeButtons(2),
                     child: const Text('Most Used'),
                   ),
                   const SizedBox(width: 10),
                   ElevatedButton(
-                    style: style,
-                    onPressed: () {},
+                    style: getStyle(thirdTap),
+                    onPressed: () => changeButtons(3),
                     child: const Text('Least Used'),
                   ),
                 ],
               ),
             ),
-            const Text("Welcome, Suyash 🔒"),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: const FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  "Welcome, Suyash 🔒",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
