@@ -5,7 +5,7 @@ final Logger _logger = Logger('NetworkService');
 
 Future<void> fetchData() async {
   try {
-    final response = await http.get(Uri.parse('http://localhost:5000/test/'));
+    final response = await http.get(Uri.parse('http://localhost:5001/test/')); //Change back to 5000
     if (response.statusCode == 200) {
       _logger.info('Data from backend: ${response.body}');
     } else {
@@ -15,3 +15,4 @@ Future<void> fetchData() async {
     _logger.severe('Failed to fetch data: $e');
   }
 }
+
