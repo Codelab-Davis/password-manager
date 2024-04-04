@@ -45,7 +45,7 @@ postData(String firstName, String lastName, String email, String phoneNumber, St
   isPasswordSame = false;
   try {
     print('In PostData');
-    var url = Uri.http('localhost:5001', '/test/add'); //Change back to 5000
+    var url = Uri.http('localhost:5000', '/test/add'); 
     var response = await http.post(
       url,
       headers: <String, String>{
