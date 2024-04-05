@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
+import 'package:password_manager/qr-scanner-page.dart';
 import 'package:timezone/timezone.dart' as timezone;
 
 
@@ -76,6 +77,17 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 });
               },
               child: const Text('Copy'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // TODO: Implement QR scanner functionality
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => QRScannerPage()),
+                  );
+              },
+              child: const Text('QR Scanner'),
             ),
           ],
         ),
