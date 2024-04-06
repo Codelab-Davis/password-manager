@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AccountsPage extends StatefulWidget {
   const AccountsPage({super.key});
@@ -63,6 +64,9 @@ class _AccountsPageState extends State<AccountsPage> {
                   const Color.fromARGB(255, 220, 220, 220)),
               hintText: "Search passwords...",
             ),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
               height: 50,
@@ -100,6 +104,51 @@ class _AccountsPageState extends State<AccountsPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height - 350,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
+                itemCount: 8,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 1) {
+                    return ButtonTheme(
+                      height: 10,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color.fromARGB(255, 220, 220, 220)),
+                          foregroundColor: MaterialStateProperty.all(
+                              const Color(0xFF404447)), // Text color
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35),
+                              // BorderRadius
+                            ),
+                          ),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 6)),
+                        ),
+                        child: const Text("Add Password"),
+                      ),
+                    );
+                  }
+                  return Container(
+                    height: 300,
+                    color: const Color.fromARGB(255, 220, 220, 220),
+                    child: const Center(),
+                  );
+                },
               ),
             ),
           ],
