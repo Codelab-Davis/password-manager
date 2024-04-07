@@ -80,16 +80,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               child: const Text('Copy'),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                // TODO: Implement QR scanner functionality
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => QRScannerPage()),
-                  );
-              },
-              child: const Text('QR Scanner'),
-            ),
           ],
         ),
       ),
