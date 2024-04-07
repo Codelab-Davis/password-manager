@@ -1,3 +1,5 @@
+import 'package:password_manager/profile-page.dart';
+import 'package:password_manager/totp_generator.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +47,47 @@ class _QRScannerPageState extends State<QRScannerPage> {
           )
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code),
+            label: 'Scanner',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        onTap: _onItemTapped,
+      ),
     );
+  }
+
+void _onItemTapped(int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+        );
+        break;
+      case 1:
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => UserProfilePage(),        
+              ),
+            );
+        // Handle profile navigation
+        break;
+    }
   }
 
   void _onQRViewCreated(QRViewController controller) {

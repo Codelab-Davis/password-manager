@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
-import 'package:password_manager/qr-scanner-page.dart';
+import 'package:password_manager/profile-page.dart';
+import 'package:password_manager/qr-scanner.dart';
 import 'package:timezone/timezone.dart' as timezone;
 
 
@@ -92,7 +93,47 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code),
+            label: 'Scanner',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        onTap: _onItemTapped,
+      ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => QRScannerPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => UserProfilePage(),        
+              ),
+            );
+        // Handle profile navigation
+        break;
+    }
   }
 
   void generateOTP() {
