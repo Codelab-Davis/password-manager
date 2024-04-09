@@ -79,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
   
 
   @override
-  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -121,18 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     hintText: 'Email'
                     ),
                   controller: emailController,
-              ),
-            ),
-            const SizedBox(height: 15),
-            
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Phone Number'
-                    ),
-                  controller: phoneNumberController,
               ),
             ),
             const SizedBox(height: 15),
