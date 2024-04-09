@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
@@ -5,6 +8,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'welcome_screen.dart';
 
+bool isPasswordSame = false;
 void main() {
   timezone.initializeTimeZones();
   runApp(const MyApp());
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WelcomeScreen(),
+      home: MyHomePage(title: 'Sign Up'),
     );
   }
 }
@@ -34,33 +38,45 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-postData(String email, String password) async {
+postData(String firstName, String lastName, String email, String phoneNumber, String password) async {
+  isPasswordSame = false;
   try {
-    var url = Uri.http('localhost:5000', '/test/add');
+    print('In PostData');
+    var url = Uri.http('localhost:5000', '/test/add'); 
     var response = await http.post(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
+        'firstName': firstName,
+        'lastName': lastName,
         'email': email,
+        'phoneNumber': phoneNumber,
         'password': password,
       }),
     );
-    //print('Response status: ${response.statusCode}'); //Helpful for debugging
-    //print('Response body: ${response.body}'); //Helpful for debugging
+    print('Response status: ${response.statusCode}'); //Helpful for debugging
+    print('Response body: ${response.body}'); //Helpful for debugging
   } catch (e) {
     print(e);
   }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool? isChecked = false;
   bool isHidden = true;
 
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  
 
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -70,46 +86,133 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0,
-                  right:
-                      20.0), // Adds padding of 20 pixels to the left and right
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
               child: TextField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Enter Email:'),
-                controller: emailController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(), 
+                    hintText: 'First Name'
+                    ),
+                  controller: firstNameController,
               ),
             ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0,
-                  right:
-                      20.0), // Adds padding of 20 pixels to the left and right
+            const SizedBox(height: 15),
+            
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
               child: TextField(
-                obscureText: isHidden, // Use the isHidden variable here
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Enter Password:',
-                  suffixIcon: IconButton(
-                    onPressed: togglePassword,
-                    icon: Icon(
-                      isHidden ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(), 
+                    hintText: 'Last Name'
                     ),
-                  ),
+                  controller: lastNameController,
+              ),
+            ),
+            const SizedBox(height: 15),
+            
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(), 
+                    hintText: 'Email'
+                    ),
+                  controller: emailController,
+              ),
+            ),
+            const SizedBox(height: 15),
+            
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(), 
+                    hintText: 'Phone Number'
+                    ),
+                  controller: phoneNumberController,
+              ),
+            ),
+            const SizedBox(height: 15),
+            
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child:
+              TextField(
+                obscureText: isHidden, // Use the isHidden variable here
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Password',
                 ),
                 controller: passwordController,
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-                onPressed: () {
-                  postData(emailController.text, passwordController.text);
+            const SizedBox(height: 15),
+            
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child:
+              TextField(
+                obscureText: isHidden, // Use the isHidden variable here
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Confirm Password',
+                ),
+                controller: confirmPasswordController,
+              ),
+            ),
+            const SizedBox(height: 15),
+            
+            Visibility(
+              visible: isPasswordSame, // Set visibility based on the boolean variable
+              child: const Padding (
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.error_outline_rounded, color: Colors.red),
+                    SizedBox(width: 5),
+                    Text(
+                      'Those passwords didn’t match. Try again.',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            Padding (
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child:
+              CheckboxListTile(
+                value: isChecked,
+                title: Text('Show Password'),
+                onChanged: (val){
+                  setState(() {
+                    isChecked = val;
+                    togglePassword();
+                  });
                 },
-                child: const Text("Submit")),
-            const SizedBox(height: 150),
+                controlAffinity: ListTileControlAffinity.leading,     
+              ),
+            ),            
+            const SizedBox(height: 30),
+              
+            ElevatedButton(
+              onPressed: () {
+                if (passwordController.text != confirmPasswordController.text) {
+                  setState(() {
+                    isPasswordSame = true;
+                  });
+                  return;
+                }
+                setState(() {
+                  isPasswordSame = false;
+                });
+                postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);   
+              },
+            child: const Text("Sign Up")
+      ),
+            const SizedBox(height: 5),
+            
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -124,11 +227,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
+  
   void togglePassword() {
     setState(() {
       isHidden = !isHidden;
     });
   }
-}
+  // bool isIdentical() {
 
+  // }
+}

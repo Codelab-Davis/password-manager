@@ -3,16 +3,26 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     _id: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        default: function() {
+          return new mongoose.Types.ObjectId();
+        }
     },
-    name: {
+    firstName: {
+        type: String,
+    },
+    lastName: {
         type: String,
     },
     email: {
         type: String,
     },
-    age: {
-        type: Number,
+    phoneNumber: {
+        type: String,
+    },
+    password: {
+        type: String,
     }
 }, { versionKey: false });
 

@@ -153,9 +153,7 @@ class WelcomeScreen extends StatelessWidget {
                         // For example, navigate to another screen or execute a function
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const MyHomePage(title: "TOTP Generator")),
+                          MaterialPageRoute(builder: (context) => const MyHomePage(title: "Sign Up")),
                         );
                       },
                       style: ElevatedButton.styleFrom(
