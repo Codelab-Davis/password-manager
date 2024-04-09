@@ -1,5 +1,4 @@
 PODS:
-<<<<<<< HEAD
   - Flutter (1.0.0)
   - MTBBarcodeScanner (5.0.11)
   - qr_code_scanner (0.2.0):
@@ -13,7 +12,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - MTBBarcodeScanner
-=======
   - AppAuth (1.7.3):
     - AppAuth/Core (= 1.7.3)
     - AppAuth/ExternalUserAgent (= 1.7.3)
@@ -44,12 +42,10 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
->>>>>>> simon-3rdparty-signup
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-<<<<<<< HEAD
   qr_code_scanner:
     :path: ".symlinks/plugins/qr_code_scanner/ios"
 
@@ -57,7 +53,6 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
-=======
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/darwin"
 
@@ -68,7 +63,6 @@ SPEC CHECKSUMS:
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: 0e876eea9782ec6462e91ab872711c357322c94f
->>>>>>> simon-3rdparty-signup
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
