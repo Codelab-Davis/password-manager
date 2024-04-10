@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class SignUpOptions extends StatefulWidget {
@@ -25,7 +28,7 @@ class _SignUpOptions extends State<SignUpOptions> {
                 padding: EdgeInsets.all(10.0), // Adjust padding as needed
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle button click action here
+                    callGoogleSignIn();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white, // Use Colors.white for perfectly white background
@@ -177,3 +180,38 @@ class _SignUpOptions extends State<SignUpOptions> {
     );
   }
 }
+
+void callGoogleSignIn() async {
+  User? user = await signInWithGoogle();
+    if (user != null) {
+      // User signed in successfully
+    } else {
+      // Sign in failed
+    }
+}
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+Future<User?> signInWithGoogle() async {
+  try {
+    final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential authResult = await _auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+
+      return user;
+    }
+  } catch (error) {
+    print(error);
+    return null;
+  }
+}
+

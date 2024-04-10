@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GIDServerClientID</key>
+	<string>296701709927-c87q5l5jdf8onchmhq6jrpn6alggt5md.apps.googleusercontent.com</string>
+	<key>GIDClientID</key>
+	<string>296701709927.apps.googleusercontent.com</string>  
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -49,5 +53,18 @@
 	</array>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.296701709927-pfc4hbtogldm5591dkg0meidmjbm9rm5</string>
+			</array>
+		</dict>
+	</array>
+
 </dict>
 </plist>
