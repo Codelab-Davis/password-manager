@@ -67,31 +67,6 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const AccountsPage()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFFD9D9D9), // Background color
-                          foregroundColor:
-                              const Color(0xFF323232), // Text color
-                          elevation: 6, // Elevation
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(15), // BorderRadius
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 6), // Padding
-                          shadowColor: const Color(0x3F000000), // Shadow color
-                        ),
-                        child: const Text("Accounts Page"),
-                      )
                     ],
                   ),
                 ),

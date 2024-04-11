@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:password_manager/profile-page.dart';
+import 'package:password_manager/qr-scanner.dart';
+import 'package:password_manager/totp_generator.dart';
+
 
 class AccountsPage extends StatefulWidget {
   const AccountsPage({super.key});
@@ -154,6 +158,57 @@ class _AccountsPageState extends State<AccountsPage> {
           ],
         ),
       ),
+       bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code),
+            label: 'Scanner',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: 3,
+        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
+        onTap: _onItemTapped,
+      ),
     );
+  }
+
+
+   void _onItemTapped(int index) {
+    switch (index) {
+      case 0:
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+      );
+      break;
+      case 1:
+        Navigator.pushReplacement(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => QRScannerPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
+              ),
+            );
+        // Handle profile navigation
+        break;
+        case 3:
+        break;
+    }
   }
 }

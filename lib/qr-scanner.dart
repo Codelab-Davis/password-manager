@@ -3,6 +3,7 @@ import 'package:password_manager/totp_generator.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/accounts.dart';
 
 
 
@@ -61,6 +62,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings), // Corrected icon for the fourth option
+            label: 'Settings', // Label for the new fourth button
+          ),
         ],
         currentIndex: 1,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
@@ -83,6 +88,14 @@ void _onItemTapped(int index) {
         Navigator.pushReplacement(
           context as BuildContext,
             MaterialPageRoute(builder: (context) => UserProfilePage(),        
+              ),
+            );
+        // Handle profile navigation
+        break;
+        case 3:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => const AccountsPage(),        
               ),
             );
         // Handle profile navigation
