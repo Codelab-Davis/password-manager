@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-
+import 'accounts.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -16,14 +16,14 @@ class WelcomeScreen extends StatelessWidget {
                   width: 179,
                   height: 177,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
+                    color: const Color(0xFFD9D9D9),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(31),
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 20),
+                  margin: const EdgeInsets.only(top: 20, bottom: 20),
                   child: const Text(
                     'APP NAME',
                     textAlign: TextAlign.center,
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Container(
                         child: const Text(
                           'your passwords using 2FA',
@@ -66,6 +66,32 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const AccountsPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color(0xFFD9D9D9), // Background color
+                          foregroundColor:
+                              const Color(0xFF323232), // Text color
+                          elevation: 6, // Elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(15), // BorderRadius
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6), // Padding
+                          shadowColor: const Color(0x3F000000), // Shadow color
+                        ),
+                        child: const Text("Accounts Page"),
+                      )
                     ],
                   ),
                 ),
@@ -75,7 +101,7 @@ class WelcomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.only(bottom: 100),
+              margin: const EdgeInsets.only(bottom: 100),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -84,22 +110,22 @@ class WelcomeScreen extends StatelessWidget {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle button click action here
-                        // For example, navigate to another screen or execute a function
+                        // switch to accounts page
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), // Background color
-                        foregroundColor: Color(0xFF323232), // Text color
+                        backgroundColor:
+                            const Color(0xFFD9D9D9), // Background color
+                        foregroundColor: const Color(0xFF323232), // Text color
                         elevation: 6, // Elevation
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(15), // BorderRadius
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 6), // Padding
-                        shadowColor: Color(0x3F000000), // Shadow color
+                        shadowColor: const Color(0x3F000000), // Shadow color
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +143,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   SizedBox(
                     width: 139,
                     height: 45,
@@ -131,18 +157,19 @@ class WelcomeScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), // Background color
-                        foregroundColor: Color(0xFF323232), // Text color
+                        backgroundColor:
+                            const Color(0xFFD9D9D9), // Background color
+                        foregroundColor: const Color(0xFF323232), // Text color
                         elevation: 6, // Elevation
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(15), // BorderRadius
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 6), // Padding
-                        shadowColor: Color(0x3F000000), // Shadow color
+                        shadowColor: const Color(0x3F000000), // Shadow color
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

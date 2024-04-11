@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // For clipboard operations
-import 'package:otp/otp.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
-import 'package:timezone/timezone.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'welcome_screen.dart';
