@@ -42,6 +42,10 @@ class _BottomNavigationBarExampleState
       'Index 2: Profile',
       style: optionStyle,
     ),
+    Text(
+      'Index 3: Settings',
+      style: optionStyle,
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -72,6 +76,10 @@ class _BottomNavigationBarExampleState
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings), // Corrected icon for the fourth option
+            label: 'Settings', // Label for the new fourth button
           ),
         ],
         currentIndex: _selectedIndex,
