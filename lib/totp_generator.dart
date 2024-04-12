@@ -105,6 +105,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         ],
         currentIndex: 0,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
     );

@@ -69,6 +69,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
         ],
         currentIndex: 1,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
     );

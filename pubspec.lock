@@ -335,4 +335,4 @@ packages:
     version: "13.0.0"
 sdks:
   dart: ">=3.2.4 <4.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=3.7.0"
