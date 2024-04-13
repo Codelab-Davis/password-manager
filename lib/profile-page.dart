@@ -44,6 +44,7 @@ class UserProfilePage extends StatelessWidget {
         ],
         currentIndex: 2,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: (index) => _onItemTapped(index, context),
       ),
     );

@@ -179,6 +179,7 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
         currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
     );
