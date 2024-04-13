@@ -7,7 +7,6 @@ import 'package:password_manager/qr-scanner.dart';
 import 'package:timezone/timezone.dart' as timezone;
 import 'package:password_manager/accounts.dart';
 
-
 class GenerateTOTPPage extends StatefulWidget {
   @override
   _GenerateTOTPPageState createState() => _GenerateTOTPPageState();
@@ -124,37 +123,39 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
+        );
         // Handle profile navigation
         break;
-        case 3:
+      case 3:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const AccountsPage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const AccountsPage(),
+          ),
+        );
         // Handle profile navigation
         break;
     }
   }
 
   void generateOTP() {
-  final now = DateTime.now();
-  final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
-  final date = timezone.TZDateTime.from(now, pacificTimeZone);
-  setState(() {
-    otp = OTP.generateTOTPCodeString(
-      'Ishant',
-      date.millisecondsSinceEpoch,
-      length: 6,
-      interval: 30,
-      algorithm: Algorithm.SHA256,
-      isGoogle: true,
-    );
-  });
-}
+    final now = DateTime.now();
+    String secret = 'wd3lkvjuihkxxzoadjhkamx4faiuoajx';
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        secret,
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
+
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
