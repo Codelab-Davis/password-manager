@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'home_page.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -171,29 +172,61 @@ class _LoginState extends State<Login> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.apple),
-                      iconSize: 50,
+                      iconSize: 40,
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: const Icon(Icons.wine_bar),
-                      iconSize: 50,
+                      icon: const ImageIcon(
+                        AssetImage(
+                            'assets/google.png'),
+                      ),
+                      iconSize: 40,
                       onPressed: () {},
                     ),
                     IconButton(
                       icon: const Icon(Icons.facebook),
-                      iconSize: 50,
+                      iconSize: 40,
                       onPressed: () {},
                     )
                   ],
                 ),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?"),
-                    TextButton(
-                      child: const Text('Sign up'),
-                      onPressed: () {},
-                    )
+                    const SizedBox(
+                      height: 10,
+                      child: Text(
+                        "Don't have an account?",
+                        style: TextStyle(
+                          color: Color(0xFF323232),
+                          fontSize: 15,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w400,
+                          height: 0.06,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: 58.5,
+                      height: 10,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/signUp');
+                        },
+                        child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                              color: Color(0xFF323232),
+                              fontSize: 15,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.bold,
+                              height: 0.06,
+                            ),
+                          ),
+                      ),
+                    ),
                   ],
                 )
               ],
