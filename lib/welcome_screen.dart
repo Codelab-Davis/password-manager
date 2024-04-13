@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'accounts.dart';
+import 'login.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -36,39 +36,32 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: const Text(
-                          'Providing extra security for',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF323232),
-                            fontSize: 18,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: 0.06,
-                          ),
-                        ),
+                const Column(
+                  children: [
+                    Text(
+                      'Providing extra security for',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF323232),
+                        fontSize: 18,
+                        fontFamily: 'Outfit',
+                        fontWeight: FontWeight.w400,
+                        height: 0.06,
                       ),
-                      const SizedBox(height: 20),
-                      Container(
-                        child: const Text(
-                          'your passwords using 2FA',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF323232),
-                            fontSize: 18,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: 0.06,
-                          ),
-                        ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'your passwords using 2FA',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF323232),
+                        fontSize: 18,
+                        fontFamily: 'Outfit',
+                        fontWeight: FontWeight.w400,
+                        height: 0.06,
                       ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -85,12 +78,18 @@ class WelcomeScreen extends StatelessWidget {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () {
-                        // switch to accounts page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const Login()),
+                        );
+                        // Handle button click action here
+                        // For example, navigate to another screen or execute a function
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFFD9D9D9), // Background color
-                        foregroundColor: const Color(0xFF323232), // Text color
+                        backgroundColor: Color(0xFFD9D9D9), // Background color
+                        foregroundColor: Color(0xFF323232), // Text color
                         elevation: 6, // Elevation
                         shape: RoundedRectangleBorder(
                           borderRadius:
@@ -100,21 +99,14 @@ class WelcomeScreen extends StatelessWidget {
                             horizontal: 16, vertical: 6), // Padding
                         shadowColor: const Color(0x3F000000), // Shadow color
                       ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ],
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w500,
+                          height: 0,
+                        ),
                       ),
                     ),
                   ),
@@ -128,13 +120,14 @@ class WelcomeScreen extends StatelessWidget {
                         // For example, navigate to another screen or execute a function
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MyHomePage(title: "Sign Up")),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const MyHomePage(title: "Sign Up")),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFFD9D9D9), // Background color
-                        foregroundColor: const Color(0xFF323232), // Text color
+                        backgroundColor: Color(0xFFD9D9D9), // Background color
+                        foregroundColor: Color(0xFF323232), // Text color
                         elevation: 6, // Elevation
                         shape: RoundedRectangleBorder(
                           borderRadius:
@@ -144,21 +137,14 @@ class WelcomeScreen extends StatelessWidget {
                             horizontal: 16, vertical: 6), // Padding
                         shadowColor: const Color(0x3F000000), // Shadow color
                       ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ],
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w500,
+                          height: 0,
+                        ),
                       ),
                     ),
                   ),
