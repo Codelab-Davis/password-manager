@@ -5,6 +5,7 @@ import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:timezone/timezone.dart' as timezone;
+import 'package:password_manager/accounts.dart';
 
 
 class GenerateTOTPPage extends StatefulWidget {
@@ -97,9 +98,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings), // Corrected icon for the fourth option
+            label: 'Settings', // Label for the new fourth button
+          ),
         ],
         currentIndex: 0,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
     );
@@ -118,7 +124,15 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => UserProfilePage(),        
+            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
+              ),
+            );
+        // Handle profile navigation
+        break;
+        case 3:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => const AccountsPage(),        
               ),
             );
         // Handle profile navigation
