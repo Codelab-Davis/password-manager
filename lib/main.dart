@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'welcome_screen.dart';
+import 'home_page.dart';
 
 void main() {
   timezone.initializeTimeZones();
