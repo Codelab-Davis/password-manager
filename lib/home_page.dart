@@ -1,12 +1,8 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'welcome_screen.dart';
 
 bool isPasswordSame = false;
 void main() {

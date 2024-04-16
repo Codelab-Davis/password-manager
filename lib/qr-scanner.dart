@@ -5,8 +5,6 @@ import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
 
-
-
 class QRScannerPage extends StatefulWidget {
   @override
   _QRScannerPageState createState() => _QRScannerPageState();
@@ -27,9 +25,140 @@ class _QRScannerPageState extends State<QRScannerPage> {
         children: <Widget>[
           Expanded(
             flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+            child: Stack(
+                children: [
+                QRView(
+                  key: qrKey,
+                  onQRViewCreated: _onQRViewCreated,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    child: Stack(
+                      children: <Widget>[
+                        // Top left corner
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 5, // Reduced width of the vertical segment
+                            height: 20, // Reduced height of the vertical segment
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 20, // Reduced width of the horizontal segment
+                            height: 5, // Reduced height of the horizontal segment
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Top right corner
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            width: 5,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            width: 20,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Bottom left corner
+                        Positioned(
+                          left: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 5,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 20,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Bottom right corner
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 5,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 20,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF89515A),
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(125),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -63,19 +192,19 @@ class _QRScannerPageState extends State<QRScannerPage> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings), // Corrected icon for the fourth option
-            label: 'Settings', // Label for the new fourth button
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: 1,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
   }
 
-void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     switch (index) {
       case 0:
         Navigator.pushReplacement(
@@ -88,18 +217,14 @@ void _onItemTapped(int index) {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => UserProfilePage(),        
-              ),
-            );
-        // Handle profile navigation
+          MaterialPageRoute(builder: (context) => UserProfilePage()),
+        );
         break;
-        case 3:
+      case 3:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const AccountsPage(),        
-              ),
-            );
-        // Handle profile navigation
+          MaterialPageRoute(builder: (context) => const AccountsPage()),
+        );
         break;
     }
   }
@@ -119,7 +244,3 @@ void _onItemTapped(int index) {
     super.dispose();
   }
 }
-
-
-
-

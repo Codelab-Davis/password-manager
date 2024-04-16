@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'welcome_screen.dart';
+import 'home_page.dart';
 
 void main() {
   timezone.initializeTimeZones();
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/signUp': (context) => const MyHomePage(title: "Sign Up"),
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
