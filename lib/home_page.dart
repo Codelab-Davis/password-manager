@@ -365,8 +365,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),            
             const SizedBox(height: 30),
-              
-            ElevatedButton(
+            
+            Center(
+            child: ElevatedButton(
               onPressed: () {
                 if (passwordController.text != confirmPasswordController.text) {
                   setState(() {
@@ -379,11 +380,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
                 postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);   
               },
-            child: const Text("Sign Up")
-      ),
+              child: const Text("Sign Up")
+              ),
+            ),
             const SizedBox(height: 5),
             
-            ElevatedButton(
+            Center(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -391,6 +394,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: const Text('Generate TOTP'),
+            ),
             ),
           ],
         ),
