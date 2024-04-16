@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/global.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:password_manager/accounts.dart';  
@@ -56,7 +57,7 @@ void _onItemTapped(int index, BuildContext context) {
     case 0:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+        MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: Global.result?.code ??'')),
       );
       break;
     case 1:

@@ -1,9 +1,10 @@
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
+
+
 
 class QRScannerPage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  bool isScanning = true;  
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +211,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 0:
         Navigator.pushReplacement(
           context as BuildContext,
-          MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+          MaterialPageRoute(builder: (BuildContext context) => GenerateTOTPPage(secret: result?.code ?? '')),
         );
         break;
       case 1:
@@ -229,13 +231,46 @@ class _QRScannerPageState extends State<QRScannerPage> {
     }
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
+
+
+void _onQRViewCreated(QRViewController controller) {
+  this.controller = controller;
+  controller.scannedDataStream.listen((scanData) {
+    if (isScanning) { // Check if we are still scanning
       setState(() {
-        result = scanData;
+        result = scanData; // Update the local result
+        isScanning = false; // Stop scanning after the first valid result
       });
-    });
+
+      // Parse the URI and extract the secret
+      Uri uri = Uri.parse(result!.code!);
+      String? secret = uri.queryParameters['secret'];
+
+      if (secret != null) {
+        print('QR Scanned: ${result!.code}');  // Print the result to the terminal
+        print('Secret extracted: $secret');    // Print the extracted secret
+
+        // Navigate to the TOTP Generator page with the secret key from the QR code
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: secret)),
+        ).then((value) => _resetScanner()); // Reset the scanner when coming back
+      } else {
+        // Optionally handle cases where no secret is found
+        print("No secret found in QR code.");
+        _resetScanner();
+      }
+    }
+  });
+}
+
+
+
+  void _resetScanner() {
+    if (controller != null) {
+      controller!.resumeCamera(); // Resume the camera for a new scanning session
+      isScanning = true;  // Allow scanning again
+    }
   }
 
   @override

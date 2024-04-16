@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
-import 'package:timezone/timezone.dart' as timezone;
 import 'package:password_manager/accounts.dart';
+import 'package:base32/base32.dart';
+
 
 class GenerateTOTPPage extends StatefulWidget {
+  final String secret;
+
+  const GenerateTOTPPage({Key? key, required this.secret}) : super(key: key);
+
   @override
   _GenerateTOTPPageState createState() => _GenerateTOTPPageState();
 }
@@ -142,19 +147,22 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   void generateOTP() {
-    final now = DateTime.now();
-    String secret = 'wd3lkvjuihkxxzoadjhkamx4faiuoajx';
-    setState(() {
-      otp = OTP.generateTOTPCodeString(
-        secret,
-        now.millisecondsSinceEpoch,
-        length: 6,
-        interval: 30,
-        algorithm: Algorithm.SHA1,
-        isGoogle: true,
-      );
-    });
-  }
+  final now = DateTime.now();
+  // Encode the secret key as Base32 before generating the OTP.
+  // Assuming widget.secret is in a format that needs to be Base32 encoded.
+
+  setState(() {
+    otp = OTP.generateTOTPCodeString(
+      widget.secret,
+      now.millisecondsSinceEpoch,
+      length: 6,
+      interval: 30,
+      algorithm: Algorithm.SHA1,
+      isGoogle: true,
+    );
+  });
+}
+
 
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {

@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/global.dart';
 
 
 class AccountsPage extends StatefulWidget {
@@ -158,7 +159,7 @@ class _AccountsPageState extends State<AccountsPage> {
           ],
         ),
       ),
-       bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -179,21 +180,22 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
         currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
   }
 
-
-   void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     switch (index) {
       case 0:
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
-      );
-      break;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+                builder: (context) =>
+                  GenerateTOTPPage(secret: Global.result?.code ??'')),
+            );
+        break;
       case 1:
         Navigator.pushReplacement(
           context as BuildContext,
@@ -203,12 +205,13 @@ class _AccountsPageState extends State<AccountsPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
+        );
         // Handle profile navigation
         break;
-        case 3:
+      case 3:
         break;
     }
   }
