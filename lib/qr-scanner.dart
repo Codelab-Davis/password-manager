@@ -43,9 +43,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width: 5, // Reduced width of the vertical segment
+                            width: 5, 
                             height:
-                                20, // Reduced height of the vertical segment
+                                20, 
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -59,9 +59,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           top: 0,
                           child: Container(
                             width:
-                                20, // Reduced width of the horizontal segment
+                                20, 
                             height:
-                                5, // Reduced height of the horizontal segment
+                                5, 
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(

@@ -5,7 +5,6 @@ import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:password_manager/accounts.dart';
-import 'package:base32/base32.dart';
 
 
 class GenerateTOTPPage extends StatefulWidget {
@@ -19,12 +18,11 @@ class GenerateTOTPPage extends StatefulWidget {
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
-  int reloadTimer = 30; // Initial reload time in seconds for visual countdown
+  int reloadTimer = 30; 
   Timer? countdownTimer;
 
   bool isHidden = true;
 
-  // TextEditingController _textController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -103,8 +101,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings), // Corrected icon for the fourth option
-            label: 'Settings', // Label for the new fourth button
+            icon: Icon(Icons.settings), 
+            label: 'Settings', 
           ),
         ],
         currentIndex: 0,
@@ -168,8 +166,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         if (reloadTimer > 0) {
           reloadTimer--;
         } else {
-          generateOTP(); // Automatically generate a new OTP
-          reloadTimer = 30; // Reset reload time
+          generateOTP(); 
+          reloadTimer = 30; 
         }
       });
     });
@@ -177,7 +175,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void resetReloadTimer() {
     setState(() {
-      reloadTimer = 30; // Reset the reload timer to 30 seconds
+      reloadTimer = 30; 
     });
   }
 }

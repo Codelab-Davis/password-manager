@@ -74,7 +74,7 @@ void _onItemTapped(int index, BuildContext context) {
             MaterialPageRoute(builder: (context) => const AccountsPage(),        
               ),
             );
-        // Handle profile navigation
+
       break;
   }
 }
