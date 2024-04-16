@@ -12,67 +12,6 @@ class WelcomeScreen extends StatelessWidget {
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-<<<<<<< HEAD
-                children: [
-                  Container(
-                    width: 179,
-                    height: 177,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFFD9D9D9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(31),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 20),
-                    child: const Text(
-                      'APP NAME',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF313131),
-                        fontSize: 40,
-                        fontFamily: 'Outfit',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: const Text(
-                            'Providing extra security for',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF323232),
-                              fontSize: 18,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
-                              height: 0.06,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          child: const Text(
-                            'your passwords using 2FA',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF323232),
-                              fontSize: 18,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
-                              height: 0.06,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-=======
               children: [
                 Container(
                   width: 179,
@@ -126,7 +65,6 @@ class WelcomeScreen extends StatelessWidget {
                   ],
                 ),
               ],
->>>>>>> main
             ),
           ),
           Align(
@@ -183,13 +121,9 @@ class WelcomeScreen extends StatelessWidget {
                         // For example, navigate to another screen or execute a function
                         Navigator.push(
                           context,
-<<<<<<< HEAD
-                          MaterialPageRoute(builder: (context) => const SignUpOptions(title: "Sign Up")),
-=======
                           MaterialPageRoute(
                               builder: (context) =>
                                   const MyHomePage(title: "Sign Up")),
->>>>>>> main
                         );
                       },
                       style: ElevatedButton.styleFrom(

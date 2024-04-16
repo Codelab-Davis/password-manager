@@ -170,24 +170,24 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.apple),
-                      iconSize: 40,
-                      onPressed: () {},
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8), // Add horizontal padding
+                      child: Image.asset('assets/apple.png',
+                          width: 50, height: 50),
                     ),
-                    IconButton(
-                      icon: const ImageIcon(
-                        AssetImage(
-                            'assets/google.png'),
-                      ),
-                      iconSize: 40,
-                      onPressed: () {},
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8), // Add horizontal padding
+                      child: Image.asset('assets/google.png',
+                          width: 50, height: 50),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.facebook),
-                      iconSize: 40,
-                      onPressed: () {},
-                    )
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8), // Add horizontal padding
+                      child: Image.asset('assets/facebook.png',
+                          width: 50, height: 50),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 25),
@@ -216,15 +216,15 @@ class _LoginState extends State<Login> {
                           Navigator.pushNamed(context, '/signUp');
                         },
                         child: const Text(
-                            "Sign up",
-                            style: TextStyle(
-                              color: Color(0xFF323232),
-                              fontSize: 15,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.bold,
-                              height: 0.06,
-                            ),
+                          "Sign up",
+                          style: TextStyle(
+                            color: Color(0xFF323232),
+                            fontSize: 15,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.bold,
+                            height: 0.06,
                           ),
+                        ),
                       ),
                     ),
                   ],
