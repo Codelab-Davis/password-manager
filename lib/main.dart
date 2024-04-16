@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:password_manager/home_page.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'welcome_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
+import 'home_page.dart';
 
 
 void main() async {
@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/signUp': (context) => const MyHomePage(title: "Sign Up"),
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

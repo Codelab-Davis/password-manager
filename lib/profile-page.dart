@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/accounts.dart';  
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class UserProfilePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+            BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
@@ -36,9 +37,14 @@ class UserProfilePage extends StatelessWidget {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings), // Corrected icon for the fourth option
+            label: 'Settings', // Label for the new fourth button
+          ),
         ],
         currentIndex: 2,
         selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey, 
         onTap: (index) => _onItemTapped(index, context),
       ),
     );
@@ -60,6 +66,14 @@ void _onItemTapped(int index, BuildContext context) {
       );
       break;
     case 2:
+      break;
+    case 3:
+        Navigator.pushReplacement(
+          context as BuildContext,
+            MaterialPageRoute(builder: (context) => const AccountsPage(),        
+              ),
+            );
+        // Handle profile navigation
       break;
   }
 }
