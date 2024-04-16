@@ -4,8 +4,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
 
-
-
 class QRScannerPage extends StatefulWidget {
   @override
   _QRScannerPageState createState() => _QRScannerPageState();
@@ -15,7 +13,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
-  bool isScanning = true;  
+  bool isScanning = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
           Expanded(
             flex: 5,
             child: Stack(
-                children: [
+              children: [
                 QRView(
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
@@ -46,7 +44,8 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           top: 0,
                           child: Container(
                             width: 5, // Reduced width of the vertical segment
-                            height: 20, // Reduced height of the vertical segment
+                            height:
+                                20, // Reduced height of the vertical segment
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -59,8 +58,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width: 20, // Reduced width of the horizontal segment
-                            height: 5, // Reduced height of the horizontal segment
+                            width:
+                                20, // Reduced width of the horizontal segment
+                            height:
+                                5, // Reduced height of the horizontal segment
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -211,7 +212,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 0:
         Navigator.pushReplacement(
           context as BuildContext,
-          MaterialPageRoute(builder: (BuildContext context) => GenerateTOTPPage(secret: result?.code ?? '')),
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  GenerateTOTPPage(secret: result?.code ?? '')),
         );
         break;
       case 1:
@@ -231,45 +234,34 @@ class _QRScannerPageState extends State<QRScannerPage> {
     }
   }
 
+  Future<void> _onQRViewCreated(QRViewController controller) async {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      if (isScanning) {
+        setState(() {
+          result = scanData; 
+          isScanning = false;
+        });
+        Uri uri = Uri.parse(result!.code!);
+        String? secret = uri.queryParameters['secret'];
 
-
-void _onQRViewCreated(QRViewController controller) {
-  this.controller = controller;
-  controller.scannedDataStream.listen((scanData) {
-    if (isScanning) { // Check if we are still scanning
-      setState(() {
-        result = scanData; // Update the local result
-        isScanning = false; // Stop scanning after the first valid result
-      });
-
-      // Parse the URI and extract the secret
-      Uri uri = Uri.parse(result!.code!);
-      String? secret = uri.queryParameters['secret'];
-
-      if (secret != null) {
-        print('QR Scanned: ${result!.code}');  // Print the result to the terminal
-        print('Secret extracted: $secret');    // Print the extracted secret
-
-        // Navigate to the TOTP Generator page with the secret key from the QR code
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: secret)),
-        ).then((value) => _resetScanner()); // Reset the scanner when coming back
-      } else {
-        // Optionally handle cases where no secret is found
-        print("No secret found in QR code.");
-        _resetScanner();
+        if (secret != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: secret)),
+          ).then(
+              (value) => _resetScanner());
+        } else {
+          _resetScanner();
+        }
       }
-    }
-  });
-}
-
-
+    });
+  }
 
   void _resetScanner() {
     if (controller != null) {
-      controller!.resumeCamera(); // Resume the camera for a new scanning session
-      isScanning = true;  // Allow scanning again
+      controller!.resumeCamera();
+      isScanning = true; 
     }
   }
 

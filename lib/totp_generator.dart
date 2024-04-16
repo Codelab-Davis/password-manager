@@ -148,9 +148,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void generateOTP() {
   final now = DateTime.now();
-  // Encode the secret key as Base32 before generating the OTP.
-  // Assuming widget.secret is in a format that needs to be Base32 encoded.
-
+  
   setState(() {
     otp = OTP.generateTOTPCodeString(
       widget.secret,
