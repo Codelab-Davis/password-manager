@@ -103,9 +103,7 @@ router.get('/:id', (req, res) => {
 
 // Get by email and password
 router.get('/:email/:password', (req, res) => {
-    const email = req.params.email;
-    const password = req.params.password;
-
+    const { email, password } = req.query;
     User.find({ email: email, password: password }).then(
         user => {
             if (!user) {

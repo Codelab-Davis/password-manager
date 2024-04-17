@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
-import 'package:timezone/timezone.dart' as timezone;
 import 'package:password_manager/accounts.dart';
 
 class GenerateTOTPPage extends StatefulWidget {

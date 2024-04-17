@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'home_page.dart';
+import 'package:http/http.dart' as http;
+import 'accounts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,12 +12,35 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool checked = false;
   bool showPassword = true;
+  bool showError = false;
+
+  Set<String> currentUser = {};
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Color getColor(Set<MaterialState> states) {
     if (checked) {
       return Colors.black;
     } else {
       return Colors.white;
+    }
+  }
+
+  Future<bool> verifyCredentials(String email, String password) async {
+    try {
+      final queryParameters = {'email': email, 'password': password};
+      final uri = Uri.http(
+          'localhost:5000', '/test/:email/:password', queryParameters);
+      final response = await http.get(uri);
+      if(response.body == "[]"){
+        return false;
+      }
+      currentUser = {response.body};
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 
@@ -60,14 +81,15 @@ class _LoginState extends State<Login> {
                 const SizedBox(
                   height: 15,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                       left: 20.0,
                       right:
                           20.0), // Adds padding of 20 pixels to the left and right
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(), hintText: 'Email'),
+                    controller: emailController,
                   ),
                 ),
                 const SizedBox(
@@ -81,7 +103,7 @@ class _LoginState extends State<Login> {
                   child: TextField(
                     obscureText: showPassword,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Password',
                       suffixIcon: IconButton(
                         icon: Icon(showPassword
@@ -96,6 +118,7 @@ class _LoginState extends State<Login> {
                         },
                       ),
                     ),
+                    controller: passwordController,
                   ),
                 ),
                 Row(
@@ -144,6 +167,21 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (await verifyCredentials(emailController.text, passwordController.text)){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AccountsPage()),
+                      );
+                    }
+                    else {
+                      showError = true;
+                    }
+                  },
+                  child: const Text("Log In"),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -177,8 +215,7 @@ class _LoginState extends State<Login> {
                     ),
                     IconButton(
                       icon: const ImageIcon(
-                        AssetImage(
-                            'assets/google.png'),
+                        AssetImage('assets/google.png'),
                       ),
                       iconSize: 40,
                       onPressed: () {},
@@ -216,15 +253,15 @@ class _LoginState extends State<Login> {
                           Navigator.pushNamed(context, '/signUp');
                         },
                         child: const Text(
-                            "Sign up",
-                            style: TextStyle(
-                              color: Color(0xFF323232),
-                              fontSize: 15,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.bold,
-                              height: 0.06,
-                            ),
+                          "Sign up",
+                          style: TextStyle(
+                            color: Color(0xFF323232),
+                            fontSize: 15,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.bold,
+                            height: 0.06,
                           ),
+                        ),
                       ),
                     ),
                   ],

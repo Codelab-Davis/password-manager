@@ -1,7 +1,6 @@
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
 
