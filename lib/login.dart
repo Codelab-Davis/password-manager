@@ -14,7 +14,7 @@ class _LoginState extends State<Login> {
   bool showPassword = true;
   bool showError = false;
 
-  Set<String> currentUser = {};
+  dynamic currentUser;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -30,16 +30,15 @@ class _LoginState extends State<Login> {
   Future<bool> verifyCredentials(String email, String password) async {
     try {
       final queryParameters = {'email': email, 'password': password};
-      final uri = Uri.http(
-          'localhost:5000', '/test/:email/:password', queryParameters);
+      final uri =
+          Uri.http('localhost:5000', '/test/:email/:password', queryParameters);
       final response = await http.get(uri);
-      if(response.body == "[]"){
+      if (response.body == "[]") {
         return false;
       }
       currentUser = {response.body};
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -86,10 +85,12 @@ class _LoginState extends State<Login> {
                       left: 20.0,
                       right:
                           20.0), // Adds padding of 20 pixels to the left and right
-                  child: TextField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Email'),
-                    controller: emailController,
+                  child: SizedBox(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Email'),
+                      controller: emailController,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -121,12 +122,31 @@ class _LoginState extends State<Login> {
                     controller: passwordController,
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Visibility(
+                        visible: showError,
+                        child: const Text(
+                          "Username or Password is Invalid!",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 0, 0),
+                            fontSize: 15,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        const SizedBox(width: 5),
                         Checkbox(
                           fillColor:
                               MaterialStateProperty.resolveWith(getColor),
@@ -167,23 +187,56 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (await verifyCredentials(emailController.text, passwordController.text)){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AccountsPage()),
-                      );
-                    }
-                    else {
-                      showError = true;
-                    }
-                  },
-                  child: const Text("Log In"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            const Color.fromARGB(255, 220, 220, 220)),
+                        foregroundColor: MaterialStateProperty.all(
+                            const Color(0xFF404447)), // Text color
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            // BorderRadius
+                          ),
+                        ),
+                        padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 6)),
+                      ),
+                      onPressed: () async {
+                        if (await verifyCredentials(
+                            emailController.text, passwordController.text)) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AccountsPage(),
+                              ));
+                        } else {
+                          setState(() {
+                            showError = true;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(
+                          color: Color(0xFF323232),
+                          fontSize: 15,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w400,
+                          height: 0.06,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Row(
                   children: [
