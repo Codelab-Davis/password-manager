@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 20, bottom: 20),
                   child: const Text(
-                    'APP NAME',
+                    'PASSPAL>',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF313131),

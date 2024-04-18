@@ -78,83 +78,257 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body:
+        
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'First Name'
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0, top: 32.0),
+            child: SizedBox(
+            height: 30,
+            child:  Text(
+                  'Sign up to *app name*',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 25,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+            ),
+            ),
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: SizedBox(
+            height: 50,
+            child: Text(
+                  'Enter your login details to get started',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            ),
+
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'First Name',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
                     ),
-                  controller: firstNameController,
+              child: TextField(
+              decoration: const InputDecoration(
+                    border: InputBorder.none, // Remove default border
+                    hintText: 'John',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
+                  ),
+                controller: firstNameController,
+               ),
               ),
             ),
             const SizedBox(height: 15),
+
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'Last Name',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
             
             Padding (
               padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
+                    ),
               child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Last Name'
+                    border: InputBorder.none, 
+                    hintText: 'Doe',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
                     ),
                   controller: lastNameController,
               ),
             ),
+            ),
             const SizedBox(height: 15),
             
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'Email',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
+
             Padding (
               padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
+                    ),
               child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Email'
+                    border: InputBorder.none, 
+                    hintText: 'johndoe@gmail.com',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
                     ),
                   controller: emailController,
               ),
             ),
+            ),
             const SizedBox(height: 15),
             
+
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'Phone Number',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
+
             Padding (
               padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
+                    ),
               child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Phone Number'
+                    border: InputBorder.none, 
+                    hintText: 'johndoe',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
                     ),
                   controller: phoneNumberController,
               ),
             ),
+            ),
             const SizedBox(height: 15),
             
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'Password',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
+
             Padding (
               padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child:
-              TextField(
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
+                    ),
+              child:TextField(
                 obscureText: isHidden, // Use the isHidden variable here
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
+                  border: InputBorder.none,
+                  hintText: 'Enter your password',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
                 ),
                 controller: passwordController,
               ),
             ),
+            ),
             const SizedBox(height: 15),
             
+            const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+                  'Confirm Password',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+            ),
+            const SizedBox(height: 5),
+
             Padding (
               padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child:
-              TextField(
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10 pixels
+                      border: Border.all(), // Add border
+                    ),
+              child:TextField(
                 obscureText: isHidden, // Use the isHidden variable here
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Confirm Password',
+                  border: InputBorder.none,
+                  hintText: 'Re-enter your password',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0), // Adjust content padding
                 ),
                 controller: confirmPasswordController,
               ),
+            ),
             ),
             const SizedBox(height: 15),
             
@@ -180,7 +354,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:
               CheckboxListTile(
                 value: isChecked,
-                title: Text('Show Password'),
+                title: const Text('Show Password'),
                 onChanged: (val){
                   setState(() {
                     isChecked = val;
@@ -191,8 +365,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),            
             const SizedBox(height: 30),
-              
-            ElevatedButton(
+            
+            Center(
+            child: ElevatedButton(
               onPressed: () {
                 if (passwordController.text != confirmPasswordController.text) {
                   setState(() {
@@ -205,11 +380,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
                 postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);   
               },
-            child: const Text("Sign Up")
-      ),
+              child: const Text("Sign Up")
+              ),
+            ),
             const SizedBox(height: 5),
             
-            ElevatedButton(
+            Center(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -218,9 +395,9 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Generate TOTP'),
             ),
+            ),
           ],
         ),
-      ),
     );
   }
   
