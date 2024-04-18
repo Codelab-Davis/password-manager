@@ -5,7 +5,9 @@ import 'package:password_manager/totp_generator.dart';
 
 
 class AccountsPage extends StatefulWidget {
-  const AccountsPage({super.key});
+  final dynamic user;
+
+  const AccountsPage({super.key, required this.user});
 
   @override
   State<AccountsPage> createState() => _AccountsPageState();
@@ -98,12 +100,12 @@ class _AccountsPageState extends State<AccountsPage> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              child: const FittedBox(
+              child: FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
-                  "Welcome, Suyash 🔒",
+                  "Welcome, " + widget.user[0]['firstName'] + '🔒',
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),

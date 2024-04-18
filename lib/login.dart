@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'accounts.dart';
+import 'dart:convert';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -36,7 +38,7 @@ class _LoginState extends State<Login> {
       if (response.body == "[]") {
         return false;
       }
-      currentUser = {response.body};
+      currentUser = jsonDecode(response.body);
       return true;
     } catch (e) {
       return false;
@@ -214,7 +216,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AccountsPage(),
+                                builder: (context) => AccountsPage(user: currentUser),
                               ));
                         } else {
                           setState(() {

@@ -70,7 +70,7 @@ void _onItemTapped(int index, BuildContext context) {
     case 3:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const AccountsPage(),        
+            MaterialPageRoute(builder: (context) => const AccountsPage(user: ''),        
               ),
             );
         // Handle profile navigation

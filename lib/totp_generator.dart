@@ -132,7 +132,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(),
+            builder: (context) => const AccountsPage(user: ''),
           ),
         );
         // Handle profile navigation
