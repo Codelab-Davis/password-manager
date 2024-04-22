@@ -3,6 +3,8 @@ import 'package:password_manager/totp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:password_manager/global.dart';
+
 
 bool isPasswordSame = false;
 void main() {
@@ -390,7 +392,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+                  MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: Global.result?.code ??'')),
                 );
               },
               child: const Text('Generate TOTP'),

@@ -1,7 +1,6 @@
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp_generator.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:otp/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
 
@@ -14,6 +13,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  bool isScanning = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
           Expanded(
             flex: 5,
             child: Stack(
-                children: [
+              children: [
                 QRView(
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
@@ -43,8 +43,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width: 5, // Reduced width of the vertical segment
-                            height: 20, // Reduced height of the vertical segment
+                            width: 5, 
+                            height:
+                                20, 
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -57,8 +58,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width: 20, // Reduced width of the horizontal segment
-                            height: 5, // Reduced height of the horizontal segment
+                            width:
+                                20, 
+                            height:
+                                5, 
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -209,7 +212,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 0:
         Navigator.pushReplacement(
           context as BuildContext,
-          MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  GenerateTOTPPage(secret: result?.code ?? '')),
         );
         break;
       case 1:
@@ -229,13 +234,35 @@ class _QRScannerPageState extends State<QRScannerPage> {
     }
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  Future<void> _onQRViewCreated(QRViewController controller) async {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      if (isScanning) {
+        setState(() {
+          result = scanData; 
+          isScanning = false;
+        });
+        Uri uri = Uri.parse(result!.code!);
+        String? secret = uri.queryParameters['secret'];
+
+        if (secret != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: secret)),
+          ).then(
+              (value) => _resetScanner());
+        } else {
+          _resetScanner();
+        }
+      }
     });
+  }
+
+  void _resetScanner() {
+    if (controller != null) {
+      controller!.resumeCamera();
+      isScanning = true; 
+    }
   }
 
   @override
