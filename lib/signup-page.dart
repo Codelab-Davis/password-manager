@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/totp-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -80,9 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body:
-        
-        Column(
+      body:SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -398,8 +397,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Generate TOTP'),
             ),
             ),
+            const SizedBox(height: 65),
           ],
         ),
+      ),
     );
   }
   
