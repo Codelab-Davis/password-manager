@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/qr-scanner.dart';
-import 'package:password_manager/totp_generator.dart';
-import 'package:password_manager/accounts.dart';  
+import 'package:password_manager/global.dart';
+import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/totp-page.dart';
+import 'package:password_manager/passbook-page.dart';  
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ void _onItemTapped(int index, BuildContext context) {
     case 0:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+        MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: Global.result?.code ??'')),
       );
       break;
     case 1:
@@ -73,7 +74,7 @@ void _onItemTapped(int index, BuildContext context) {
             MaterialPageRoute(builder: (context) => const AccountsPage(user: ''),        
               ),
             );
-        // Handle profile navigation
+
       break;
   }
 }

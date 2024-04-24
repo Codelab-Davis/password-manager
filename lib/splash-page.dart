@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'login.dart';
+import 'login-page.dart';
+import 'signup-page.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 20, bottom: 20),
                   child: const Text(
-                    'APP NAME',
+                    'PASSPAL>',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF313131),
@@ -84,20 +84,18 @@ class WelcomeScreen extends StatelessWidget {
                               builder: (context) =>
                                   const Login()),
                         );
-                        // Handle button click action here
-                        // For example, navigate to another screen or execute a function
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), // Background color
-                        foregroundColor: Color(0xFF323232), // Text color
-                        elevation: 6, // Elevation
+                        backgroundColor: Color(0xFFD9D9D9), 
+                        foregroundColor: Color(0xFF323232), 
+                        elevation: 6, 
                         shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.circular(15), // BorderRadius
+                              BorderRadius.circular(15), 
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 6), // Padding
-                        shadowColor: const Color(0x3F000000), // Shadow color
+                            horizontal: 16, vertical: 6), 
+                        shadowColor: const Color(0x3F000000), 
                       ),
                       child: const Text(
                         'Login',
@@ -116,8 +114,6 @@ class WelcomeScreen extends StatelessWidget {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle button click action here
-                        // For example, navigate to another screen or execute a function
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -126,16 +122,16 @@ class WelcomeScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), // Background color
-                        foregroundColor: Color(0xFF323232), // Text color
-                        elevation: 6, // Elevation
+                        backgroundColor: Color(0xFFD9D9D9), 
+                        foregroundColor: Color(0xFF323232), 
+                        elevation: 6, 
                         shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.circular(15), // BorderRadius
+                              BorderRadius.circular(15), 
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 6), // Padding
-                        shadowColor: const Color(0x3F000000), // Shadow color
+                            horizontal: 16, vertical: 6), 
+                        shadowColor: const Color(0x3F000000), 
                       ),
                       child: const Text(
                         'Sign Up',

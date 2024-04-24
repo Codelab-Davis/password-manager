@@ -3,22 +3,26 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/qr-scanner.dart';
-import 'package:password_manager/accounts.dart';
+import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/passbook-page.dart';
+
 
 class GenerateTOTPPage extends StatefulWidget {
+  final String secret;
+
+  const GenerateTOTPPage({Key? key, required this.secret}) : super(key: key);
+
   @override
   _GenerateTOTPPageState createState() => _GenerateTOTPPageState();
 }
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
-  int reloadTimer = 30; // Initial reload time in seconds for visual countdown
+  int reloadTimer = 30; 
   Timer? countdownTimer;
 
   bool isHidden = true;
 
-  // TextEditingController _textController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -97,8 +101,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings), // Corrected icon for the fourth option
-            label: 'Settings', // Label for the new fourth button
+            icon: Icon(Icons.settings), 
+            label: 'Settings', 
           ),
         ],
         currentIndex: 0,
@@ -141,19 +145,20 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   void generateOTP() {
-    final now = DateTime.now();
-    String secret = 'wd3lkvjuihkxxzoadjhkamx4faiuoajx';
-    setState(() {
-      otp = OTP.generateTOTPCodeString(
-        secret,
-        now.millisecondsSinceEpoch,
-        length: 6,
-        interval: 30,
-        algorithm: Algorithm.SHA1,
-        isGoogle: true,
-      );
-    });
-  }
+  final now = DateTime.now();
+  
+  setState(() {
+    otp = OTP.generateTOTPCodeString(
+      widget.secret,
+      now.millisecondsSinceEpoch,
+      length: 6,
+      interval: 30,
+      algorithm: Algorithm.SHA1,
+      isGoogle: true,
+    );
+  });
+}
+
 
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -161,8 +166,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         if (reloadTimer > 0) {
           reloadTimer--;
         } else {
-          generateOTP(); // Automatically generate a new OTP
-          reloadTimer = 30; // Reset reload time
+          generateOTP(); 
+          reloadTimer = 30; 
         }
       });
     });
@@ -170,7 +175,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void resetReloadTimer() {
     setState(() {
-      reloadTimer = 30; // Reset the reload timer to 30 seconds
+      reloadTimer = 30; 
     });
   }
 }

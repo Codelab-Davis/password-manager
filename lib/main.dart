@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
-import 'welcome_screen.dart';
-import 'home_page.dart';
+import 'splash-page.dart';
+import 'signup-page.dart';
 
 void main() {
   timezone.initializeTimeZones();
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // Here you directly define your theme settings
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
