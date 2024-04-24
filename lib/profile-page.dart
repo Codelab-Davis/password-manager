@@ -11,52 +11,54 @@ class UserProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: const Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-        Text(
-          'User Profile Page',
-          style: TextStyle(fontSize: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text(
+              'User Profile Page',
+              style: TextStyle(fontSize: 24),
+            ),
+          ],
         ),
-        ],
-      ),
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(), // Shape for floating action button notch
-        notchMargin: 5,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(100), // Rounded corners
+          borderRadius: BorderRadius.circular(15),
           child: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 20), // Decrease the size of the icon
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code, size: 20), // Decrease the size of the icon
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 20), // Decrease the size of the icon
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, size: 20), // Decrease the size of the icon
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: 2,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey,
-        onTap: (index) => _onItemTapped(index, context),
-        elevation: 8, // Elevation for the shadow effect
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            selectedLabelStyle: TextStyle(fontSize: 0.001), 
+            unselectedLabelStyle: TextStyle(fontSize: 0.001), 
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, size: 35),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.qr_code, size: 35),
+                label: 'Scanner',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person, size: 35),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.book_sharp, size: 35),
+                label: 'Book',
+              ),
+            ],
+            currentIndex: 2,
+            selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
+            unselectedItemColor: Colors.grey,
+            onTap: (index) => _onItemTapped(index, context),
+            elevation: 8,
           ),
         ),
       ),
-      );
+    );
   }
 }
 
