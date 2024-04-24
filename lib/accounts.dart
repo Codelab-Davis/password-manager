@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/qr-scanner.dart';
-import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/totp-page.dart';
+import 'package:password_manager/global.dart';
+
 
 
 class AccountsPage extends StatefulWidget {
@@ -191,9 +193,12 @@ class _AccountsPageState extends State<AccountsPage> {
     switch (index) {
       case 0:
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
-      );
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                GenerateTOTPPage(secret: Global.result?.code ?? ''),
+          ),
+        );
       break;
       case 1:
         Navigator.pushReplacement(
