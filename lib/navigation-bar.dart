@@ -76,8 +76,8 @@ class _BottomNavigationBarExampleState
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings), // Corrected icon for the fourth option
-            label: 'Settings', // Label for the new fourth button
+            icon: Icon(Icons.settings), 
+            label: 'Settings', 
           ),
         ],
         currentIndex: _selectedIndex,

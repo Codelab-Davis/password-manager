@@ -140,7 +140,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             builder: (context) => const UserProfilePage(),
           ),
         );
-        // Handle profile navigation
         break;
       case 3:
         Navigator.pushReplacement(
@@ -149,7 +148,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             builder: (context) => const AccountsPage(),
           ),
         );
-        // Handle profile navigation
         break;
     }
   }
