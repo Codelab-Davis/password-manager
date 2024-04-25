@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
 import 'login-page.dart';
-import 'signup-page.dart';
+import 'dart:async';
 
-class WelcomeScreen extends StatelessWidget {
+
+class WelcomeScreen extends StatefulWidget {
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State
+{
+  @override
+  void initState() {
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const Login(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +43,9 @@ class WelcomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                'assets/icon.png',
-                width: 240,
-                height: 230,
+                  'assets/icon.png',
+                  width: 240,
+                  height: 230,
                 ),
                 Container(
                   //margin: const EdgeInsets.only(top: 20, bottom: 20),
