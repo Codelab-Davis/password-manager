@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'signup-page.dart';
+import 'global.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,8 +18,6 @@ class _LoginState extends State<Login> {
   bool checked = false;
   bool showPassword = true;
   bool showError = false;
-
-  dynamic currentUser;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -40,7 +39,7 @@ class _LoginState extends State<Login> {
       if (response.body == "[]") {
         return false;
       }
-      currentUser = jsonDecode(response.body);
+      Global.user = jsonDecode(response.body);
       return true;
     } catch (e) {
       return false;
@@ -218,7 +217,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AccountsPage(user: currentUser),
+                                builder: (context) => AccountsPage(user: Global.user),
                               ));
                         } else {
                           setState(() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
-import 'package:password_manager/passbook-page.dart';  
+import 'package:password_manager/accounts.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -13,10 +13,10 @@ class UserProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'User Profile Page',
               style: TextStyle(fontSize: 24),
@@ -26,7 +26,7 @@ class UserProfilePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
@@ -44,8 +44,8 @@ class UserProfilePage extends StatelessWidget {
           ),
         ],
         currentIndex: 2,
-        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
+        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
+        unselectedItemColor: Colors.grey,
         onTap: (index) => _onItemTapped(index, context),
       ),
     );
@@ -57,7 +57,9 @@ void _onItemTapped(int index, BuildContext context) {
     case 0:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: Global.result?.code ??'')),
+        MaterialPageRoute(
+            builder: (context) =>
+                GenerateTOTPPage(secret: Global.result?.code ?? '')),
       );
       break;
     case 1:
@@ -69,11 +71,12 @@ void _onItemTapped(int index, BuildContext context) {
     case 2:
       break;
     case 3:
-        Navigator.pushReplacement(
-          context as BuildContext,
-            MaterialPageRoute(builder: (context) => const AccountsPage(user: ''),        
-              ),
-            );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AccountsPage(user: Global.user),
+        ),
+      );
 
       break;
   }

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
-import 'package:password_manager/passbook-page.dart';
+import 'package:password_manager/accounts.dart';
+import 'package:password_manager/global.dart';
 
 
 class GenerateTOTPPage extends StatefulWidget {
@@ -106,7 +107,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ),
         ],
         currentIndex: 0,
-        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
+        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
         unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
@@ -119,13 +120,13 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         break;
       case 1:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(builder: (context) => QRScannerPage()),
         );
         break;
       case 2:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(
             builder: (context) => const UserProfilePage(),
           ),
@@ -134,9 +135,9 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         break;
       case 3:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(user: ''),
+            builder: (context) => AccountsPage(user: Global.user),
           ),
         );
         // Handle profile navigation
