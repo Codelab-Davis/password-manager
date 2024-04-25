@@ -103,7 +103,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ),
                 ],
               ),
-              child: SvgPicture.asset('assets/icons/$svgPath', fit: BoxFit.contain),
+              child: SvgPicture.asset('assets/$svgPath', fit: BoxFit.contain),
             ),
           ),
           Positioned(

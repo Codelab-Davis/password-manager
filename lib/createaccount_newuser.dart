@@ -25,7 +25,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final Color defaultColor = Colors.grey;
-  final Color selectedColor = const Color(0xFFBCBCEO); 
+  final Color selectedColor = Color(0xFFBCBCE0); // Corrected the hex code
 
   int _selectedButton = -1;
 
