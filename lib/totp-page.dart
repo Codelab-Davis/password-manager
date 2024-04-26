@@ -86,37 +86,43 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedLabelStyle: TextStyle(fontSize: 0.001), 
-            unselectedLabelStyle: TextStyle(fontSize: 0.001), 
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+      floatingActionButton: Container(
+        width: 345,
+        height: 59,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
                 icon: Icon(Icons.home, size: 35),
-                label: 'Home',
+                onPressed: () => _onItemTapped(0, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.qr_code, size: 35),
-                label: 'Scanner',
+                onPressed: () => _onItemTapped(1, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.person, size: 35),
-                label: 'Profile',
+                onPressed: () => _onItemTapped(2, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.book_sharp, size: 35),
-                label: 'Book',
+                onPressed: () => _onItemTapped(3, context),
               ),
             ],
-            currentIndex: 0,
-            selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-            unselectedItemColor: Colors.grey,
-            onTap: (index) => _onItemTapped(index, context),
-            elevation: 8,
           ),
         ),
       ),

@@ -43,9 +43,8 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width: 5, 
-                            height:
-                                20, 
+                            width: 5,
+                            height: 20,
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -58,10 +57,8 @@ class _QRScannerPageState extends State<QRScannerPage> {
                           left: 0,
                           top: 0,
                           child: Container(
-                            width:
-                                20, 
-                            height:
-                                5, 
+                            width: 20,
+                            height: 5,
                             decoration: BoxDecoration(
                               color: Color(0xFF89515A),
                               borderRadius: BorderRadius.only(
@@ -180,37 +177,43 @@ class _QRScannerPageState extends State<QRScannerPage> {
           )
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedLabelStyle: TextStyle(fontSize: 0.001), 
-            unselectedLabelStyle: TextStyle(fontSize: 0.001), 
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+      floatingActionButton: Container(
+        width: 345,
+        height: 59,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
                 icon: Icon(Icons.home, size: 35),
-                label: 'Home',
+                onPressed: () => _onItemTapped(0, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.qr_code, size: 35),
-                label: 'Scanner',
+                onPressed: () => _onItemTapped(1, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.person, size: 35),
-                label: 'Profile',
+                onPressed: () => _onItemTapped(2, context),
               ),
-              BottomNavigationBarItem(
+              IconButton(
                 icon: Icon(Icons.book_sharp, size: 35),
-                label: 'Book',
+                onPressed: () => _onItemTapped(3, context),
               ),
             ],
-            currentIndex: 1,
-            selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-            unselectedItemColor: Colors.grey,
-            onTap: (index) => _onItemTapped(index, context),
-            elevation: 8,
           ),
         ),
       ),
@@ -249,7 +252,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
     controller.scannedDataStream.listen((scanData) {
       if (isScanning) {
         setState(() {
-          result = scanData; 
+          result = scanData;
           isScanning = false;
         });
         Uri uri = Uri.parse(result!.code!);
@@ -258,9 +261,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
         if (secret != null) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => GenerateTOTPPage(secret: secret)),
-          ).then(
-              (value) => _resetScanner());
+            MaterialPageRoute(
+                builder: (context) => GenerateTOTPPage(secret: secret)),
+          ).then((value) => _resetScanner());
         } else {
           _resetScanner();
         }
@@ -271,7 +274,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
   void _resetScanner() {
     if (controller != null) {
       controller!.resumeCamera();
-      isScanning = true; 
+      isScanning = true;
     }
   }
 
