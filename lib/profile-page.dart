@@ -4,11 +4,18 @@ import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/passbook-page.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
 
   @override
+  _UserProfilePageState createState() => _UserProfilePageState();
+}
+
+class _UserProfilePageState extends State<UserProfilePage> {
+  int _selectedIndex = 2;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -60,20 +67,56 @@ class UserProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.home, size: 35),
-                onPressed: () => _onItemTapped(0, context),
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.qr_code, size: 35),
-                onPressed: () => _onItemTapped(1, context),
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.person, size: 35),
-                onPressed: () => _onItemTapped(2, context),
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.book_sharp, size: 35),
-                onPressed: () => _onItemTapped(3, context),
+                icon: Icon(
+                  Icons.book_sharp,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
               ),
             ],
           ),

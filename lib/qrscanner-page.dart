@@ -17,6 +17,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
 
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 1;
     return Scaffold(
       appBar: AppBar(
         title: const Text('QR Scanner'),
@@ -198,20 +199,56 @@ class _QRScannerPageState extends State<QRScannerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.home, size: 35),
-                onPressed: () => _onItemTapped(0, context),
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.qr_code, size: 35),
-                onPressed: () => _onItemTapped(1, context),
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.person, size: 35),
-                onPressed: () => _onItemTapped(2, context),
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
               ),
               IconButton(
-                icon: Icon(Icons.book_sharp, size: 35),
-                onPressed: () => _onItemTapped(3, context),
+                icon: Icon(
+                  Icons.book_sharp,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
               ),
             ],
           ),
