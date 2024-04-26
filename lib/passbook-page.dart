@@ -6,7 +6,9 @@ import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/global.dart';
 
 class AccountsPage extends StatefulWidget {
-  const AccountsPage({Key? key}) : super(key: key);
+  final dynamic user;
+
+  const AccountsPage({super.key, required this.user});
 
   @override
   State<AccountsPage> createState() => _AccountsPageState();
