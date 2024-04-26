@@ -12,10 +12,9 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -27,20 +26,30 @@ class _UserProfilePageState extends State<UserProfilePage> {
             Container(
               width: 167,
               height: 167,
+              margin: EdgeInsets.only(top: 80),
               decoration: ShapeDecoration(
                 shape: CircleBorder(),
                 color: const Color(0xFFD9D9D9),
               ),
             ),
             Container(
-              width: 450,
-              height: 650,
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 69),
+              width: MediaQuery.of(context).size.width,
+              height: 500,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
                 color: const Color(0xFFD9D9D9),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Add your content here
+                  ],
+                ),
               ),
             )
           ],
@@ -94,7 +103,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.person,
+                  Icons.book_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
@@ -107,7 +116,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.person,
                   size: 35,
                   color: _selectedIndex == 3 ? Colors.blue : null,
                 ),
@@ -142,9 +151,9 @@ void _onItemTapped(int index, BuildContext context) {
         MaterialPageRoute(builder: (context) => QRScannerPage()),
       );
       break;
-    case 2:
-      break;
     case 3:
+      break;
+    case 2:
       Navigator.pushReplacement(
         context as BuildContext,
         MaterialPageRoute(

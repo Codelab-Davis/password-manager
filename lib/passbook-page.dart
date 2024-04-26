@@ -52,7 +52,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = 3;
+    int _selectedIndex = 2;
     return Scaffold(
       backgroundColor: const Color(0xFFF8F8F9),
       appBar: AppBar(
@@ -209,7 +209,7 @@ class _AccountsPageState extends State<AccountsPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.person,
+                  Icons.book_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
@@ -222,7 +222,7 @@ class _AccountsPageState extends State<AccountsPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.person,
                   size: 35,
                   color: _selectedIndex == 3 ? Colors.blue : null,
                 ),
@@ -257,7 +257,7 @@ class _AccountsPageState extends State<AccountsPage> {
           MaterialPageRoute(builder: (context) => QRScannerPage()),
         );
         break;
-      case 2:
+      case 3:
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
@@ -266,7 +266,7 @@ class _AccountsPageState extends State<AccountsPage> {
         );
         // Handle profile navigation
         break;
-      case 3:
+      case 2:
         break;
     }
   }

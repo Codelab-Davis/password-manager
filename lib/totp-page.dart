@@ -134,7 +134,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.person,
+                  Icons.book_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
@@ -147,7 +147,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.person,
                   size: 35,
                   color: _selectedIndex == 3 ? Colors.blue : null,
                 ),
@@ -179,7 +179,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
+            builder: (context) => const AccountsPage(),
           ),
         );
         break;
@@ -187,7 +187,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(),
+            builder: (context) => const UserProfilePage(),
           ),
         );
         break;

@@ -226,7 +226,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.person,
+                  Icons.book_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
@@ -239,7 +239,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.person,
                   size: 35,
                   color: _selectedIndex == 3 ? Colors.blue : null,
                 ),
@@ -272,13 +272,13 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-          MaterialPageRoute(builder: (context) => UserProfilePage()),
+          MaterialPageRoute(builder: (context) => AccountsPage()),
         );
         break;
       case 3:
         Navigator.pushReplacement(
           context as BuildContext,
-          MaterialPageRoute(builder: (context) => const AccountsPage()),
+          MaterialPageRoute(builder: (context) => const UserProfilePage()),
         );
         break;
     }
