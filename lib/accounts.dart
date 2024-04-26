@@ -3,8 +3,7 @@ import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/global.dart';
-
-
+import 'package:flutter_masonry_view/flutter_masonry_view.dart';
 
 class AccountsPage extends StatefulWidget {
   final dynamic user;
@@ -20,33 +19,95 @@ class _AccountsPageState extends State<AccountsPage> {
   var secondTap = false;
   var thirdTap = false;
 
+  final List<dynamic> items = [
+    Container(
+      height: 175,
+      color: const Color.fromARGB(255, 220, 220, 220),
+      child: const Center(),
+    ),
+    SizedBox(
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(const Color(0xffBCBCE0)),
+          foregroundColor:
+              MaterialStateProperty.all(Colors.black), // Text color
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: const BorderSide(color: Color(0xffC0C2E9)) // BorderRadius
+                ),
+          ),
+          padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
+              horizontal: 16, vertical: 6)), // Padding
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.add),
+            Text(
+              "Add Password",
+              style: TextStyle(
+                fontFamily: 'Outfit',
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    Container(
+      height: 175,
+      color: const Color.fromARGB(255, 220, 220, 220),
+      child: const Center(),
+    ),
+    Container(
+      height: 175,
+      color: const Color.fromARGB(255, 220, 220, 220),
+      child: const Center(),
+    ),
+    Container(
+      height: 175,
+      color: const Color.fromARGB(255, 220, 220, 220),
+      child: const Center(),
+    ),
+    Container(
+      height: 175,
+      color: const Color.fromARGB(255, 220, 220, 220),
+      child: const Center(),
+    ),
+  ];
+
   changeButtons(button) {
-    setState(() {
-      if (button == 1) {
-        firstTap = !firstTap;
-        secondTap = false;
-        thirdTap = false;
-      } else if (button == 2) {
-        secondTap = !secondTap;
-        firstTap = false;
-        thirdTap = false;
-      } else if (button == 3) {
-        thirdTap = !thirdTap;
-        firstTap = false;
-        secondTap = false;
-      }
-    });
+    setState(
+      () {
+        if (button == 1) {
+          firstTap = !firstTap;
+          secondTap = false;
+          thirdTap = false;
+        } else if (button == 2) {
+          secondTap = !secondTap;
+          firstTap = false;
+          thirdTap = false;
+        } else if (button == 3) {
+          thirdTap = !thirdTap;
+          firstTap = false;
+          secondTap = false;
+        }
+      },
+    );
   }
 
   getStyle(buttonTap) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all(
-          buttonTap ? const Color.fromARGB(255, 220, 220, 220) : Colors.white),
+          buttonTap ? const Color(0xff374375) : Colors.white),
       foregroundColor:
-          MaterialStateProperty.all(const Color(0xFF404447)), // Text color
+          MaterialStateProperty.all(buttonTap ? Colors.white : Colors.black), // Text color
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(35),
-          side: const BorderSide(color: Colors.black) // BorderRadius
+          side: const BorderSide(color:Colors.black) // BorderRadius
           )),
       padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 16, vertical: 6)), // Padding
@@ -68,7 +129,7 @@ class _AccountsPageState extends State<AccountsPage> {
             SearchBar(
               leading: const Icon(Icons.search),
               backgroundColor: MaterialStateProperty.all(
-                  const Color.fromARGB(255, 220, 220, 220)),
+                  const Color(0xffF7EDEC)),
               hintText: "Search passwords...",
             ),
             const SizedBox(
@@ -108,7 +169,9 @@ class _AccountsPageState extends State<AccountsPage> {
                   "Welcome, " + widget.user[0]['firstName'] + '🔒',
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
+                    fontFamily: 'Outfit',
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -117,7 +180,17 @@ class _AccountsPageState extends State<AccountsPage> {
               height: 15,
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 350,
+                height: MediaQuery.of(context).size.height - 412,
+                child: SingleChildScrollView(
+                  child: MasonryView(
+                    listOfItem: items,
+                    numberOfColumn: 2,
+                    itemBuilder: (item) {
+                      return item;
+                    },
+                  ),
+                )
+                /*
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -156,12 +229,12 @@ class _AccountsPageState extends State<AccountsPage> {
                     child: const Center(),
                   );
                 },
-              ),
-            ),
+              ), */
+                ),
           ],
         ),
       ),
-       bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -182,24 +255,23 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
         currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
   }
 
-
-   void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     switch (index) {
       case 0:
-      Navigator.pushReplacement(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) =>
                 GenerateTOTPPage(secret: Global.result?.code ?? ''),
           ),
         );
-      break;
+        break;
       case 1:
         Navigator.pushReplacement(
           context as BuildContext,
@@ -209,12 +281,13 @@ class _AccountsPageState extends State<AccountsPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
+        );
         // Handle profile navigation
         break;
-        case 3:
+      case 3:
         break;
     }
   }
