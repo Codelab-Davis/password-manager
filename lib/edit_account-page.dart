@@ -338,7 +338,7 @@ void _onItemTapped(int index, BuildContext context) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const AccountsPage(),
+          builder: (context) => const AccountsPage(user: null,),
         ),
       );
 
