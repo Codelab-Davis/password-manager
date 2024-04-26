@@ -134,7 +134,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.key_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),

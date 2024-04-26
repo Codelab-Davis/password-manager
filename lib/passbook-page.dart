@@ -164,7 +164,7 @@ class _AccountsPageState extends State<AccountsPage> {
       floatingActionButton: Container(
         width: 345,
         height: 59,
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -173,7 +173,7 @@ class _AccountsPageState extends State<AccountsPage> {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -209,7 +209,7 @@ class _AccountsPageState extends State<AccountsPage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.key_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
@@ -264,7 +264,6 @@ class _AccountsPageState extends State<AccountsPage> {
             builder: (context) => const UserProfilePage(),
           ),
         );
-        // Handle profile navigation
         break;
       case 2:
         break;

@@ -26,30 +26,61 @@ class _UserProfilePageState extends State<UserProfilePage> {
             Container(
               width: 167,
               height: 167,
-              margin: EdgeInsets.only(top: 80),
-              decoration: ShapeDecoration(
-                shape: CircleBorder(),
-                color: const Color(0xFFD9D9D9),
+              margin: const EdgeInsets.only(top: 80),
+              decoration: const ShapeDecoration(
+                color: Color(0xFFD9D9D9),
+                shape: OvalBorder(),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
             ),
             Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 69),
+              margin: const EdgeInsets.only(top: 69),
               width: MediaQuery.of(context).size.width,
               height: 500,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                color: const Color(0xFFD9D9D9),
+              decoration: const ShapeDecoration(
+                color: Color(0xFFEFEFEF),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(45),
+                  topRight: Radius.circular(45),
+                )),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0xFFA3A3A3),
+                    blurRadius: 8,
+                    offset: Offset(2, 4),
+                    spreadRadius: 2,
+                  )
+                ],
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Add your content here
-                  ],
-                ),
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 40, top: 40),
+                      child: Text(
+                        'First Last',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 21,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w700,
+                          height: 0.06,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           ],
@@ -103,7 +134,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.book_sharp,
+                  Icons.key_sharp,
                   size: 35,
                   color: _selectedIndex == 2 ? Colors.blue : null,
                 ),
