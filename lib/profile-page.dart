@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
@@ -61,25 +62,173 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   )
                 ],
               ),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Align(
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 20,left: 40),
+                          child: Text(
+                            'First Last',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 21,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w700,
+                              height: 0.06,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 20, right: 20),
+                          child: IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: null,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 40, top: 40),
+                      padding: EdgeInsets.only(left: 40),
                       child: Text(
-                        'First Last',
+                        'janedoe@gmail.com',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 21,
+                          fontSize: 18,
                           fontFamily: 'Outfit',
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w300,
                           height: 0.06,
                         ),
                       ),
                     ),
                   ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 50, left: 40, right: 40),
+                    child: Container(
+                      width: 313,
+                      height: 55,
+                      decoration: ShapeDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color(0x3F000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: null,
+                        style: ElevatedButton.styleFrom(
+                          elevation: 6,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          shadowColor: const Color(0x3F000000),
+                        ),
+                        child: const Text(
+                          'Change Password',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                            height: 0.04,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 40, right: 40),
+                    child: Container(
+                      width: 313,
+                      height: 55,
+                      decoration: ShapeDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color(0x3F000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: null,
+                        style: ElevatedButton.styleFrom(
+                          elevation: 6,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          shadowColor: const Color(0x3F000000),
+                        ),
+                        child: const Text(
+                          'Edit 2FA Preferences',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                            height: 0.04,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 40, left: 10),
+                          child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                            height: .06,
+                          ),
+                          ),
+                        ),
+                        ),
+                        Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 40),
+                          child: IconButton(
+                          icon: Icon(Icons.exit_to_app_rounded),
+                          iconSize: 20,
+                          color: Colors.black,
+                          onPressed: null,
+                          ),
+                        ),
+                        )
+                    ],
+                  )
                 ],
               ),
             )
@@ -89,7 +238,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       floatingActionButton: Container(
         width: 345,
         height: 59,
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -98,7 +247,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
