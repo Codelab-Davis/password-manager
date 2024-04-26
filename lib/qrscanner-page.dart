@@ -276,7 +276,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const AccountsPage()),
+          MaterialPageRoute(builder: (context) => const AccountsPage(user: null,)),
         );
         break;
       case 3:
