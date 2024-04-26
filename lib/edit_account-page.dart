@@ -1,18 +1,19 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/passbook-page.dart';
 
-class UserProfilePage extends StatefulWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  _UserProfilePageState createState() => _UserProfilePageState();
+  // ignore: library_private_types_in_public_api
+  _EditProfilePageState createState() => _EditProfilePageState();
 }
 
-class _UserProfilePageState extends State<UserProfilePage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   int _selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
@@ -328,14 +329,14 @@ void _onItemTapped(int index, BuildContext context) {
     case 1:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => QRScannerPage()),
+        MaterialPageRoute(builder: (context) => const QRScannerPage()),
       );
       break;
     case 3:
       break;
     case 2:
       Navigator.pushReplacement(
-        context as BuildContext,
+        context,
         MaterialPageRoute(
           builder: (context) => const AccountsPage(user: null,),
         ),

@@ -54,6 +54,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 2;
     return Scaffold(
       backgroundColor: const Color(0xFFF8F8F9),
       appBar: AppBar(
@@ -162,34 +163,86 @@ class _AccountsPageState extends State<AccountsPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      floatingActionButton: Container(
+        width: 345,
+        height: 59,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.key_sharp,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: 3,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
         Navigator.pushReplacement(
@@ -206,16 +259,15 @@ class _AccountsPageState extends State<AccountsPage> {
           MaterialPageRoute(builder: (context) => QRScannerPage()),
         );
         break;
-      case 2:
+      case 3:
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
             builder: (context) => const UserProfilePage(),
           ),
         );
-        // Handle profile navigation
         break;
-      case 3:
+      case 2:
         break;
     }
   }

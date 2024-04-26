@@ -20,7 +20,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
   int reloadTimer = 30; 
   Timer? countdownTimer;
-
+  int _selectedIndex = 0;
   bool isHidden = true;
 
   TextEditingController emailController = TextEditingController();
@@ -86,34 +86,86 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      floatingActionButton: Container(
+        width: 345,
+        height: 59,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.key_sharp,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings), 
-            label: 'Settings', 
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
         break;
@@ -127,19 +179,17 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
+            builder: (context) => const AccountsPage(),
           ),
         );
-        // Handle profile navigation
         break;
       case 3:
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(user: ''),
+            builder: (context) => const UserProfilePage(),
           ),
         );
-        // Handle profile navigation
         break;
     }
   }
