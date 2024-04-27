@@ -1,9 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:password_manager/edit_account-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/splash-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/passbook-page.dart';
+
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -65,7 +69,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Row(
+                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(
@@ -90,7 +94,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           padding: EdgeInsets.only(top: 20, right: 20),
                           child: IconButton(
                             icon: Icon(Icons.edit),
-                            onPressed: null,
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfilePage(),
+                              ),
+                            )
                           ),
                         ),
                       ),
@@ -196,7 +205,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ),
                   ),
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                         Align(
@@ -223,10 +232,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           icon: Icon(Icons.exit_to_app_rounded),
                           iconSize: 20,
                           color: Colors.black,
-                          onPressed: null,
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  SplashPage(),
                           ),
                         ),
                         )
+                        ),
+                        ),
                     ],
                   )
                 ],
@@ -315,6 +329,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 }
 
+
 void _onItemTapped(int index, BuildContext context) {
   switch (index) {
     case 0:
@@ -328,7 +343,7 @@ void _onItemTapped(int index, BuildContext context) {
     case 1:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => QRScannerPage()),
+        MaterialPageRoute(builder: (context) => const QRScannerPage()),
       );
       break;
     case 3:

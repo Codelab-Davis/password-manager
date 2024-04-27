@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'login-page.dart';
 import 'signup-page.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
