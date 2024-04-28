@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:password_manager/change_password-page.dart';
 import 'package:password_manager/edit_account-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
@@ -125,10 +126,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       width: 313,
                       height: 55,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        color: Colors.white,
                         shadows: const [
                           BoxShadow(
                             color: Color(0x3F000000),
@@ -139,13 +140,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: null,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage(),
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Color(0xFFD9D9D9),
+                          foregroundColor: Color(0xFFD9D9D9),
+                          backgroundColor: Color(0xFFD9D9D9),
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          shadowColor: const Color(0x3F000000),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
                         ),
                         child: const Text(
                           'Change Password',
@@ -167,10 +177,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       width: 313,
                       height: 55,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        color: Colors.white,
                         shadows: const [
                           BoxShadow(
                             color: Color(0x3F000000),
@@ -187,7 +197,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          shadowColor: const Color(0x3F000000),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
                         ),
                         child: const Text(
                           'Edit 2FA Preferences',
@@ -211,7 +222,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           MaterialPageRoute(builder: (context) => SplashPage()),
                         ),
                         child: const Padding(
-                          padding: EdgeInsets.only(top: 40,),
+                          padding: EdgeInsets.only(
+                            top: 40,
+                          ),
                           child: Row(
                             children: [
                               Text(
@@ -224,7 +237,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   height: .06,
                                 ),
                               ),
-                              
                               Icon(
                                 Icons.exit_to_app_rounded,
                                 size: 20,
