@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/edit_account-page.dart';
@@ -7,7 +6,6 @@ import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/splash-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/passbook-page.dart';
-
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -69,13 +67,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                    Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 20,left: 40),
+                          padding: EdgeInsets.only(top: 20, left: 40),
                           child: Text(
                             'First Last',
                             style: TextStyle(
@@ -93,14 +91,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         child: Padding(
                           padding: EdgeInsets.only(top: 20, right: 20),
                           child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditProfilePage(),
-                              ),
-                            )
-                          ),
+                              icon: Icon(Icons.edit),
+                              onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditProfilePage(),
+                                    ),
+                                  )),
                         ),
                       ),
                     ],
@@ -205,44 +202,40 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ),
                   ),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                        Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40, left: 10),
-                          child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: .06,
-                          ),
-                          ),
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SplashPage()),
                         ),
-                        ),
-                        Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40),
-                          child: IconButton(
-                          icon: Icon(Icons.exit_to_app_rounded),
-                          iconSize: 20,
-                          color: Colors.black,
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>  SplashPage(),
+                        child: const Padding(
+                          padding: EdgeInsets.only(top: 40,),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: 'Outfit',
+                                  fontWeight: FontWeight.w400,
+                                  height: .06,
+                                ),
+                              ),
+                              
+                              Icon(
+                                Icons.exit_to_app_rounded,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                            ],
                           ),
                         ),
-                        )
-                        ),
-                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             )
@@ -329,7 +322,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 }
 
-
 void _onItemTapped(int index, BuildContext context) {
   switch (index) {
     case 0:
@@ -352,7 +344,9 @@ void _onItemTapped(int index, BuildContext context) {
       Navigator.pushReplacement(
         context as BuildContext,
         MaterialPageRoute(
-          builder: (context) => const AccountsPage(user: null,),
+          builder: (context) => const AccountsPage(
+            user: null,
+          ),
         ),
       );
 

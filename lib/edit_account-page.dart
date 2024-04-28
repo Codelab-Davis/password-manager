@@ -1,5 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
@@ -14,7 +15,6 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  int _selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +23,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Edit Account',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             Container(
               width: 167,
               height: 167,
-              margin: const EdgeInsets.only(top: 80),
+              margin: const EdgeInsets.only(top: 50),
               decoration: const ShapeDecoration(
                 color: Color(0xFFD9D9D9),
                 shape: OvalBorder(),
