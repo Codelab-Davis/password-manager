@@ -265,10 +265,41 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UserProfilePage()),
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserProfilePage()));
+                      });
+                      return const AlertDialog(
+                        title: Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Icon(
+                            Icons.check_circle,
+                            color: Colors.grey,
+                            size: 80,
+                          ),
+                        ),
+                        content: SizedBox(
+                          width: 350,
+                          height: 50,
+                          child: Text(
+                            'You’ve successfully changed\n your password',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
                 style: ElevatedButton.styleFrom(
