@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/change_password-page.dart';
+import 'package:password_manager/edit_2fa-page.dart';
 import 'package:password_manager/edit_account-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
@@ -191,8 +192,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: null,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Edit2FAPage(),
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Color(0xFFD9D9D9),
+                          foregroundColor: Color(0xFFD9D9D9),
+                          backgroundColor: Color(0xFFD9D9D9),
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
