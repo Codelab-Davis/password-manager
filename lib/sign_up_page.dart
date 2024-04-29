@@ -22,6 +22,7 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  String signUpButtonText = 'Sign Up'; // Initial text for the sign-up button
   Color faceIdColor = Color(0xFFFFFDFC);
   Color smsPasscodeColor = Color(0xFFFFFDFC);
   Color sixDigitColor = Color(0xFFFFFDFC);
@@ -38,9 +39,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         children: [
           titleText('Sign up to PassPal', 0.08, 88, 0.7, 30, 25, FontWeight.w700, 0.05, screenWidth),
           titleText('Select your two-factor authentication method', 0.08, 124, 0.84, null, 16, FontWeight.w400, 0.07, screenWidth),
-          authenticationOption('Face ID', 'tabler_face-id.svg', 0.34, 193, 321, screenWidth, faceIdColor, () => setColor('faceId')),
-          authenticationOption('SMS Passcode', 'mdi_message-text-clock.svg', 0.34, 360, 488, screenWidth, smsPasscodeColor, () => setColor('sms')),
-          authenticationOption('6-digit Passcode', 'mdi_keypad.svg', 0.34, 526, 654, screenWidth, sixDigitColor, () => setColor('sixDigit')),
+          authenticationOption('Face ID', 'tabler_face-id.svg', 0.34, 190, 321, screenWidth, faceIdColor, () => setColor('faceId')),
+          authenticationOption('SMS Passcode', 'mdi_message-text-clock.svg', 0.34, 368, 488, screenWidth, smsPasscodeColor, () => setColor('sms')),
+          authenticationOption('6-digit Passcode', 'mdi_keypad.svg', 0.34, 546, 654, screenWidth, sixDigitColor, () => setColor('sixDigit')),
           signUpButton(screenWidth),
         ],
       ),
@@ -70,6 +71,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   void setColor(String button) {
     setState(() {
+      // Reset all button colors to original
+      faceIdColor = Color(0xFFFFFDFC);
+      smsPasscodeColor = Color(0xFFFFFDFC);
+      sixDigitColor = Color(0xFFFFFDFC);
+
+      // Set the color of the currently pressed button
       if (button == 'faceId') {
         faceIdColor = Color(0xFFBCBCE0);
       } else if (button == 'sms') {
@@ -77,11 +84,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       } else if (button == 'sixDigit') {
         sixDigitColor = Color(0xFFBCBCE0);
       }
+
+      // Change the sign-up button text to "Continue"
+      signUpButtonText = 'Continue';
     });
   }
 
-  Widget authenticationOption(String text, String svgPath, double leftPercentage, double topCircle, double topText, double screenWidth, Color bgColor, VoidCallback onTap) {
-    double circleSize = screenWidth * 0.30;  // Making the circle size relative to the screen width
+Widget authenticationOption(String text, String svgPath, double leftPercentage, double topCircle, double topText, double screenWidth, Color bgColor, VoidCallback onTap) {
+    double circleSize = screenWidth * 0.30;  // Circle size relative to the screen width
+    double paddingSize = 20;  // Padding to reduce the SVG size visually
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -92,6 +103,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             child: Container(
               width: circleSize,
               height: circleSize,
+              padding: EdgeInsets.all(paddingSize), // Padding to make SVG appear smaller
               decoration: ShapeDecoration(
                 color: bgColor,
                 shape: CircleBorder(),
@@ -107,10 +119,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             ),
           ),
           Positioned(
-            left: (screenWidth - circleSize) / 2 - 2,
+            left: (screenWidth - circleSize) / 2,
             top: topText,
             child: SizedBox(
-              width: screenWidth * 0.53,  // Using more of the screen width for the text container
+              width: circleSize,  // Set to the same width as the circle to ensure center alignment
               height: 15,
               child: Text(
                 text,
@@ -128,6 +140,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       ),
     );
   }
+
+
 
   Widget signUpButton(double screenWidth) {
     return Positioned(
@@ -153,7 +167,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         ),
         child: Center(
           child: Text(
-            'Sign Up',
+            signUpButtonText, // Use the variable for the button text
             style: TextStyle(
               color: Color(0xFF323232),
               fontSize: 16,
