@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
-import 'splash-page.dart';
+import 'package:password_manager/splash-page.dart';
 import 'signup-page.dart';
 
 void main() {

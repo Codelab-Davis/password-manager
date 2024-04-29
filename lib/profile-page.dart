@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:password_manager/change_password-page.dart';
+import 'package:password_manager/edit_2fa-page.dart';
+import 'package:password_manager/edit_account-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/splash-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/passbook-page.dart';
 
@@ -65,13 +69,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 20,left: 40),
+                          padding: EdgeInsets.only(top: 20, left: 40),
                           child: Text(
                             'First Last',
                             style: TextStyle(
@@ -89,9 +93,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         child: Padding(
                           padding: EdgeInsets.only(top: 20, right: 20),
                           child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: null,
-                          ),
+                              icon: Icon(Icons.edit),
+                              onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditProfilePage(),
+                                    ),
+                                  )),
                         ),
                       ),
                     ],
@@ -119,10 +127,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       width: 313,
                       height: 55,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        color: Colors.white,
                         shadows: const [
                           BoxShadow(
                             color: Color(0x3F000000),
@@ -133,13 +141,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: null,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage(),
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Color(0xFFD9D9D9),
+                          foregroundColor: Color(0xFFD9D9D9),
+                          backgroundColor: Color(0xFFD9D9D9),
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          shadowColor: const Color(0x3F000000),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
                         ),
                         child: const Text(
                           'Change Password',
@@ -161,10 +178,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       width: 313,
                       height: 55,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        color: Colors.white,
                         shadows: const [
                           BoxShadow(
                             color: Color(0x3F000000),
@@ -175,13 +192,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: null,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Edit2FAPage(),
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Color(0xFFD9D9D9),
+                          foregroundColor: Color(0xFFD9D9D9),
+                          backgroundColor: Color(0xFFD9D9D9),
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          shadowColor: const Color(0x3F000000),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
                         ),
                         child: const Text(
                           'Edit 2FA Preferences',
@@ -196,39 +222,41 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ),
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                        Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40, left: 10),
-                          child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: .06,
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            top: 40,
                           ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: 'Outfit',
+                                  fontWeight: FontWeight.w400,
+                                  height: .06,
+                                ),
+                              ),
+                              Icon(
+                                Icons.exit_to_app_rounded,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                            ],
                           ),
                         ),
-                        ),
-                        Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40),
-                          child: IconButton(
-                          icon: Icon(Icons.exit_to_app_rounded),
-                          iconSize: 20,
-                          color: Colors.black,
-                          onPressed: null,
-                          ),
-                        ),
-                        )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             )
@@ -328,7 +356,7 @@ void _onItemTapped(int index, BuildContext context) {
     case 1:
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => QRScannerPage()),
+        MaterialPageRoute(builder: (context) => const QRScannerPage()),
       );
       break;
     case 3:
@@ -337,7 +365,9 @@ void _onItemTapped(int index, BuildContext context) {
       Navigator.pushReplacement(
         context as BuildContext,
         MaterialPageRoute(
-          builder: (context) => const AccountsPage(user: null,),
+          builder: (context) => const AccountsPage(
+            user: null,
+          ),
         ),
       );
 
