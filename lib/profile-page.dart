@@ -228,7 +228,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       InkWell(
                         onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SplashPage()),
+                          MaterialPageRoute(builder: (context) => WelcomeScreen()),
                         ),
                         child: const Padding(
                           padding: EdgeInsets.only(
