@@ -1,3 +1,4 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
@@ -19,65 +20,39 @@ class _AccountsPageState extends State<AccountsPage> {
   var secondTap = false;
   var thirdTap = false;
 
+  var count = 0;
+
   final List<dynamic> items = [
     Container(
       height: 175,
       color: const Color.fromARGB(255, 220, 220, 220),
       child: const Center(),
     ),
-    SizedBox(
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(const Color(0xffBCBCE0)),
-          foregroundColor:
-              MaterialStateProperty.all(Colors.black), // Text color
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: const BorderSide(color: Color(0xffC0C2E9)) // BorderRadius
-                ),
+    Container(),
+  ];
+
+  void _addAccount() {
+    /*
+    if (count == 2) {
+      items.add(Container());
+      print(count);
+    } else {
+      */
+    items.add(
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+        child: Container(
+          height: 175,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 220, 220, 220),
+            borderRadius: BorderRadius.circular(
+                10.0), // Add a border radius for rounded corners
           ),
-          padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
-              horizontal: 16, vertical: 6)), // Padding
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.add),
-            Text(
-              "Add Password",
-              style: TextStyle(
-                fontFamily: 'Outfit',
-                color: Colors.black,
-              ),
-            ),
-          ],
+          child: const Center(),
         ),
       ),
-    ),
-    Container(
-      height: 175,
-      color: const Color.fromARGB(255, 220, 220, 220),
-      child: const Center(),
-    ),
-    Container(
-      height: 175,
-      color: const Color.fromARGB(255, 220, 220, 220),
-      child: const Center(),
-    ),
-    Container(
-      height: 175,
-      color: const Color.fromARGB(255, 220, 220, 220),
-      child: const Center(),
-    ),
-    Container(
-      height: 175,
-      color: const Color.fromARGB(255, 220, 220, 220),
-      child: const Center(),
-    ),
-  ];
+    );
+  }
 
   changeButtons(button) {
     setState(
@@ -103,11 +78,11 @@ class _AccountsPageState extends State<AccountsPage> {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all(
           buttonTap ? const Color(0xff374375) : Colors.white),
-      foregroundColor:
-          MaterialStateProperty.all(buttonTap ? Colors.white : Colors.black), // Text color
+      foregroundColor: MaterialStateProperty.all(
+          buttonTap ? Colors.white : Colors.black), // Text color
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(35),
-          side: const BorderSide(color:Colors.black) // BorderRadius
+          side: const BorderSide(color: Colors.black) // BorderRadius
           )),
       padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 16, vertical: 6)), // Padding
@@ -128,8 +103,8 @@ class _AccountsPageState extends State<AccountsPage> {
           children: [
             SearchBar(
               leading: const Icon(Icons.search),
-              backgroundColor: MaterialStateProperty.all(
-                  const Color(0xffF7EDEC)),
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xffF7EDEC)),
               hintText: "Search passwords...",
             ),
             const SizedBox(
@@ -180,57 +155,67 @@ class _AccountsPageState extends State<AccountsPage> {
               height: 15,
             ),
             Container(
-                height: MediaQuery.of(context).size.height - 412,
-                child: SingleChildScrollView(
-                  child: MasonryView(
-                    listOfItem: items,
-                    numberOfColumn: 2,
-                    itemBuilder: (item) {
-                      return item;
-                    },
-                  ),
-                )
-                /*
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemCount: 8,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 1) {
-                    return ButtonTheme(
-                      height: 10,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 220, 220, 220)),
-                          foregroundColor: MaterialStateProperty.all(
-                              const Color(0xFF404447)), // Text color
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              // BorderRadius
+              height: MediaQuery.of(context).size.height - 412,
+              child: SingleChildScrollView(
+                child: MasonryView(
+                  listOfItem: items,
+                  numberOfColumn: 2,
+                  itemBuilder: (item) {
+                    count += 1;
+                    if (count == 2) {
+                      final addPassword = Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _addAccount();
+                              });
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xffBCBCE0)),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Colors.black), // Text color
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                        color: Color(0xffC0C2E9)) // BorderRadius
+                                    ),
+                              ),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 6)), // Padding
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(Icons.add),
+                                Text(
+                                  "Add Password",
+                                  style: TextStyle(
+                                    fontFamily: 'Outfit',
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 6)),
                         ),
-                        child: const Text("Add Password"),
-                      ),
-                    );
-                  }
-                  return Container(
-                    height: 300,
-                    color: const Color.fromARGB(255, 220, 220, 220),
-                    child: const Center(),
-                  );
-                },
-              ), */
+                      );
+                      items[1] = addPassword;
+                      items.add(const SizedBox(
+                        height: 0,
+                      ));
+                      return addPassword;
+                    }
+                    return item;
+                  },
                 ),
+              ),
+            ),
           ],
         ),
       ),
