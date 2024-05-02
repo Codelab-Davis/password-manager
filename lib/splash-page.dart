@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/new-account.dart';
 import 'login-page.dart';
 import 'signup-page.dart';
 
@@ -36,9 +37,9 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Column(
+                Column(
                   children: [
-                    Text(
+                    const Text(
                       'Providing extra security for',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -49,8 +50,8 @@ class WelcomeScreen extends StatelessWidget {
                         height: 0.06,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'your passwords using 2FA',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -61,6 +62,16 @@ class WelcomeScreen extends StatelessWidget {
                         height: 0.06,
                       ),
                     ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewAccount(),
+                            ),
+                          );
+                        },
+                        child: Text('New account'))
                   ],
                 ),
               ],
@@ -81,21 +92,19 @@ class WelcomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const Login()),
+                              builder: (context) => const Login()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), 
-                        foregroundColor: Color(0xFF323232), 
-                        elevation: 6, 
+                        backgroundColor: Color(0xFFD9D9D9),
+                        foregroundColor: Color(0xFF323232),
+                        elevation: 6,
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(15), 
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 6), 
-                        shadowColor: const Color(0x3F000000), 
+                            horizontal: 16, vertical: 6),
+                        shadowColor: const Color(0x3F000000),
                       ),
                       child: const Text(
                         'Login',
@@ -122,16 +131,15 @@ class WelcomeScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD9D9D9), 
-                        foregroundColor: Color(0xFF323232), 
-                        elevation: 6, 
+                        backgroundColor: const Color(0xFFD9D9D9),
+                        foregroundColor: const Color(0xFF323232),
+                        elevation: 6,
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(15), 
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 6), 
-                        shadowColor: const Color(0x3F000000), 
+                            horizontal: 16, vertical: 6),
+                        shadowColor: const Color(0x3F000000),
                       ),
                       child: const Text(
                         'Sign Up',
