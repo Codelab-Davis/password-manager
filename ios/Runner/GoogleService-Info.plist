@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>296701709927-pfc4hbtogldm5591dkg0meidmjbm9rm5.apps.googleusercontent.com</string>
+	<string>86295407605-omv29eeg5u3ct9i55a74j81ol2485oct.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.296701709927-pfc4hbtogldm5591dkg0meidmjbm9rm5</string>
+	<string>com.googleusercontent.apps.86295407605-omv29eeg5u3ct9i55a74j81ol2485oct</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA02famhnUYJ5PzGjm38Zyj7X054-tjImo</string>
+	<string>AIzaSyAUwNCdnqHjegGTNoM7bQnObglK1tNrHZs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>296701709927</string>
+	<string>86295407605</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>Ishant-Gandhi</string>
+	<string>com.codelabdavis.Passpal</string>
 	<key>PROJECT_ID</key>
-	<string>password-manager-1712b</string>
+	<string>passpal-614b0</string>
 	<key>STORAGE_BUCKET</key>
-	<string>password-manager-1712b.appspot.com</string>
+	<string>passpal-614b0.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:296701709927:ios:56a5591fe668527b664ec2</string>
+	<string>1:86295407605:ios:eafb77d103dd1e98008ebc</string>
 </dict>
 </plist>
