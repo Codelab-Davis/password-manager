@@ -4,23 +4,19 @@ import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
-import 'home_page.dart';
+import 'signup_page.dart';
 import 'login.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Future.delayed(
-    Duration(seconds: 3),
-  );
-  FlutterNativeSplash.remove();
   timezone.initializeTimeZones();
   setupLogging();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  name: 'passpal-614b0',
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

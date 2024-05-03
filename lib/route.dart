@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 
@@ -16,3 +18,27 @@ Future<void> fetchData() async {
   }
 }
 
+
+postData(String firstName, String lastName, String email, String phoneNumber, String password) async {
+  try {
+    print('In PostData');
+    var url = Uri.http('localhost:5000', '/test/add'); 
+    var response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'password': password,
+      }),
+    );
+    print('Response status: ${response.statusCode}'); //Helpful for debugging
+    print('Response body: ${response.body}'); //Helpful for debugging
+  } catch (e) {
+    print(e);
+  }
+}

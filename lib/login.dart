@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'home_page.dart';
+import 'signup_page.dart';
+import '3rd_party_signin.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -36,10 +37,12 @@ class _LoginState extends State<Login> {
                 Container(
                   width: 179,
                   height: 177,
-                  decoration: ShapeDecoration(
+                  decoration: BoxDecoration(
                     color: const Color(0xFFD9D9D9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(31),
+                    borderRadius: BorderRadius.circular(31),
+                    image: DecorationImage(
+                      image: AssetImage('assets/Paisley.jpeg'), // Replace 'assets/penguin.jpeg' with the path to your image
+                      fit: BoxFit.cover, // You can adjust the fit as needed
                     ),
                   ),
                 ),
@@ -104,16 +107,36 @@ class _LoginState extends State<Login> {
                     Row(
                       children: [
                         const SizedBox(width: 5),
-                        Checkbox(
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          checkColor: Colors.white,
-                          value: checked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              checked = value!;
-                            });
-                          },
+                        Theme(
+                          data: ThemeData(
+                            checkboxTheme: CheckboxThemeData(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    3), // Adjust the border radius if needed
+                                side: BorderSide(
+                                  color: Colors.grey, // Set the border color
+                                  width: 0, // Adjust the border width
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: Checkbox(
+                            visualDensity: VisualDensity(
+                              vertical:
+                                  0, // Adjust the vertical density to make the checkbox less thick
+                              horizontal:
+                                  0, // Adjust the horizontal density if needed
+                            ),
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
+                            checkColor: Colors.white,
+                            value: checked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                checked = value!;
+                              });
+                            },
+                          ),
                         ),
                         const Text(
                           'Remember Me',
@@ -145,7 +168,23 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Log In',
+                    style: TextStyle(
+                      color: Color(0xFF323232),
+                      fontSize: 15,
+                      fontFamily: 'Outfit',
+                      fontWeight: FontWeight.w400,
+                      height: 0.06,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Row(
                   children: [
@@ -172,21 +211,36 @@ class _LoginState extends State<Login> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 8), // Add horizontal padding
-                      child: Image.asset('assets/apple.png',
-                          width: 50, height: 50),
+                          horizontal: 10), // Add horizontal padding
+                      child: IconButton(
+                        onPressed: () {
+                          callAppleSignIn();
+                        },
+                        icon: Image.asset('assets/apple.png',
+                            width: 40, height: 40),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 8), // Add horizontal padding
-                      child: Image.asset('assets/google.png',
-                          width: 50, height: 50),
+                          horizontal: 10), // Add horizontal padding
+                      child: IconButton(
+                        onPressed: () {
+                          AuthMethods().signInWithGoogle(context);
+                        },
+                        icon: Image.asset('assets/google.png',
+                            width: 54, height: 54),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 8), // Add horizontal padding
-                      child: Image.asset('assets/facebook.png',
-                          width: 50, height: 50),
+                          horizontal: 10), // Add horizontal padding
+                      child: IconButton(
+                        onPressed: () {
+                          // Add your onPressed logic here
+                        },
+                        icon: Image.asset('assets/facebook.png',
+                            width: 36, height: 36),
+                      ),
                     ),
                   ],
                 ),

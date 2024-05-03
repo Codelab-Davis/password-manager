@@ -55,6 +55,10 @@ dependencies:
   flutter_native_splash: ^2.4.0
 
   flutter_secure_storage: ^9.0.0
+  sign_in_with_apple: ^6.1.0
+  cloud_firestore: ^4.17.0
+  flutter_svg: ^2.0.9
+  the_apple_sign_in: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +87,7 @@ flutter:
     - assets/apple.png
     - assets/facebook.png
     - assets/google.png
+    - assets/Paisley.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

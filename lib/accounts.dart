@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:password_manager/3rd_party_signin.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qr-scanner.dart';
 import 'package:password_manager/totp_generator.dart';
-
 
 class AccountsPage extends StatefulWidget {
   const AccountsPage({super.key});
@@ -16,6 +16,18 @@ class _AccountsPageState extends State<AccountsPage> {
   var firstTap = false;
   var secondTap = false;
   var thirdTap = false;
+  late String userName;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeUserName();
+  }
+
+  void initializeUserName() async {
+    userName = await getUserName();
+    setState(() {});
+  }
 
   changeButtons(button) {
     setState(() {
@@ -68,9 +80,6 @@ class _AccountsPageState extends State<AccountsPage> {
                   const Color.fromARGB(255, 220, 220, 220)),
               hintText: "Search passwords...",
             ),
-            const SizedBox(
-              height: 15,
-            ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
               height: 50,
@@ -82,13 +91,11 @@ class _AccountsPageState extends State<AccountsPage> {
                     onPressed: () => changeButtons(1),
                     child: const Text('Recently Added'),
                   ),
-                  const SizedBox(width: 10),
                   ElevatedButton(
                     style: getStyle(secondTap),
                     onPressed: () => changeButtons(2),
                     child: const Text('Most Used'),
                   ),
-                  const SizedBox(width: 10),
                   ElevatedButton(
                     style: getStyle(thirdTap),
                     onPressed: () => changeButtons(3),
@@ -99,19 +106,16 @@ class _AccountsPageState extends State<AccountsPage> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              child: const FittedBox(
+              child: FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
-                  "Welcome, Suyash 🔒",
+                  "Welcome, ${userName ?? 'User'} 🔒",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
             ),
             Container(
               height: MediaQuery.of(context).size.height - 350,
@@ -158,7 +162,7 @@ class _AccountsPageState extends State<AccountsPage> {
           ],
         ),
       ),
-       bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -179,21 +183,20 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
         currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
   }
 
-
-   void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     switch (index) {
       case 0:
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
-      );
-      break;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+        );
+        break;
       case 1:
         Navigator.pushReplacement(
           context as BuildContext,
@@ -203,12 +206,13 @@ class _AccountsPageState extends State<AccountsPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
+        );
         // Handle profile navigation
         break;
-        case 3:
+      case 3:
         break;
     }
   }

@@ -3,6 +3,8 @@ import 'package:password_manager/totp_generator.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'route.dart';
+
 
 bool isPasswordSame = false;
 void main() {
@@ -32,31 +34,6 @@ class MyHomePage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
-}
-
-postData(String firstName, String lastName, String email, String phoneNumber, String password) async {
-  isPasswordSame = false;
-  try {
-    print('In PostData');
-    var url = Uri.http('localhost:5000', '/test/add'); 
-    var response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'password': password,
-      }),
-    );
-    print('Response status: ${response.statusCode}'); //Helpful for debugging
-    print('Response body: ${response.body}'); //Helpful for debugging
-  } catch (e) {
-    print(e);
-  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -190,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   isPasswordSame = false;
                 });
-                postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);   
+                postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);
+                isPasswordSame = false;   
               },
             child: const Text("Sign Up")
       ),
