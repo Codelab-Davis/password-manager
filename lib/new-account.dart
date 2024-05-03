@@ -32,12 +32,12 @@ class _NewAccountState extends State<NewAccount> {
               borderRadius: BorderRadius.circular(40),
             ),
           ),
-          height: MediaQuery.of(context).size.height - 175,
+          height: MediaQuery.of(context).size.height - 150,
           alignment: Alignment.bottomCenter,
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.fromLTRB(40, 60, 0, 0),
+                padding: EdgeInsets.fromLTRB(40, 50, 0, 0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -81,7 +81,7 @@ class _NewAccountState extends State<NewAccount> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(40, 30, 0, 0),
+                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -125,7 +125,7 @@ class _NewAccountState extends State<NewAccount> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(40, 30, 0, 0),
+                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -182,11 +182,11 @@ class _NewAccountState extends State<NewAccount> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(40, 30, 0, 0),
+                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Application Name',
+                    'Additional Notes',
                     style: TextStyle(
                       color: Color(0xFF313131),
                       fontSize: 16,
@@ -227,18 +227,95 @@ class _NewAccountState extends State<NewAccount> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                   Image.asset('assets/CheckboxIcon.png')
-                  ],
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 80,
+                height: 45,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      const Color(0xFFE4E4F9),
+                    ),
+                    foregroundColor:
+                        MaterialStateProperty.all(Colors.black), // Text color
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                              color:
+                                  Color.fromARGB(200, 0, 0, 0)) // BorderRadius
+                          ),
+                    ),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 6)), // Padding
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/CheckboxIcon.png'),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const Text(
+                        'Confirm Changes',
+                        style: TextStyle(
+                          color: Color(0xFF313131),
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w500,
+                          height: 0.12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Row(
-                  children: [],
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 80,
+                height: 45,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      const Color(0xFFE4E4F9),
+                    ),
+                    foregroundColor:
+                        MaterialStateProperty.all(Colors.black), // Text color
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                              color:
+                                  Color.fromARGB(200, 0, 0, 0)) // BorderRadius
+                          ),
+                    ),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 6)), // Padding
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/Delete.png'),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const Text(
+                        'Delete Entry',
+                        style: TextStyle(
+                          color: Color(0xFF313131),
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w500,
+                          height: 0.12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
