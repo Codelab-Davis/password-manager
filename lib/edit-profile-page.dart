@@ -37,8 +37,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: Text(
                   'Save',
                   style: TextStyle(
+                    color: Color(0xFF374375),
                     fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -243,7 +244,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 35),
+                        SizedBox(height: 55),
                         Container(
                           width: 313,
                           height: 55,

@@ -189,7 +189,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   )
                 ],
               ),
-              margin: const EdgeInsets.only(top: 35),
+              margin: const EdgeInsets.only(top: 55),
               child: ElevatedButton(
                 onPressed: () {
                   showDialog(
