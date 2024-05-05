@@ -37,9 +37,9 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
+                const Column(
                   children: [
-                    const Text(
+                    Text(
                       'Providing extra security for',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -50,8 +50,8 @@ class WelcomeScreen extends StatelessWidget {
                         height: 0.06,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20),
+                    Text(
                       'your passwords using 2FA',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -62,16 +62,6 @@ class WelcomeScreen extends StatelessWidget {
                         height: 0.06,
                       ),
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewAccount(),
-                            ),
-                          );
-                        },
-                        child: Text('New account'))
                   ],
                 ),
               ],

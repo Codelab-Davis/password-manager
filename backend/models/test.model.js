@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const accountSchema = new Schema({
+    appName: { type: String }, username: { type: String }, password: { type: String }, notes: { type: String },
+}, { versionKey: false });
+
 const userSchema = new Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        default: function() {
-          return new mongoose.Types.ObjectId();
+        default: function () {
+            return new mongoose.Types.ObjectId();
         }
     },
     firstName: {
@@ -23,6 +27,9 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+    },
+    accounts: {
+        type: [accountSchema],
     }
 }, { versionKey: false });
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/new-account.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
@@ -169,6 +170,11 @@ class _AccountsPageState extends State<AccountsPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               setState(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const NewAccount()),
+                                );
                                 _addAccount();
                               });
                             },
