@@ -2,13 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:password_manager/edit_2fa-page.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
@@ -21,7 +20,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
@@ -33,7 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   'Save',
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
@@ -48,7 +46,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const Align(
               alignment: Alignment.topCenter,
               child: Text(
-                'Edit Account',
+                'Account Settings',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -100,17 +98,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -129,7 +123,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 55),
+                  SizedBox(height: 35),
                   Container(
                     child: Column(
                       children: [
@@ -154,17 +148,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -183,7 +173,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 55),
+                  SizedBox(height: 35),
                   Container(
                     child: Column(
                       children: [
@@ -208,17 +198,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -230,6 +216,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       EdgeInsets.symmetric(horizontal: 10.0),
                                 ),
                                 controller: PhoneController,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 35),
+                        Container(
+                          width: 313,
+                          height: 55,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color.fromARGB(18, 0, 0, 0),
+                                offset: Offset(0, 3),
+                                blurRadius: 6,
+                              )
+                            ],
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Edit2FAPage(),
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              surfaceTintColor: Color(0xFFE4E4F9),
+                              foregroundColor: Color(0xFFE4E4F9),
+                              backgroundColor: Color(0xFFE4E4F9),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 6),
+                            ),
+                            child: const Text(
+                              'Two-Factor Authentication Method',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'Outfit',
+                                fontWeight: FontWeight.w600,
+                                height: 0.04,
                               ),
                             ),
                           ),
@@ -246,4 +279,3 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 }
-

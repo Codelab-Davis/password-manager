@@ -164,11 +164,11 @@ class _AccountsPageState extends State<AccountsPage> {
         ),
       ),
       floatingActionButton: Container(
-        width: 345,
+        width: 365,
         height: 59,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(left: 15, right: 18),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -187,7 +187,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 icon: Icon(
                   Icons.home,
                   size: 35,
-                  color: _selectedIndex == 0 ? Colors.blue : null,
+                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -200,7 +200,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 icon: Icon(
                   Icons.qr_code,
                   size: 35,
-                  color: _selectedIndex == 1 ? Colors.blue : null,
+                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -213,7 +213,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 icon: Icon(
                   Icons.key_sharp,
                   size: 35,
-                  color: _selectedIndex == 2 ? Colors.blue : null,
+                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -226,7 +226,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 icon: Icon(
                   Icons.person,
                   size: 35,
-                  color: _selectedIndex == 3 ? Colors.blue : null,
+                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {

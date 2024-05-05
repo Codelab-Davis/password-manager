@@ -51,7 +51,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 35),
                       decoration: BoxDecoration(
-                        color: isFaceID? Colors.grey[700] : const Color(0xFFD9D9D9),
+                        color: isFaceID? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
                         shape: BoxShape.circle,
                         boxShadow: const [
                           BoxShadow(
@@ -98,7 +98,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
                       decoration:  ShapeDecoration(
-                        color: isSMS? Colors.grey[700] : const Color(0xFFD9D9D9),
+                        color: isSMS? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
                         shape: const OvalBorder(),
                         shadows: const [
                           BoxShadow(
@@ -145,9 +145,9 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
                       decoration:  ShapeDecoration(
-                        color: is6digit? Colors.grey[700] : const Color(0xFFD9D9D9),
-                        shape: OvalBorder(),
-                        shadows: [
+                        color: is6digit? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                        shape: const OvalBorder(),
+                        shadows: const [
                           BoxShadow(
                             color: Color(0x3F000000),
                             blurRadius: 4,
@@ -185,10 +185,9 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                 ),
                 shadows: const [
                   BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
+                    color: Color.fromARGB(18, 0, 0, 0),
+                    offset: Offset(0, 3),
+                    blurRadius: 6,
                   )
                 ],
               ),
@@ -210,7 +209,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                           padding: EdgeInsets.only(top: 20),
                           child: Icon(
                             Icons.check_circle,
-                            color: Colors.grey,
+                            color: Color(0xFF374375),
                             size: 80,
                           ),
                         ),
@@ -221,10 +220,10 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                             'Your two-factor authentication\n method has been changed',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color(0xFF323232),
                               fontSize: 18,
                               fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -233,9 +232,9 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  surfaceTintColor: Color(0xFFD9D9D9),
-                  foregroundColor: Color(0xFFD9D9D9),
-                  backgroundColor: Color(0xFFD9D9D9),
+                  surfaceTintColor: Color(0xFFE4E4F9),
+                  foregroundColor: Color(0xFFE4E4F9),
+                  backgroundColor: Color(0xFFE4E4F9),
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),

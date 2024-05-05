@@ -24,9 +24,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -69,17 +67,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
                               padding:
@@ -111,7 +105,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 55),
+                  SizedBox(height: 35),
                   Container(
                     child: Column(
                       children: [
@@ -136,20 +130,17 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 15),
                               child: TextField(
                                 obscureText: showNewPassword,
                                 decoration: InputDecoration(
@@ -175,7 +166,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 55),
+                  SizedBox(height: 35),
                   Container(
                     child: Column(
                       children: [
@@ -200,17 +191,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFFFFDFC),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1, color: Color(0x7F303030)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                             child: Padding(
                               padding:
@@ -256,10 +243,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
                 shadows: const [
                   BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
+                    color: Color.fromARGB(18, 0, 0, 0),
+                    offset: Offset(0, 3),
+                    blurRadius: 6,
                   )
                 ],
               ),
@@ -280,21 +266,21 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           padding: EdgeInsets.only(top: 20),
                           child: Icon(
                             Icons.check_circle,
-                            color: Colors.grey,
+                            color: Color(0xFF374375),
                             size: 80,
                           ),
                         ),
                         content: SizedBox(
                           width: 350,
-                          height: 50,
+                          height: 80,
                           child: Text(
                             'You’ve successfully changed\n your password',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color(0xFF323232),
                               fontSize: 18,
                               fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -303,9 +289,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  surfaceTintColor: Color(0xFFD9D9D9),
-                  foregroundColor: Color(0xFFD9D9D9),
-                  backgroundColor: Color(0xFFD9D9D9),
+                  surfaceTintColor: Color(0xFFE4E4F9),
+                  foregroundColor: Color(0xFFE4E4F9),
+                  backgroundColor: Color(0xFFE4E4F9),
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
