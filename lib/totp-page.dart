@@ -43,7 +43,13 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TOTP Generator'),
+        title: const Text(
+        'TOTP Generator',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      )
       ),
       body: Center(
         child: Column(

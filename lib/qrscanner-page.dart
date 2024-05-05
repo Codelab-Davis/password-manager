@@ -22,7 +22,14 @@ class _QRScannerPageState extends State<QRScannerPage> {
     int _selectedIndex = 1;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Scanner'),
+          title: const Text(
+        'QR Scanner',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: Colors.transparent,
       ),
       body: Column(
         children: <Widget>[
@@ -36,7 +43,6 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  // ignore: sized_box_for_whitespace
                   child: Container(
                     width: 250,
                     height: 300,
@@ -275,7 +281,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const AccountsPage(user: null,)),
+          MaterialPageRoute(
+              builder: (context) => const AccountsPage(
+                    user: null,
+                  )),
         );
         break;
       case 3:

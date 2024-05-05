@@ -58,7 +58,13 @@ class _AccountsPageState extends State<AccountsPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F8F9),
       appBar: AppBar(
-        title: const Text("Accounts Page"),
+        title: const Text(
+        'Accounts',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       ),
       body: SingleChildScrollView(
         child: Padding(

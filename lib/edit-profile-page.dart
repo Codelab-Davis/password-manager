@@ -20,6 +20,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'Account Settings',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
@@ -43,16 +50,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                'Account Settings',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Container(
               width: 167,
               height: 167,
@@ -68,6 +65,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     spreadRadius: 0,
                   )
                 ],
+              ),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 7.0, right: 5.0),
+                  child: Container(
+                      width: 38,
+                      height: 38,
+                      decoration: const ShapeDecoration(
+                          color: Color(0xFFE4E4F9),
+                          shape: OvalBorder(),
+                          shadows: [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                              spreadRadius: 0,
+                            )
+                          ]),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit),
+                        iconSize: 20,
+                        color: Colors.black,
+                      )),
+                ),
               ),
             ),
             Container(

@@ -11,6 +11,8 @@ class Edit2FAPage extends StatefulWidget {
   _Edit2FAPageState createState() => _Edit2FAPageState();
 }
 
+
+
 class _Edit2FAPageState extends State<Edit2FAPage> {
   bool isFaceID = false;
   bool isSMS = false;
@@ -19,22 +21,18 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(
+        '2FA Preference',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                '2FA Preference',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Container(
               child: Column(
                 children: [
