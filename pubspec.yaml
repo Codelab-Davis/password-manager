@@ -49,6 +49,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   empty_widget: ^0.0.5
   flutter_svg: ^2.0.9
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({super.key});
@@ -203,27 +205,43 @@ class _NewAccountState extends State<NewAccount> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Enter password',
-                            suffixIcon:
-                                SizedBox(
-                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                                                                IconButton(
-                                  icon: Icon(showPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        showPassword = !showPassword;
+                            suffixIcon: SizedBox(
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 15),
+                                      icon: Icon(showPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            showPassword = !showPassword;
+                                          },
+                                        );
                                       },
-                                    );
-                                  },
-                                                                ),
-                                                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.copy),
-                                                                ),
-                                                              ]),
-                                ),
+                                    ),
+                                    IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        FlutterClipboard.copy(
+                                                passwordController.text)
+                                            .then((_) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Password copied to clipboard'),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(Icons.copy),
+                                    ),
+                                  ]),
+                            ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 5.0, horizontal: 20)),
                       ),
@@ -345,7 +363,9 @@ class _NewAccountState extends State<NewAccount> {
                             const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 6)), // Padding
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
