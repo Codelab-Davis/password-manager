@@ -4,8 +4,6 @@ import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/global.dart';
 
-
-
 class AccountsPage extends StatefulWidget {
   final dynamic user;
 
@@ -16,6 +14,7 @@ class AccountsPage extends StatefulWidget {
 }
 
 class _AccountsPageState extends State<AccountsPage> {
+  int _selectedIndex = 2;
   var firstTap = false;
   var secondTap = false;
   var thirdTap = false;
@@ -56,150 +55,206 @@ class _AccountsPageState extends State<AccountsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F9),
-      appBar: AppBar(
-        title: const Text("Accounts Page"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SearchBar(
-              leading: const Icon(Icons.search),
-              backgroundColor: MaterialStateProperty.all(
-                  const Color.fromARGB(255, 220, 220, 220)),
-              hintText: "Search passwords...",
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ElevatedButton(
-                    style: getStyle(firstTap),
-                    onPressed: () => changeButtons(1),
-                    child: const Text('Recently Added'),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: getStyle(secondTap),
-                    onPressed: () => changeButtons(2),
-                    child: const Text('Most Used'),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: getStyle(thirdTap),
-                    onPressed: () => changeButtons(3),
-                    child: const Text('Least Used'),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Text(
-                  "Welcome, " + widget.user[0]['firstName'] + '🔒',
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height - 350,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemCount: 8,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 1) {
-                    return ButtonTheme(
-                      height: 10,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 220, 220, 220)),
-                          foregroundColor: MaterialStateProperty.all(
-                              const Color(0xFF404447)), // Text color
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              // BorderRadius
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 6)),
-                        ),
-                        child: const Text("Add Password"),
-                      ),
-                    );
-                  }
-                  return Container(
-                    height: 300,
-                    color: const Color.fromARGB(255, 220, 220, 220),
-                    child: const Center(),
-                  );
-                },
-              ),
-            ),
-          ],
+        backgroundColor: const Color(0xFFF8F8F9),
+        appBar: AppBar(
+          title: const Text("Accounts Page"),
         ),
-      ),
-       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SearchBar(
+                leading: const Icon(Icons.search),
+                backgroundColor: MaterialStateProperty.all(
+                    const Color.fromARGB(255, 220, 220, 220)),
+                hintText: "Search passwords...",
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 20),
+                height: 50,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ElevatedButton(
+                      style: getStyle(firstTap),
+                      onPressed: () => changeButtons(1),
+                      child: const Text('Recently Added'),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      style: getStyle(secondTap),
+                      onPressed: () => changeButtons(2),
+                      child: const Text('Most Used'),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      style: getStyle(thirdTap),
+                      onPressed: () => changeButtons(3),
+                      child: const Text('Least Used'),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    "Welcome, " + widget.user[0]['firstName'] + '🔒',
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height - 350,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                  ),
+                  itemCount: 8,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 1) {
+                      return ButtonTheme(
+                        height: 10,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 220, 220, 220)),
+                            foregroundColor: MaterialStateProperty.all(
+                                const Color(0xFF404447)), // Text color
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35),
+                                // BorderRadius
+                              ),
+                            ),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 6)),
+                          ),
+                          child: const Text("Add Password"),
+                        ),
+                      );
+                    }
+                    return Container(
+                      height: 300,
+                      color: const Color.fromARGB(255, 220, 220, 220),
+                      child: const Center(),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
+        ),
+        floatingActionButton: Container(
+          width: 345,
+          height: 59,
+          margin: const EdgeInsets.only(left: 25, right: 25),
+          decoration: BoxDecoration(
+            color: Color(0xFF374375),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.home,
+                    size: 35,
+                    color:
+                        _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                    _onItemTapped(0);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.qr_code,
+                    size: 35,
+                    color:
+                        _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
+                    _onItemTapped(1);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.key_sharp,
+                    size: 35,
+                    color:
+                        _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 2;
+                    });
+                    _onItemTapped(2);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.person,
+                    size: 35,
+                    color:
+                        _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 3;
+                    });
+                    _onItemTapped(
+                      3,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: 3,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 
-
-   void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     switch (index) {
       case 0:
-      Navigator.pushReplacement(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) =>
                 GenerateTOTPPage(secret: Global.result?.code ?? ''),
           ),
         );
-      break;
+        break;
       case 1:
         Navigator.pushReplacement(
           context as BuildContext,
@@ -209,12 +264,13 @@ class _AccountsPageState extends State<AccountsPage> {
       case 2:
         Navigator.pushReplacement(
           context as BuildContext,
-            MaterialPageRoute(builder: (context) => const UserProfilePage(),        
-              ),
-            );
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
+        );
         // Handle profile navigation
         break;
-        case 3:
+      case 3:
         break;
     }
   }

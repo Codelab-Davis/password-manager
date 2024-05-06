@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/change_password-page.dart';
 import 'package:password_manager/edit_2fa-page.dart';
-import 'package:password_manager/edit_account-page.dart';
+import 'package:password_manager/edit-profile-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/splash-page.dart';
@@ -21,8 +21,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFBCBCE0),
       appBar: AppBar(
-        title: const Text('Profile'),
+        backgroundColor: Color(0xFFBCBCE0),
       ),
       body: Center(
         child: Column(
@@ -33,7 +34,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               height: 167,
               margin: const EdgeInsets.only(top: 80),
               decoration: const ShapeDecoration(
-                color: Color(0xFFD9D9D9),
+                color: Color(0xFFCADCFF),
                 shape: OvalBorder(),
                 shadows: [
                   BoxShadow(
@@ -51,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               width: MediaQuery.of(context).size.width,
               height: 500,
               decoration: const ShapeDecoration(
-                color: Color(0xFFEFEFEF),
+                color: Color(0xFFFFFBFB),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(45),
@@ -69,15 +70,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 20, left: 40),
+                          padding: EdgeInsets.only(top: 50, left: 55),
                           child: Text(
-                            'First Last',
+                            'Paisley Penguin',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 21,
@@ -88,28 +89,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 20, right: 20),
-                          child: IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditProfilePage(),
-                                    ),
-                                  )),
-                        ),
-                      ),
                     ],
                   ),
                   const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 40),
+                      padding: EdgeInsets.only(top: 25, left: 55),
                       child: Text(
-                        'janedoe@gmail.com',
+                        'paiselypenguin@gmail.com',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -124,7 +111,57 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     padding:
                         const EdgeInsets.only(top: 50, left: 40, right: 40),
                     child: Container(
-                      width: 313,
+                      width: 330,
+                      height: 55,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        color: Color(0xFFE4E4F9),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color.fromARGB(18, 0, 0, 0),
+                            offset: Offset(0, 3),
+                            blurRadius: 6,
+                          )
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditProfilePage(),
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Color(0xFFE4E4F9),
+                          foregroundColor: Color(0xFFE4E4F9),
+                          backgroundColor: Color(0xFFE4E4F9),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
+                        ),
+                        child: const Text(
+                          'Account Settings',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w500,
+                            height: 0.04,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 40, right: 40),
+                    child: Container(
+                      width: 330,
                       height: 55,
                       decoration: ShapeDecoration(
                         shape: RoundedRectangleBorder(
@@ -133,10 +170,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         color: Colors.white,
                         shadows: const [
                           BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
+                            color: Color.fromARGB(18, 0, 0, 0),
+                            offset: Offset(0, 3),
+                            blurRadius: 6,
                           )
                         ],
                       ),
@@ -148,10 +184,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          surfaceTintColor: Color(0xFFD9D9D9),
-                          foregroundColor: Color(0xFFD9D9D9),
-                          backgroundColor: Color(0xFFD9D9D9),
-                          elevation: 6,
+                          surfaceTintColor: Color(0xFFE4E4F9),
+                          foregroundColor: Color(0xFFE4E4F9),
+                          backgroundColor: Color(0xFFE4E4F9),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -160,11 +195,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ),
                         child: const Text(
                           'Change Password',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             height: 0.04,
                           ),
                         ),
@@ -175,7 +211,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     padding:
                         const EdgeInsets.only(top: 30, left: 40, right: 40),
                     child: Container(
-                      width: 313,
+                      width: 330,
                       height: 55,
                       decoration: ShapeDecoration(
                         shape: RoundedRectangleBorder(
@@ -184,10 +220,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         color: Colors.white,
                         shadows: const [
                           BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
+                            color: Color.fromARGB(18, 0, 0, 0),
+                            offset: Offset(0, 3),
+                            blurRadius: 6,
                           )
                         ],
                       ),
@@ -195,67 +230,43 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Edit2FAPage(),
+                            builder: (context) => WelcomeScreen(),
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          surfaceTintColor: Color(0xFFD9D9D9),
-                          foregroundColor: Color(0xFFD9D9D9),
-                          backgroundColor: Color(0xFFD9D9D9),
-                          elevation: 6,
+                          surfaceTintColor: Color(0xFFE4E4F9),
+                          foregroundColor: Color(0xFFE4E4F9),
+                          backgroundColor: Color(0xFFE4E4F9),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 6),
                         ),
-                        child: const Text(
-                          'Edit 2FA Preferences',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: 0.04,
-                          ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Logout',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: 'Outfit',
+                                fontWeight: FontWeight.w500,
+                                height: 0.04,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Icon(
+                              Icons.logout_outlined,
+                              color: Colors.black,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(
-                            top: 40,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Logout',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: 'Outfit',
-                                  fontWeight: FontWeight.w400,
-                                  height: .06,
-                                ),
-                              ),
-                              Icon(
-                                Icons.exit_to_app_rounded,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -264,11 +275,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
         ),
       ),
       floatingActionButton: Container(
-        width: 345,
+        width: 365,
         height: 59,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(left: 15, right: 18),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -287,7 +298,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 icon: Icon(
                   Icons.home,
                   size: 35,
-                  color: _selectedIndex == 0 ? Colors.blue : null,
+                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -300,7 +311,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 icon: Icon(
                   Icons.qr_code,
                   size: 35,
-                  color: _selectedIndex == 1 ? Colors.blue : null,
+                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -313,7 +324,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 icon: Icon(
                   Icons.key_sharp,
                   size: 35,
-                  color: _selectedIndex == 2 ? Colors.blue : null,
+                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -326,7 +337,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 icon: Icon(
                   Icons.person,
                   size: 35,
-                  color: _selectedIndex == 3 ? Colors.blue : null,
+                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
