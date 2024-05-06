@@ -48,6 +48,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   flutter_secure_storage: ^9.0.0
   empty_widget: ^0.0.5
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -74,8 +75,9 @@ flutter:
 
   assets:
     - assets/google.png
-    - assets/CheckboxIcon.png
-    - assets/delete.png
+    - assets/add_icon.svg
+    - assets/confirm_changes.svg
+    - assets/delete_entry.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

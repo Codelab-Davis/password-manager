@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({super.key});
@@ -46,17 +47,18 @@ class _NewAccountState extends State<NewAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF7EDEC),
-      appBar: AppBar(
-        backgroundColor: const Color(0xffF7EDEC),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
       body: Stack(
         children: [
+          Positioned(
+            top: 50,
+            left: 20,
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.arrow_back),
+            ),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -201,18 +203,27 @@ class _NewAccountState extends State<NewAccount> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Enter password',
-                            suffixIcon: IconButton(
-                              icon: Icon(showPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    showPassword = !showPassword;
+                            suffixIcon:
+                                SizedBox(
+                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                                                                IconButton(
+                                  icon: Icon(showPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        showPassword = !showPassword;
+                                      },
+                                    );
                                   },
-                                );
-                              },
-                            ),
+                                                                ),
+                                                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.copy),
+                                                                ),
+                                                              ]),
+                                ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 5.0, horizontal: 20)),
                       ),
@@ -277,11 +288,8 @@ class _NewAccountState extends State<NewAccount> {
                             Colors.black), // Text color
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(
-                                  color: Color.fromARGB(
-                                      200, 0, 0, 0)) // BorderRadius
-                              ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
@@ -297,7 +305,7 @@ class _NewAccountState extends State<NewAccount> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/CheckboxIcon.png'),
+                          SvgPicture.asset('assets/confirm_changes.svg'),
                           const SizedBox(
                             width: 10,
                           ),
@@ -330,11 +338,8 @@ class _NewAccountState extends State<NewAccount> {
                             Colors.black), // Text color
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(
-                                  color: Color.fromARGB(
-                                      200, 0, 0, 0)) // BorderRadius
-                              ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
@@ -344,7 +349,7 @@ class _NewAccountState extends State<NewAccount> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/CheckboxIcon.png'),
+                          SvgPicture.asset('assets/delete_entry.svg'),
                           const SizedBox(
                             width: 10,
                           ),
@@ -367,41 +372,43 @@ class _NewAccountState extends State<NewAccount> {
             ),
           ),
           Positioned(
-            top: -10,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Positioned(
-                top: -10,
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        const Color(0xFFE4E4F9),
-                      ),
-                      foregroundColor:
-                          MaterialStateProperty.all(Colors.black), // Text color
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                            side: const BorderSide(
-                                color: Color.fromARGB(200, 0, 0, 0)) // BorderRadius
-                            ),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+            top: 70,
+            right: MediaQuery.of(context).size.width - 247.5,
+            left: MediaQuery.of(context).size.width - 247.5,
+            child: SizedBox(
+              width: 100,
+              height: 100,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    const Color(0xFFE4E4F9),
                   ),
+                  foregroundColor:
+                      MaterialStateProperty.all(Colors.black), // Text color
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        side: const BorderSide(
+                            color: Color.fromARGB(200, 0, 0, 0)) // BorderRadius
+                        ),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/add_icon.svg'),
+                    const Text(
+                      'Add Icon',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF313131),
+                        fontSize: 12,
+                        fontFamily: 'Outfit',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
