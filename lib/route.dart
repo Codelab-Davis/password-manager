@@ -7,7 +7,7 @@ final Logger _logger = Logger('NetworkService');
 
 Future<void> fetchData() async {
   try {
-    final response = await http.get(Uri.parse('http://localhost:5000/test/')); 
+    final response = await http.get(Uri.parse('http://localhost:5001/test/')); //Change back to 5000
     if (response.statusCode == 200) {
       _logger.info('Data from backend: ${response.body}');
     } else {
@@ -19,10 +19,14 @@ Future<void> fetchData() async {
 }
 
 
-postData(String firstName, String lastName, String email, String phoneNumber, String password) async {
+postData(String firstName, String lastName, String email, String phoneNumber, String password, String signUpType) async {
+  //Create if conditon for whether or not user is already logged in the data base, to prevent multiple users
+  // Using password should work for 3rd party since its a unique code for each new user
+  // we can check both email and password for Passpal Logins? Also need to implement only
+  // 1 user per email acc
   try {
     print('In PostData');
-    var url = Uri.http('localhost:5000', '/test/add'); 
+    var url = Uri.http('localhost:5001', '/test/add'); //Change back to 5000
     var response = await http.post(
       url,
       headers: <String, String>{
@@ -34,6 +38,7 @@ postData(String firstName, String lastName, String email, String phoneNumber, St
         'email': email,
         'phoneNumber': phoneNumber,
         'password': password,
+        'signUpType': signUpType,
       }),
     );
     print('Response status: ${response.statusCode}'); //Helpful for debugging

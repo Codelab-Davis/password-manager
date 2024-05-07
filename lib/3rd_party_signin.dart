@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:password_manager/3rd_party_database.dart';
-import 'package:password_manager/accounts.dart';
+import 'package:password_manager/passbook-page.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
+import 'route.dart';
 
 String finalName = 'User';
 
@@ -35,38 +36,28 @@ class AuthMethods {
 
     User? userDetails = result.user;
 
-    if (result != null) {
-      User? userDetails = result.user;
+    if (userDetails != null) {
+      String? email = userDetails.email;
+      String? name = userDetails.displayName;
+      String? phoneNumber = userDetails.phoneNumber;
+      String id = userDetails.uid;
+      String signUpType = "Google";
 
-      if (userDetails != null) {
-        String? email = userDetails.email;
-        String? name = userDetails.displayName;
-        String? imgUrl = userDetails.photoURL;
-        String id = userDetails.uid;
+      if (name != null) {
+        String firstName = getFirstName(name);
+        String lastName = getLastName(name);
 
-        Map<String, dynamic> userInfoMap = {
-          "email": email,
-          "name": name,
-          "imgUrl": imgUrl,
-          "id": id,
-        };
+        await postData(firstName, lastName, email ?? "", phoneNumber ?? "", id,
+            signUpType);
 
-        DatabaseMethods().addUser(userDetails.uid, userInfoMap).then((value) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      AccountsPage())); //replace with your home screen
-        });
-        String userName = name!;
-        finalName = userName;
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AccountsPage(user: User)));
       }
     }
   }
-
-  Future<User> signInWithApple(BuildContext context,{List<Scope> scopes = const []}) async {
-    final result = await TheAppleSignIn.performRequests(
-        [AppleIdRequest(requestedScopes: scopes)]);
+/*
+  Future<User?> signInWithApple(BuildContext context, {List<Scope> scopes = const []}) async {
+    final result = await TheAppleSignIn.performRequests([AppleIdRequest(requestedScopes: scopes)]);
 
     switch (result.status) {
       case AuthorizationStatus.authorized:
@@ -80,40 +71,28 @@ class AuthMethods {
             await FirebaseAuth.instance.signInWithCredential(credential);
         final firebaseUser = userCredential.user!;
 
-        print("before if\n");
         if (scopes.contains(Scope.fullName)) {
           final fullName = appleCredential.fullName;
-          print('fullName: ${fullName}');
           if (fullName != null &&
               fullName.givenName != null &&
               fullName.familyName != null) {
-            final displayName = '${fullName.givenName} ${fullName.familyName}';        
-            print('displayName ${displayName}');
+            final firstName = fullName.givenName!;
+            final lastName = fullName.familyName!;
+
+            // Call the postData function with the extracted information
+            await postData(firstName, lastName, firebaseUser.email ?? '', '',
+                firebaseUser.uid, "Apple");
+
+            final displayName = '$firstName $lastName';
             await firebaseUser.updateDisplayName(displayName);
           }
         }
-        
 
         final email = firebaseUser.email;
         final name = firebaseUser.displayName;
-        final imgUrl = firebaseUser.photoURL;
         final id = firebaseUser.uid;
-        print('email ${email}, name ${name}, imgUrl ${imgUrl}, id ${id}');
+        print('email $email, name $name, id $id');
 
-        Map<String, dynamic> userInfoMap = {
-          "email": email,
-          "name": name,
-          "imgUrl": imgUrl,
-          "id": id,
-        };
-
-        DatabaseMethods().addUser(firebaseUser.uid, userInfoMap).then((value) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AccountsPage()));
-        });
-
-        String userName = name!;
-        finalName = userName;
         return firebaseUser;
 
       case AuthorizationStatus.error:
@@ -128,22 +107,98 @@ class AuthMethods {
       default:
         throw UnimplementedError();
     }
+  }  
+  */
+}
+
+void appleSignIn(BuildContext context) async {
+  AuthorizationResult authorizationResult = await TheAppleSignIn.performRequests([
+    const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+  ]);
+
+  switch(authorizationResult.status) {
+    case AuthorizationStatus.authorized:
+      print('authorized');
+      try {
+        AppleIdCredential? appleCredential = authorizationResult.credential;
+
+        PersonNameComponents? nameComponents = appleCredential?.fullName;
+
+ 
+        String firstName = 'Unknown';
+        String lastName = 'Unknown';
+
+       
+        if (nameComponents != null) {
+          print('nameComponents: $nameComponents');
+          if (nameComponents.givenName != null) {
+            print('1');
+            firstName = nameComponents.givenName!;
+          }
+          if (nameComponents.familyName != null) {
+            lastName = nameComponents.familyName!;
+            print('2');
+          }
+        }
+
+        String? email = appleCredential?.email;
+
+        print('Full Name: $firstName $lastName');
+        print('Email: $email');
+
+        // Retrieve user ID from AppleIdCredential
+        String? id = appleCredential?.user;
+
+        String signUpType = "Apple";
+
+        // Call postData function with retrieved details
+        await postData(firstName, lastName, email ?? "", "Not Given for Apple", id ?? "", signUpType);
+
+        // Navigate to next screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AccountsPage(user: appleCredential)),
+        );
+      } catch (e) {
+        print('apple auth failed $e');
+      }
+      break;
+    case AuthorizationStatus.error:
+      print('error');
+      break;
+    case AuthorizationStatus.cancelled:
+      print('cancelled');
+      break;
+    default:
+      print('none of the above: default');
+      break;
   }
 }
 
-String getUserName() {
-  //Pull the first name out of first and last name string
-  int indexOfSpace = finalName.indexOf(' ');
+
+String getFirstName(String name) {
+  int indexOfSpace = name.indexOf(' ');
 
   if (indexOfSpace == -1) {
-    return finalName;
+    return name;
   } else {
-    String result = finalName.substring(0, indexOfSpace);
+    String result = name.substring(0, indexOfSpace);
     return result;
   }
 }
 
+String getLastName(String name) {
+  int indexOfSpace = name.indexOf(' ');
 
+  if (indexOfSpace == -1) {
+    return "";
+  } else {
+    return name.substring(indexOfSpace + 1);
+  }
+}
+
+
+/*
 void callAppleSignIn() async {
   User? user = await signInWithApple();
   if (user != null) {
@@ -155,14 +210,16 @@ void callAppleSignIn() async {
 
 Future<User?> signInWithApple() async {
   try {
-    final AuthorizationCredentialAppleID appleIdCredential = await SignInWithApple.getAppleIDCredential(
+    final AuthorizationCredentialAppleID appleIdCredential =
+        await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
       ],
       webAuthenticationOptions: WebAuthenticationOptions(
         clientId: 'com.codelabdavis.Passpal',
-        redirectUri: Uri.parse('https://password-manager-1712b.firebaseapp.com/__/auth/handler'),
+        redirectUri: Uri.parse(
+            'https://password-manager-1712b.firebaseapp.com/__/auth/handler'),
       ),
     );
 
@@ -172,16 +229,17 @@ Future<User?> signInWithApple() async {
       accessToken: appleIdCredential.authorizationCode,
     );
 
-    final UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
+    final UserCredential authResult =
+        await FirebaseAuth.instance.signInWithCredential(credential);
     final User? user = authResult.user;
     return user;
   } catch (error) {
-      print('Error signing in with Apple: $error');
+    print('Error signing in with Apple: $error');
     return null;
   }
 }
 
-/*
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

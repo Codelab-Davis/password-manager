@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                     color: const Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(31),
                     image: DecorationImage(
-                      image: AssetImage('assets/Paisley.jpeg'), // Replace 'assets/penguin.jpeg' with the path to your image
+                      image: AssetImage('assets/paisley.jpg'), // Replace 'assets/penguin.jpeg' with the path to your image
                       fit: BoxFit.cover, // You can adjust the fit as needed
                     ),
                   ),

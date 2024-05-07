@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/totp-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'route.dart';
-
+import 'package:password_manager/global.dart';
+import 'package:password_manager/route.dart';
 
 bool isPasswordSame = false;
 void main() {
@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -54,77 +53,278 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child: TextField(
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0, top: 32.0),
+              child: SizedBox(
+                height: 30,
+                child: Text(
+                  'Sign up to Passpal',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 25,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: SizedBox(
+                height: 50,
+                child: Text(
+                  'Enter your login details to get started',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'First Name',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'First Name'
-                    ),
+                    border: InputBorder.none, // Remove default border
+                    hintText: 'John',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
                   controller: firstNameController,
+                ),
               ),
             ),
             const SizedBox(height: 15),
-            
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child: TextField(
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Last Name',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Last Name'
-                    ),
+                    border: InputBorder.none,
+                    hintText: 'Doe',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
                   controller: lastNameController,
+                ),
               ),
             ),
             const SizedBox(height: 15),
-            
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child: TextField(
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Email',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(), 
-                    hintText: 'Email'
-                    ),
+                    border: InputBorder.none,
+                    hintText: 'johndoe@gmail.com',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
                   controller: emailController,
-              ),
-            ),
-            const SizedBox(height: 15),
-            
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child:
-              TextField(
-                obscureText: isHidden, // Use the isHidden variable here
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
                 ),
-                controller: passwordController,
               ),
             ),
             const SizedBox(height: 15),
-            
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child:
-              TextField(
-                obscureText: isHidden, // Use the isHidden variable here
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Confirm Password',
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Phone Number',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                 ),
-                controller: confirmPasswordController,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'johndoe',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
+                  controller: phoneNumberController,
+                ),
               ),
             ),
             const SizedBox(height: 15),
-            
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Password',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
+                  obscureText: isHidden, // Use the isHidden variable here
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter your password',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
+                  controller: passwordController,
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Confirm Password',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF323232),
+                  fontSize: 16,
+                  fontFamily: 'Outfit',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Rounded corners with a radius of 10 pixels
+                  border: Border.all(), // Add border
+                ),
+                child: TextField(
+                  obscureText: isHidden, // Use the isHidden variable here
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Re-enter your password',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0), // Adjust content padding
+                  ),
+                  controller: confirmPasswordController,
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
             Visibility(
-              visible: isPasswordSame, // Set visibility based on the boolean variable
-              child: const Padding (
+              visible:
+                  isPasswordSame, // Set visibility based on the boolean variable
+              child: const Padding(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Row(
                   children: [
@@ -138,57 +338,70 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-
-            Padding (
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0), // Adds padding of 20 pixels to the left and right
-              child:
-              CheckboxListTile(
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right:
+                      20.0), // Adds padding of 20 pixels to the left and right
+              child: CheckboxListTile(
                 value: isChecked,
-                title: Text('Show Password'),
-                onChanged: (val){
+                title: const Text('Show Password'),
+                onChanged: (val) {
                   setState(() {
                     isChecked = val;
                     togglePassword();
                   });
                 },
-                controlAffinity: ListTileControlAffinity.leading,     
+                controlAffinity: ListTileControlAffinity.leading,
               ),
-            ),            
-            const SizedBox(height: 30),
-              
-            ElevatedButton(
-              onPressed: () {
-                if (passwordController.text != confirmPasswordController.text) {
-                  setState(() {
-                    isPasswordSame = true;
-                  });
-                  return;
-                }
-                setState(() {
-                  isPasswordSame = false;
-                });
-                postData(firstNameController.text, lastNameController.text, emailController.text, phoneNumberController.text, passwordController.text);
-                isPasswordSame = false;   
-              },
-            child: const Text("Sign Up")
-      ),
-            const SizedBox(height: 5),
-            
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
-                );
-              },
-              child: const Text('Generate TOTP'),
             ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        setState(() {
+                          isPasswordSame = true;
+                        });
+                        return;
+                      }
+                      setState(() {
+                        isPasswordSame = false;
+                      });
+                      postData(
+                          firstNameController.text,
+                          lastNameController.text,
+                          emailController.text,
+                          phoneNumberController.text,
+                          passwordController.text,
+                          "Passpal",
+                          );
+                    },
+                    child: const Text("Sign Up")),
+                const SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GenerateTOTPPage(
+                              secret: Global.result?.code ?? '')),
+                    );
+                  },
+                  child: const Text('Generate TOTP'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 65),
           ],
         ),
       ),
     );
   }
-  
+
   void togglePassword() {
     setState(() {
       isHidden = !isHidden;

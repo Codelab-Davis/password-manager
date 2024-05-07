@@ -57,8 +57,10 @@ dependencies:
   cloud_firestore: ^4.17.0
   flutter_svg: ^2.0.9
   the_apple_sign_in: ^1.1.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
+  flutter_launcher_icons: 
   flutter_test:
     sdk: flutter
 
@@ -72,6 +74,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/appLogo.png"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -85,7 +91,9 @@ flutter:
     - assets/apple.png
     - assets/facebook.png
     - assets/google.png
-    - assets/Paisley.jpeg
+    - assets/paisley.jpg
+    - assets/paisleyIcon.jpg
+    - assets/appLogo.png
     - assets/icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

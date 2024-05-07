@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:password_manager/logger.dart';
-import 'package:timezone/data/latest.dart' as timezone;
 import 'package:password_manager/splash-page.dart';
-import 'signup-page.dart';
+import 'package:timezone/data/latest.dart' as timezone;
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'firebase_options.dart';
+import 'signup_page.dart';
 
 
 void main() async {
