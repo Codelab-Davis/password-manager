@@ -8,7 +8,6 @@ class QRScannerPage extends StatefulWidget {
   const QRScannerPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _QRScannerPageState createState() => _QRScannerPageState();
 }
 
@@ -23,7 +22,14 @@ class _QRScannerPageState extends State<QRScannerPage> {
     int _selectedIndex = 1;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Scanner'),
+          title: const Text(
+        'QR Scanner',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: Colors.transparent,
       ),
       body: Column(
         children: <Widget>[
@@ -37,7 +43,6 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  // ignore: sized_box_for_whitespace
                   child: Container(
                     width: 250,
                     height: 300,
@@ -183,11 +188,11 @@ class _QRScannerPageState extends State<QRScannerPage> {
         ],
       ),
       floatingActionButton: Container(
-        width: 345,
+        width: 365,
         height: 59,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(left: 15, right: 18),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -206,7 +211,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 icon: Icon(
                   Icons.home,
                   size: 35,
-                  color: _selectedIndex == 0 ? Colors.blue : null,
+                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -219,7 +224,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 icon: Icon(
                   Icons.qr_code,
                   size: 35,
-                  color: _selectedIndex == 1 ? Colors.blue : null,
+                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -232,7 +237,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 icon: Icon(
                   Icons.key_sharp,
                   size: 35,
-                  color: _selectedIndex == 2 ? Colors.blue : null,
+                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -245,7 +250,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 icon: Icon(
                   Icons.person,
                   size: 35,
-                  color: _selectedIndex == 3 ? Colors.blue : null,
+                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -276,7 +281,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const AccountsPage(user: null,)),
+          MaterialPageRoute(
+              builder: (context) => const AccountsPage(
+                    user: null,
+                  )),
         );
         break;
       case 3:

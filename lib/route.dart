@@ -7,7 +7,7 @@ final Logger _logger = Logger('NetworkService');
 
 Future<void> fetchData() async {
   try {
-    final response = await http.get(Uri.parse('http://localhost:5001/test/')); //Change back to 5000
+    final response = await http.get(Uri.parse('http://localhost:5000/test/')); 
     if (response.statusCode == 200) {
       _logger.info('Data from backend: ${response.body}');
     } else {
@@ -26,7 +26,7 @@ postData(String firstName, String lastName, String email, String phoneNumber, St
   // 1 user per email acc
   try {
     print('In PostData');
-    var url = Uri.http('localhost:5001', '/test/add'); //Change back to 5000
+    var url = Uri.http('localhost:5000', '/test/add'); 
     var response = await http.post(
       url,
       headers: <String, String>{
