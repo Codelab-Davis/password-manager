@@ -3,23 +3,26 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/qr-scanner.dart';
-import 'package:timezone/timezone.dart' as timezone;
-import 'package:password_manager/accounts.dart';
+import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/passbook-page.dart';
+
 
 class GenerateTOTPPage extends StatefulWidget {
+  final String secret;
+
+  const GenerateTOTPPage({Key? key, required this.secret}) : super(key: key);
+
   @override
   _GenerateTOTPPageState createState() => _GenerateTOTPPageState();
 }
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
-  int reloadTimer = 30; // Initial reload time in seconds for visual countdown
+  int reloadTimer = 30; 
   Timer? countdownTimer;
-
+  int _selectedIndex = 0;
   bool isHidden = true;
 
-  // TextEditingController _textController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -83,34 +86,86 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      floatingActionButton: Container(
+        width: 345,
+        height: 59,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.key_sharp,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Colors.blue : null,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings), // Corrected icon for the fourth option
-            label: 'Settings', // Label for the new fourth button
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
         break;
@@ -124,37 +179,36 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
+            builder: (context) => const AccountsPage(user: null,),
           ),
         );
-        // Handle profile navigation
         break;
       case 3:
         Navigator.pushReplacement(
           context as BuildContext,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(),
+            builder: (context) => const UserProfilePage(),
           ),
         );
-        // Handle profile navigation
         break;
     }
   }
 
   void generateOTP() {
-    final now = DateTime.now();
-    String secret = 'wd3lkvjuihkxxzoadjhkamx4faiuoajx';
-    setState(() {
-      otp = OTP.generateTOTPCodeString(
-        secret,
-        now.millisecondsSinceEpoch,
-        length: 6,
-        interval: 30,
-        algorithm: Algorithm.SHA1,
-        isGoogle: true,
-      );
-    });
-  }
+  final now = DateTime.now();
+  
+  setState(() {
+    otp = OTP.generateTOTPCodeString(
+      widget.secret,
+      now.millisecondsSinceEpoch,
+      length: 6,
+      interval: 30,
+      algorithm: Algorithm.SHA1,
+      isGoogle: true,
+    );
+  });
+}
+
 
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -162,8 +216,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         if (reloadTimer > 0) {
           reloadTimer--;
         } else {
-          generateOTP(); // Automatically generate a new OTP
-          reloadTimer = 30; // Reset reload time
+          generateOTP(); 
+          reloadTimer = 30; 
         }
       });
     });
@@ -171,7 +225,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void resetReloadTimer() {
     setState(() {
-      reloadTimer = 30; // Reset the reload timer to 30 seconds
+      reloadTimer = 30; 
     });
   }
 }

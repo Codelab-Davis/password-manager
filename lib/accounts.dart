@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:password_manager/3rd_party_signin.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/qr-scanner.dart';
-import 'package:password_manager/totp_generator.dart';
+import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/totp-page.dart';
+import 'package:password_manager/global.dart';
+
+
 
 class AccountsPage extends StatefulWidget {
-  const AccountsPage({super.key});
+  final dynamic user;
+
+  const AccountsPage({super.key, required this.user});
 
   @override
   State<AccountsPage> createState() => _AccountsPageState();
@@ -16,18 +20,6 @@ class _AccountsPageState extends State<AccountsPage> {
   var firstTap = false;
   var secondTap = false;
   var thirdTap = false;
-  late String userName;
-
-  @override
-  void initState() {
-    super.initState();
-    initializeUserName();
-  }
-
-  void initializeUserName() async {
-    userName = await getUserName();
-    setState(() {});
-  }
 
   changeButtons(button) {
     setState(() {
@@ -80,6 +72,9 @@ class _AccountsPageState extends State<AccountsPage> {
                   const Color.fromARGB(255, 220, 220, 220)),
               hintText: "Search passwords...",
             ),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
               height: 50,
@@ -91,11 +86,13 @@ class _AccountsPageState extends State<AccountsPage> {
                     onPressed: () => changeButtons(1),
                     child: const Text('Recently Added'),
                   ),
+                  const SizedBox(width: 10),
                   ElevatedButton(
                     style: getStyle(secondTap),
                     onPressed: () => changeButtons(2),
                     child: const Text('Most Used'),
                   ),
+                  const SizedBox(width: 10),
                   ElevatedButton(
                     style: getStyle(thirdTap),
                     onPressed: () => changeButtons(3),
@@ -109,13 +106,16 @@ class _AccountsPageState extends State<AccountsPage> {
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
-                  "Welcome, ${userName ?? 'User'} 🔒",
+                  "Welcome, " + widget.user[0]['firstName'] + '🔒',
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Container(
               height: MediaQuery.of(context).size.height - 350,
@@ -183,7 +183,7 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
         currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.grey, 
         onTap: _onItemTapped,
       ),
     );
@@ -192,11 +192,14 @@ class _AccountsPageState extends State<AccountsPage> {
   void _onItemTapped(int index) {
     switch (index) {
       case 0:
-        Navigator.pushReplacement(
+      Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => GenerateTOTPPage()),
+          MaterialPageRoute(
+            builder: (context) =>
+                GenerateTOTPPage(secret: Global.result?.code ?? ''),
+          ),
         );
-        break;
+      break;
       case 1:
         Navigator.pushReplacement(
           context as BuildContext,

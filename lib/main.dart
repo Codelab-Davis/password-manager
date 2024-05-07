@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:password_manager/logger.dart';
 import 'package:timezone/data/latest.dart' as timezone;
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'firebase_options.dart';
-import 'signup_page.dart';
-import 'login.dart';
+import 'package:password_manager/splash-page.dart';
+import 'signup-page.dart';
 
 
 void main() async {
@@ -32,11 +30,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // Here you directly define your theme settings
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Login(),
+      home: WelcomeScreen(),
     );
   }
 }

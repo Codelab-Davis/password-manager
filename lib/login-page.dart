@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'accounts.dart';
+import 'dart:convert';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'signup_page.dart';
@@ -15,12 +17,34 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool checked = false;
   bool showPassword = true;
+  bool showError = false;
+
+  dynamic currentUser;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Color getColor(Set<MaterialState> states) {
     if (checked) {
       return Colors.black;
     } else {
       return Colors.white;
+    }
+  }
+
+  Future<bool> verifyCredentials(String email, String password) async {
+    try {
+      final queryParameters = {'email': email, 'password': password};
+      final uri =
+          Uri.http('localhost:5000', '/test/:email/:password', queryParameters);
+      final response = await http.get(uri);
+      if (response.body == "[]") {
+        return false;
+      }
+      currentUser = jsonDecode(response.body);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -63,14 +87,17 @@ class _LoginState extends State<Login> {
                 const SizedBox(
                   height: 15,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                       left: 20.0,
                       right:
                           20.0), // Adds padding of 20 pixels to the left and right
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Email'),
+                  child: SizedBox(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Email'),
+                      controller: emailController,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -84,7 +111,7 @@ class _LoginState extends State<Login> {
                   child: TextField(
                     obscureText: showPassword,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Password',
                       suffixIcon: IconButton(
                         icon: Icon(showPassword
@@ -99,6 +126,27 @@ class _LoginState extends State<Login> {
                         },
                       ),
                     ),
+                    controller: passwordController,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Visibility(
+                        visible: showError,
+                        child: const Text(
+                          "Username or Password is Invalid!",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 0, 0),
+                            fontSize: 15,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Row(
@@ -106,7 +154,6 @@ class _LoginState extends State<Login> {
                   children: [
                     Row(
                       children: [
-                        const SizedBox(width: 5),
                         Theme(
                           data: ThemeData(
                             checkboxTheme: CheckboxThemeData(
@@ -167,6 +214,54 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            const Color.fromARGB(255, 220, 220, 220)),
+                        foregroundColor: MaterialStateProperty.all(
+                            const Color(0xFF404447)), // Text color
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            // BorderRadius
+                          ),
+                        ),
+                        padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 6)),
+                      ),
+                      onPressed: () async {
+                        if (await verifyCredentials(
+                            emailController.text, passwordController.text)) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AccountsPage(user: currentUser),
+                              ));
+                        } else {
+                          setState(() {
+                            showError = true;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(
+                          color: Color(0xFF323232),
+                          fontSize: 15,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w400,
+                          height: 0.06,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -214,7 +309,7 @@ class _LoginState extends State<Login> {
                           horizontal: 10), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
-                          callAppleSignIn();
+                          appleSignIn(context);
                         },
                         icon: Image.asset('assets/apple.png',
                             width: 40, height: 40),
