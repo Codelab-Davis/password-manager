@@ -25,6 +25,55 @@ class _NewAccountState extends State<NewAccount> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController notesController = TextEditingController();
 
+  late File _imageFile;
+
+  bool imagePicked = false;
+
+  Future<void> _getImage() async {
+    final imageSource = await showCupertinoModalPopup<ImageSource>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            child: const Text('Take a Picture'),
+            onPressed: () {
+              Navigator.pop(context, ImageSource.camera);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Choose from Gallery'),
+            onPressed: () {
+              Navigator.pop(context, ImageSource.gallery);
+            },
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          child: Text('Cancel'),
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+
+    if (imageSource == null) {
+      return;
+    }
+
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: imageSource);
+
+    if (pickedFile == null) {
+      return;
+    }
+
+    setState(() {
+      _imageFile = File(pickedFile.path);
+      imagePicked = true;
+    });
+  }
+
   void updateUser(
       String appName, String username, String password, String notes) async {
     final id = widget.user[0]['_id'];
@@ -427,7 +476,7 @@ class _NewAccountState extends State<NewAccount> {
               width: 100,
               height: 100,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _getImage,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                     const Color(0xFFE4E4F9),
@@ -442,22 +491,24 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                   ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/add_icon.svg'),
-                    const Text(
-                      'Add Icon',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF313131),
-                        fontSize: 12,
-                        fontFamily: 'Outfit',
-                        fontWeight: FontWeight.w700,
+                child: imagePicked
+                    ? Image.file(_imageFile)
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/add_icon.svg'),
+                          const Text(
+                            'Add Icon',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF313131),
+                              fontSize: 12,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ),
