@@ -173,7 +173,7 @@ class _AccountsPageState extends State<AccountsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const NewAccount()),
+                                      builder: (context) => NewAccount(user: widget.user)),
                                 );
                                 _addAccount();
                               });

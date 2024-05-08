@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/accounts.dart';
 import 'global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,7 +10,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 
 class NewAccount extends StatefulWidget {
-  const NewAccount({super.key});
+  final dynamic user;
+  const NewAccount({super.key, required this.user});
 
   @override
   State<NewAccount> createState() => _NewAccountState();
@@ -25,23 +27,34 @@ class _NewAccountState extends State<NewAccount> {
 
   void updateUser(
       String appName, String username, String password, String notes) async {
-    final id = Global.user[0]['_id'];
+    final id = widget.user[0]['_id'];
     var url = Uri.http('localhost:5000', '/test/updateAccounts/$id');
+    final account = jsonEncode({
+      'appName': appName,
+      'username': username,
+      'password': password,
+      'notes': notes,
+    });
     try {
       await http.put(
         url,
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({
-          'appName': appName,
-          'username': username,
-          'password': password,
-          'notes': notes,
-        }),
+        body: account,
+      );
+      widget.user[0]['accounts'].add(account);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Account successfully saved!'),
+        ),
       );
     } catch (e) {
-      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error saving account information! Please try again.'),
+        ),
+      );
     }
   }
 
@@ -56,7 +69,11 @@ class _NewAccountState extends State<NewAccount> {
             left: 20,
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AccountsPage(user: widget.user)),
+                );
               },
               icon: const Icon(Icons.arrow_back),
             ),
@@ -319,6 +336,12 @@ class _NewAccountState extends State<NewAccount> {
                             usernameController.text,
                             passwordController.text,
                             notesController.text);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AccountsPage(user: widget.user)),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -364,7 +387,12 @@ class _NewAccountState extends State<NewAccount> {
                                 horizontal: 16, vertical: 6)), // Padding
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AccountsPage(user: widget.user)),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

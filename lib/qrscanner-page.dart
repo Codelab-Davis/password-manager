@@ -212,7 +212,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
     switch (index) {
       case 0:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(
               builder: (BuildContext context) =>
                   GenerateTOTPPage(secret: result?.code ?? '')),
