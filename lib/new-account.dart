@@ -160,10 +160,7 @@ class _NewAccountState extends State<NewAccount> {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0,
-                        right:
-                            40.0), // Adds padding of 20 pixels to the left and right
+                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
                       height: 45,
                       child: TextField(
@@ -205,10 +202,7 @@ class _NewAccountState extends State<NewAccount> {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0,
-                        right:
-                            40.0), // Adds padding of 20 pixels to the left and right
+                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
                       height: 50,
                       child: TextField(
@@ -250,10 +244,7 @@ class _NewAccountState extends State<NewAccount> {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0,
-                        right:
-                            40.0), // Adds padding of 20 pixels to the left and right
+                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
                       height: 50,
                       child: TextField(
@@ -333,10 +324,7 @@ class _NewAccountState extends State<NewAccount> {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0,
-                        right:
-                            40.0), // Adds padding of 20 pixels to the left and right
+                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
                       height: 200,
                       child: TextField(
@@ -368,8 +356,8 @@ class _NewAccountState extends State<NewAccount> {
                         backgroundColor: MaterialStateProperty.all(
                           const Color(0xFFE4E4F9),
                         ),
-                        foregroundColor: MaterialStateProperty.all(
-                            Colors.black), // Text color
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -377,7 +365,7 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6)), // Padding
+                                horizontal: 16, vertical: 6)),
                       ),
                       onPressed: () {
                         updateUser(
@@ -433,7 +421,7 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6)), // Padding
+                                horizontal: 16, vertical: 6)),
                       ),
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -475,40 +463,61 @@ class _NewAccountState extends State<NewAccount> {
             child: SizedBox(
               width: 100,
               height: 100,
-              child: ElevatedButton(
-                onPressed: _getImage,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    const Color(0xFFE4E4F9),
-                  ),
-                  foregroundColor:
-                      MaterialStateProperty.all(Colors.black), // Text color
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: const BorderSide(
-                            color: Color.fromARGB(200, 0, 0, 0)) // BorderRadius
-                        ),
-                  ),
-                ),
-                child: imagePicked
-                    ? Image.file(_imageFile)
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/add_icon.svg'),
-                          const Text(
-                            'Add Icon',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF313131),
-                              fontSize: 12,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w700,
+              child: GestureDetector(
+                onTap: _getImage,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _getImage,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            const Color(0xFFE4E4F9),
+                          ),
+                          foregroundColor: MaterialStateProperty.all(
+                              Colors.black), // Text color
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                              side: const BorderSide(
+                                color: Color.fromARGB(200, 0, 0, 0),
+                              ),
                             ),
                           ),
-                        ],
+                        ),
+                        child: Container(),
                       ),
+                    ),
+                    Positioned.fill(
+                      child: imagePicked
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.file(
+                                _imageFile,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/add_icon.svg'),
+                                const Text(
+                                  'Add Icon',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF313131),
+                                    fontSize: 12,
+                                    fontFamily: 'Outfit',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
