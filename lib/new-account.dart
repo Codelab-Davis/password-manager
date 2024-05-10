@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
-import 'global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +7,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
@@ -26,6 +26,8 @@ class _NewAccountState extends State<NewAccount> {
   TextEditingController notesController = TextEditingController();
 
   late File _imageFile;
+
+  String _imageData = '';
 
   bool imagePicked = false;
 
@@ -48,7 +50,7 @@ class _NewAccountState extends State<NewAccount> {
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           isDefaultAction: true,
           onPressed: () {
             Navigator.pop(context);
@@ -68,8 +70,15 @@ class _NewAccountState extends State<NewAccount> {
       return;
     }
 
+    File imageFile = File(pickedFile.path);
+    Uint8List bytes = await imageFile.readAsBytes();
+
+    String base64String = base64.encode(bytes);
+
     setState(() {
       _imageFile = File(pickedFile.path);
+      _imageData = base64String;
+      print(_imageData);
       imagePicked = true;
     });
   }
