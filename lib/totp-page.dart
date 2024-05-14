@@ -5,6 +5,7 @@ import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/global.dart';
+import 'package:password_manager/accounts.dart';
 import 'package:password_manager/passbook-page.dart';
 
 
@@ -194,7 +195,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => AccountsPage(user: Global.user),
+            builder: (context) => const UserProfilePage();
           ),
         );
         break;

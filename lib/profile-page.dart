@@ -7,7 +7,7 @@ import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/splash-page.dart';
 import 'package:password_manager/totp-page.dart';
-import 'package:password_manager/passbook-page.dart';
+import 'package:password_manager/accounts.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);

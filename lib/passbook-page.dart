@@ -5,16 +5,16 @@ import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/global.dart';
 
-class AccountsPage extends StatefulWidget {
+class PassbookPage extends StatefulWidget {
   final dynamic user;
 
-  const AccountsPage({super.key, required this.user});
+  const PassbookPage({super.key, required this.user});
 
   @override
-  State<AccountsPage> createState() => _AccountsPageState();
+  State<PassbookPage> createState() => _AccountsPageState();
 }
 
-class _AccountsPageState extends State<AccountsPage> {
+class _AccountsPageState extends State<PassbookPage> {
   var firstTap = false;
   var secondTap = false;
   var thirdTap = false;
