@@ -7,7 +7,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
 import 'signup_page.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +34,16 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: WelcomeScreen(),
+      
     );
   }
 }
 
+double getScaledSize(BuildContext context, double desiredSize) {
+  const double screenWidth = 430; //1290 pixels
+  const double screenHeight = 932;
+  
+  double factor = screenWidth / desiredSize;
+
+  return MediaQuery.of(context).size.width/factor;
+}

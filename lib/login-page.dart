@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:password_manager/main.dart';
 import 'accounts.dart';
 import 'dart:convert';
 import 'package:flutter/rendering.dart';
@@ -14,6 +15,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+//  could you be my bodyguard?
 class _LoginState extends State<Login> {
   bool checked = false;
   bool showPassword = true;
@@ -56,91 +58,113 @@ class _LoginState extends State<Login> {
         children: [
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: getScaledSize(context, 15),
+                ),
                 Container(
-                  width: 179,
-                  height: 177,
+                  width: MediaQuery.of(context).size.width / 2.7,
+                  height: MediaQuery.of(context).size.height / 6,
                   decoration: BoxDecoration(
                     color: const Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(31),
                     image: DecorationImage(
-                      image: AssetImage('assets/paisley.jpg'), // Replace 'assets/penguin.jpeg' with the path to your image
+                      image: AssetImage(
+                          'assets/paisley.jpg'), // Replace 'assets/penguin.jpeg' with the path to your image
                       fit: BoxFit.cover, // You can adjust the fit as needed
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: getScaledSize(context, 4),
                 ),
-                const Text(
+                Text(
                   'Welcome!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF313131),
-                    fontSize: 40,
+                    fontSize: getScaledSize(context, 40),
                     fontFamily: 'Outfit',
                     fontWeight: FontWeight.w700,
                     height: 0,
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: getScaledSize(context, 30),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right:
-                          20.0), // Adds padding of 20 pixels to the left and right
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSize(context, 35),
+                  ),
                   child: SizedBox(
+                    height: getScaledSize(context, 50),
                     child: TextField(
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: 'Email'),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: getScaledSize(context, 20),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        hintText: 'Email',
+                      ),
                       controller: emailController,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: getScaledSize(context, 20),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right:
-                          20.0), // Adds padding of 20 pixels to the left and right
-                  child: TextField(
-                    obscureText: showPassword,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: 'Password',
-                      suffixIcon: IconButton(
-                        icon: Icon(showPassword
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          setState(
-                            () {
-                              showPassword = !showPassword;
-                            },
-                          );
-                        },
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSize(context, 35),
+                  ), // Adds padding of 20 pixels to the left and right
+                  child: SizedBox(
+                    height: getScaledSize(context, 50),
+                    child: TextField(
+                      obscureText: showPassword,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: getScaledSize(context, 20),
+                        ),
+                        hintText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(showPassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_rounded),
+                          onPressed: () {
+                            setState(
+                              () {
+                                showPassword = !showPassword;
+                              },
+                            );
+                          },
+                        ),
                       ),
+                      controller: passwordController,
                     ),
-                    controller: passwordController,
                   ),
                 ),
+                SizedBox(
+                  height: getScaledSize(context, 5),
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSize(context, 35),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Visibility(
                         visible: showError,
-                        child: const Text(
+                        child: Text(
                           "Username or Password is Invalid!",
                           style: TextStyle(
                             color: Color.fromARGB(255, 255, 0, 0),
-                            fontSize: 15,
+                            fontSize: getScaledSize(context, 15),
                             fontFamily: 'Outfit',
                             fontWeight: FontWeight.w400,
                           ),
@@ -149,86 +173,98 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Theme(
-                          data: ThemeData(
-                            checkboxTheme: CheckboxThemeData(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    3), // Adjust the border radius if needed
-                                side: BorderSide(
-                                  color: Colors.grey, // Set the border color
-                                  width: 0, // Adjust the border width
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSize(context, 22),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Theme(
+                            data: ThemeData(
+                              checkboxTheme: CheckboxThemeData(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  side: BorderSide(
+                                    color:
+                                        const Color.fromRGBO(158, 158, 158, 1),
+                                    width: 0.1,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          child: Checkbox(
-                            visualDensity: VisualDensity(
-                              vertical:
-                                  0, // Adjust the vertical density to make the checkbox less thick
-                              horizontal:
-                                  0, // Adjust the horizontal density if needed
+                            child: Checkbox(
+                              visualDensity: VisualDensity(
+                                vertical: 0.1,
+                                horizontal: 0.1,
+                              ),
+                              fillColor:
+                                  MaterialStateProperty.resolveWith(getColor),
+                              checkColor: Colors.white,
+                              value: checked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  checked = value!;
+                                });
+                              },
                             ),
-                            fillColor:
-                                MaterialStateProperty.resolveWith(getColor),
-                            checkColor: Colors.white,
-                            value: checked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checked = value!;
-                              });
-                            },
                           ),
-                        ),
-                        const Text(
-                          'Remember Me',
-                          style: TextStyle(
-                            color: Color(0xFF323232),
-                            fontSize: 15,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                            height: 0.06,
+                          Text(
+                            'Remember Me',
+                            style: TextStyle(
+                              color: Color(0xFF323232),
+                              fontSize: getScaledSize(context, 15),
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w400,
+                              height: 0.06,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const Row(
-                      children: [
-                        Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            color: Color(0xFF323232),
-                            fontSize: 15,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.bold,
-                            height: 0.06,
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: Color(0xFF323232),
+                              fontSize: getScaledSize(context, 15),
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.bold,
+                              height: 0.06,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 20),
-                      ],
-                    ),
-                  ],
+                          SizedBox(width: 20),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: getScaledSize(context, 10),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSize(context, 35),
+                  ),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 40,
+                    height: getScaledSize(context, 47),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            const Color.fromARGB(255, 220, 220, 220)),
+                        backgroundColor:
+                            MaterialStateProperty.all(const Color(0xFFE4E4F9)),
                         foregroundColor: MaterialStateProperty.all(
-                            const Color(0xFF404447)), // Text color
+                            Color.fromARGB(255, 255, 255, 255)), // Text color
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            // BorderRadius
+                            side: BorderSide(
+                              color: const Color(
+                                  0xFF404447), // Add thin outline color
+                              width: 0.5, // Add thin outline width
+                            ),
                           ),
                         ),
                         padding: MaterialStateProperty.all(
@@ -241,7 +277,8 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AccountsPage(user: currentUser),
+                                builder: (context) =>
+                                    AccountsPage(user: currentUser),
                               ));
                         } else {
                           setState(() {
@@ -249,126 +286,118 @@ class _LoginState extends State<Login> {
                           });
                         }
                       },
-                      child: const Text(
-                        "Log In",
+                      child: Text(
+                        "Sign In",
                         style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSize(context, 15),
                           fontFamily: 'Outfit',
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
                           height: 0.06,
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Log In',
-                    style: TextStyle(
-                      color: Color(0xFF323232),
-                      fontSize: 15,
-                      fontFamily: 'Outfit',
-                      fontWeight: FontWeight.w400,
-                      height: 0.06,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: getScaledSize(context, 50),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: const EdgeInsets.only(left: 20.0, right: 15.0),
+                        margin: EdgeInsets.only(left: getScaledSize(context, 37.5), right: getScaledSize(context, 25)),
                         child: const Divider(),
                       ),
                     ),
-                    const Text("or"),
+                    Text("or",
+                      style: TextStyle(
+                        fontSize: getScaledSize(context, 16),
+                        fontWeight: FontWeight.w500, // Make text bold
+                      ),
+                    ),
                     Expanded(
                       child: Container(
-                        margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                        margin: EdgeInsets.only(left: getScaledSize(context, 25), right: getScaledSize(context, 37.5)),
                         child: const Divider(),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: getScaledSize(context, 32),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 10), // Add horizontal padding
+                          horizontal: getScaledSize(context, 10)), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
                           appleSignIn(context);
                         },
                         icon: Image.asset('assets/apple.png',
-                            width: 40, height: 40),
+                            width: getScaledSize(context, 40), height: getScaledSize(context, 40)),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 10), // Add horizontal padding
+                          horizontal: getScaledSize(context, 10)), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
                           AuthMethods().signInWithGoogle(context);
                         },
                         icon: Image.asset('assets/google.png',
-                            width: 54, height: 54),
+                            width: getScaledSize(context, 54), height: getScaledSize(context, 54)),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10), // Add horizontal padding
+                      padding: EdgeInsets.symmetric(horizontal: getScaledSize(context, 10)),
                       child: IconButton(
                         onPressed: () {
                           // Add your onPressed logic here
                         },
                         icon: Image.asset('assets/facebook.png',
-                            width: 36, height: 36),
+                            width: getScaledSize(context, 36), height: getScaledSize(context, 36)),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                SizedBox(
+                  height: getScaledSize(context, 30),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: getScaledSize(context, 10),
                       child: Text(
                         "Don't have an account?",
                         style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSize(context, 15),
                           fontFamily: 'Outfit',
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           height: 0.06,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 5),
                     SizedBox(
-                      width: 58.5,
-                      height: 10,
+                      width: getScaledSize(context, 5)
+                    ),
+                    SizedBox(
+                      width: getScaledSize(context, 58.5),
+                      height: getScaledSize(context, 10),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, '/signUp');
                         },
-                        child: const Text(
+                        child: Text(
                           "Sign up",
                           style: TextStyle(
                             color: Color(0xFF323232),
-                            fontSize: 15,
+                            fontSize: getScaledSize(context, 15),
                             fontFamily: 'Outfit',
                             fontWeight: FontWeight.bold,
                             height: 0.06,

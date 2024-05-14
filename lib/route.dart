@@ -38,7 +38,7 @@ postData(String firstName, String lastName, String email, String phoneNumber, St
         'email': email,
         'phoneNumber': phoneNumber,
         'password': password,
-        'signUpType': signUpType,
+        'signUpType': signUpType
       }),
     );
     print('Response status: ${response.statusCode}'); //Helpful for debugging
