@@ -4,6 +4,7 @@ import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:password_manager/global.dart';
+import 'package:password_manager/route.dart';
 
 bool isPasswordSame = false;
 void main() {
@@ -35,32 +36,6 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-postData(String firstName, String lastName, String email, String phoneNumber,
-    String password) async {
-  isPasswordSame = false;
-  try {
-    print('In PostData');
-    var url = Uri.http('localhost:5000', '/test/add');
-    var response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'password': password,
-      }),
-    );
-    print('Response status: ${response.statusCode}'); //Helpful for debugging
-    print('Response body: ${response.body}'); //Helpful for debugging
-  } catch (e) {
-    print(e);
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
   bool? isChecked = false;
   bool isHidden = true;
@@ -88,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SizedBox(
                 height: 30,
                 child: Text(
-                  'Sign up to *app name*',
+                  'Sign up to Passpal',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Color(0xFF323232),
@@ -401,7 +376,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           lastNameController.text,
                           emailController.text,
                           phoneNumberController.text,
-                          passwordController.text);
+                          passwordController.text,
+                          "Passpal",
+                          );
                     },
                     child: const Text("Sign Up")),
                 const SizedBox(height: 50),

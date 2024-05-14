@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/new-account.dart';
+import 'package:password_manager/3rd_party_signin.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
@@ -16,6 +17,7 @@ class AccountsPage extends StatefulWidget {
 }
 
 class _AccountsPageState extends State<AccountsPage> {
+  int _selectedIndex = 2;
   var firstTap = false;
   var secondTap = false;
   var thirdTap = false;
@@ -230,25 +232,89 @@ class _AccountsPageState extends State<AccountsPage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
+        ),
+        floatingActionButton: Container(
+          width: 345,
+          height: 59,
+          margin: const EdgeInsets.only(left: 25, right: 25),
+          decoration: BoxDecoration(
+            color: Color(0xFF374375),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.home,
+                    size: 35,
+                    color:
+                        _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                    _onItemTapped(0);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.qr_code,
+                    size: 35,
+                    color:
+                        _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
+                    _onItemTapped(1);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.key_sharp,
+                    size: 35,
+                    color:
+                        _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 2;
+                    });
+                    _onItemTapped(2);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.person,
+                    size: 35,
+                    color:
+                        _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 3;
+                    });
+                    _onItemTapped(
+                      3,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: 3,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 
   void _onItemTapped(int index) {

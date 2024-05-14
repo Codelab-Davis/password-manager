@@ -30,6 +30,8 @@ const userSchema = new Schema({
     },
     accounts: {
         type: [accountSchema],
+    signUpType: {
+        type: String,
     }
 }, { versionKey: false });
 

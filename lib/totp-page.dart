@@ -21,7 +21,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
   int reloadTimer = 30; 
   Timer? countdownTimer;
-
+  int _selectedIndex = 0;
   bool isHidden = true;
 
   TextEditingController emailController = TextEditingController();
@@ -44,7 +44,13 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TOTP Generator'),
+        title: const Text(
+        'TOTP Generator',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      )
       ),
       body: Center(
         child: Column(
@@ -87,34 +93,86 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      floatingActionButton: Container(
+        width: 365,
+        height: 59,
+        margin: const EdgeInsets.only(left: 15, right: 18),
+        decoration: BoxDecoration(
+          color: Color(0xFF374375),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.key_sharp,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings), 
-            label: 'Settings', 
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey, 
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
         break;
@@ -128,10 +186,9 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
+            builder: (context) => const AccountsPage(user: null,),
           ),
         );
-        // Handle profile navigation
         break;
       case 3:
         Navigator.pushReplacement(
@@ -140,7 +197,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             builder: (context) => AccountsPage(user: Global.user),
           ),
         );
-        // Handle profile navigation
         break;
     }
   }

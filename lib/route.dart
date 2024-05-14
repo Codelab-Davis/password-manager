@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 
@@ -16,3 +18,32 @@ Future<void> fetchData() async {
   }
 }
 
+
+postData(String firstName, String lastName, String email, String phoneNumber, String password, String signUpType) async {
+  //Create if conditon for whether or not user is already logged in the data base, to prevent multiple users
+  // Using password should work for 3rd party since its a unique code for each new user
+  // we can check both email and password for Passpal Logins? Also need to implement only
+  // 1 user per email acc
+  try {
+    print('In PostData');
+    var url = Uri.http('localhost:5000', '/test/add'); 
+    var response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'password': password,
+        'signUpType': signUpType,
+      }),
+    );
+    print('Response status: ${response.statusCode}'); //Helpful for debugging
+    print('Response body: ${response.body}'); //Helpful for debugging
+  } catch (e) {
+    print(e);
+  }
+}

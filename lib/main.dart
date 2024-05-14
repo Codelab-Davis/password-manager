@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:password_manager/logger.dart';
+import 'package:password_manager/splash-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
-import 'splash-page.dart';
-import 'signup-page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'firebase_options.dart';
+import 'signup_page.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   timezone.initializeTimeZones();
   setupLogging();
+  await Firebase.initializeApp(
+  name: 'passpal-614b0',
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 
@@ -22,10 +32,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: WelcomeScreen(),
     );
   }
 }
+
