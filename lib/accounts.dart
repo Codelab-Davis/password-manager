@@ -232,7 +232,7 @@ class _AccountsPageState extends State<AccountsPage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-        ),
+        ]),
         floatingActionButton: Container(
           width: 345,
           height: 59,

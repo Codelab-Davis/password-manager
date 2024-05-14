@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
-import 'package:password_manager/accounts.dart';
 import 'package:password_manager/global.dart';
+import 'package:password_manager/passbook-page.dart';
 
 
 class GenerateTOTPPage extends StatefulWidget {

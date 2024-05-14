@@ -2,8 +2,8 @@ import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
-import 'package:password_manager/accounts.dart';
 import 'package:password_manager/global.dart';
+import 'package:password_manager/passbook-page.dart';
 
 class QRScannerPage extends StatefulWidget {
   const QRScannerPage({super.key});

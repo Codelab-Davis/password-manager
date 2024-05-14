@@ -54,7 +54,6 @@ dependencies:
 
   flutter_secure_storage: ^9.0.0
   empty_widget: ^0.0.5
-  flutter_svg: ^2.0.9
   image_picker: ^1.1.1
   sign_in_with_apple: ^6.1.0
   cloud_firestore: ^4.17.0
