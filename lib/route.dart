@@ -23,13 +23,14 @@ Future<void> fetchData() async {
 update2FA(String userId, String twoFAType) async {
   try {
     print('Updating 2FA Settings');
-    var url = Uri.http('localhost:5001', '/update2FAType'); 
-    var response = await http.put(
+    var url = Uri.http('localhost:5000', '/update2FAType'); 
+    var response = await http.post(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
+        'userId': userId,
         'twoFAType': twoFAType,  
       }),
     );
