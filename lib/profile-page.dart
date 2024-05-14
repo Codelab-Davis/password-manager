@@ -7,7 +7,7 @@ import 'package:password_manager/global.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/splash-page.dart';
 import 'package:password_manager/totp-page.dart';
-import 'package:password_manager/passbook-page.dart';  
+import 'package:password_manager/passbook-page.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -18,42 +18,6 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   int _selectedIndex = 3;
-
-  void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  GenerateTOTPPage(secret: Global.result?.code ?? '')),
-        );
-        break;
-      case 1:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => QRScannerPage()),
-        );
-        break;
-      case 2:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AccountsPage(user: Global.user),
-          ),
-        );
-        break;
-      case 3:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UserProfilePage(),
-          ),
-        );
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +29,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'User Profile Page',
-              style: TextStyle(fontSize: 24),
-            ),
             Container(
               width: 167,
               height: 167,
@@ -148,7 +108,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 50, left: 40, right: 40),
+                    padding:
+                        const EdgeInsets.only(top: 50, left: 40, right: 40),
                     child: Container(
                       width: 330,
                       height: 55,
@@ -197,7 +158,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 40, right: 40),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 40, right: 40),
                     child: Container(
                       width: 330,
                       height: 55,
@@ -246,7 +208,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 40, right: 40),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 40, right: 40),
                     child: Container(
                       width: 330,
                       height: 55,
@@ -388,5 +351,37 @@ class _UserProfilePageState extends State<UserProfilePage> {
         ),
       ),
     );
+  }
+}
+
+void _onItemTapped(int index, BuildContext context) {
+  switch (index) {
+    case 0:
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                GenerateTOTPPage(secret: Global.result?.code ?? '')),
+      );
+      break;
+    case 1:
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const QRScannerPage()),
+      );
+      break;
+    case 3:
+      break;
+    case 2:
+      Navigator.pushReplacement(
+        context as BuildContext,
+        MaterialPageRoute(
+          builder: (context) => const AccountsPage(
+            user: null,
+          ),
+        ),
+      );
+
+      break;
   }
 }
