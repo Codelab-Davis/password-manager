@@ -117,4 +117,23 @@ router.get('/:email/:password', (req, res) => {
     return;
 });
 
+
+
+app.post('/update2FAType', (req, res) => {
+    const new2FAType = req.body.twoFAType;
+    const collection = db.collection('users');  
+    collection.updateOne(
+        { _id: userId },
+        { $set: { twoFAType: new2FAType } },
+        (err, result) => {
+            if (err) {
+                res.status(500).send({ message: 'Error updating 2FA type' });
+                return;
+            }
+            res.send({ message: '2FA type updated successfully' });
+        }
+    );
+});
+
+
 module.exports = router;

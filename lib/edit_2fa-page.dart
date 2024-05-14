@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/profile-page.dart';
-
+import 'package:password_manager/route.dart';
 
 class Edit2FAPage extends StatefulWidget {
   const Edit2FAPage({Key? key}) : super(key: key);
@@ -11,23 +11,22 @@ class Edit2FAPage extends StatefulWidget {
   _Edit2FAPageState createState() => _Edit2FAPageState();
 }
 
-
-
 class _Edit2FAPageState extends State<Edit2FAPage> {
   bool isFaceID = false;
   bool isSMS = false;
   bool is6digit = false;
+  String twoFAType = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-        '2FA Preference',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+          '2FA Preference',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
       ),
       body: Center(
         child: Column(
@@ -39,17 +38,22 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
+                        twoFAType = 'Face ID';
                         isFaceID = !isFaceID;
                         isSMS = false;
                         is6digit = false;
                       });
+                      update2FA('userId', twoFAType);
+                      ;
                     },
                     child: Container(
                       width: 120,
                       height: 120,
                       margin: const EdgeInsets.only(top: 35),
                       decoration: BoxDecoration(
-                        color: isFaceID? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                        color: isFaceID
+                            ? Color.fromARGB(255, 215, 213, 213)
+                            : Color.fromARGB(255, 255, 253, 253),
                         shape: BoxShape.circle,
                         boxShadow: const [
                           BoxShadow(
@@ -86,17 +90,22 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
+                        twoFAType = 'SMS Passcode';
                         isSMS = !isSMS;
                         isFaceID = false;
                         is6digit = false;
                       });
+                      update2FA('userId', twoFAType);
+                      ;
                     },
                     child: Container(
                       width: 120,
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
-                      decoration:  ShapeDecoration(
-                        color: isSMS? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                      decoration: ShapeDecoration(
+                        color: isSMS
+                            ? Color.fromARGB(255, 215, 213, 213)
+                            : Color.fromARGB(255, 255, 253, 253),
                         shape: const OvalBorder(),
                         shadows: const [
                           BoxShadow(
@@ -133,17 +142,21 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
+                        twoFAType = '6-Digit Passcode';
                         is6digit = !is6digit;
                         isFaceID = false;
                         isSMS = false;
                       });
+                      update2FA('userId', twoFAType); 
                     },
                     child: Container(
                       width: 120,
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
-                      decoration:  ShapeDecoration(
-                        color: is6digit? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                      decoration: ShapeDecoration(
+                        color: is6digit
+                            ? Color.fromARGB(255, 215, 213, 213)
+                            : Color.fromARGB(255, 255, 253, 253),
                         shape: const OvalBorder(),
                         shadows: const [
                           BoxShadow(
@@ -257,4 +270,3 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
     );
   }
 }
-
