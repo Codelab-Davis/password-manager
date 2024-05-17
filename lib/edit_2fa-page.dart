@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/route.dart';
 
 class Edit2FAPage extends StatefulWidget {
   const Edit2FAPage({Key? key}) : super(key: key);
@@ -43,7 +42,6 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isSMS = false;
                         is6digit = false;
                       });
-                      update2FA('userId', twoFAType);
                       ;
                     },
                     child: Container(
@@ -95,7 +93,6 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isFaceID = false;
                         is6digit = false;
                       });
-                      update2FA('userId', twoFAType);
                       ;
                     },
                     child: Container(
@@ -147,7 +144,6 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isFaceID = false;
                         isSMS = false;
                       });
-                      update2FA('userId', twoFAType); 
                     },
                     child: Container(
                       width: 120,
