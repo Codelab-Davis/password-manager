@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
 import 'package:password_manager/profile-page.dart';
 
 class Edit2FAPage extends StatefulWidget {
@@ -14,7 +18,27 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
   bool isFaceID = false;
   bool isSMS = false;
   bool is6digit = false;
-  String twoFAType = '';
+
+  Future<void> updateTwoFAType(String email, String twoFAType) async {
+    try {
+      print('In UpdateData');
+      var url = Uri.http('localhost:5001', '/test/update/$email');
+      var response = await put(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'twoFAType': twoFAType,
+        }),
+      );
+      print('Response status: ${response.statusCode}'); // Helpful for debugging
+      print('Response body: ${response.body}'); // Helpful for debugging
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +59,13 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
-                        twoFAType = 'Face ID';
                         isFaceID = !isFaceID;
                         isSMS = false;
                         is6digit = false;
                       });
-                      ;
+                     await updateTwoFAType('testing@gmail.com', 'FaceID');
                     },
                     child: Container(
                       width: 120,
@@ -86,14 +109,13 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
-                        twoFAType = 'SMS Passcode';
                         isSMS = !isSMS;
                         isFaceID = false;
                         is6digit = false;
                       });
-                      ;
+                      await updateTwoFAType('testing@gmail.com', 'SMS Passcode');
                     },
                     child: Container(
                       width: 120,
@@ -137,13 +159,13 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
-                        twoFAType = '6-Digit Passcode';
                         is6digit = !is6digit;
                         isFaceID = false;
                         isSMS = false;
                       });
+                     await updateTwoFAType('testing@gmail.com', '6-Digit Passcode');
                     },
                     child: Container(
                       width: 120,

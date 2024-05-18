@@ -26,28 +26,25 @@ router.post("/add", async (req, res) => {
     }
 });
 
-router.put('/update/:id', async (req, res) => {
+
+router.put('/update/:email', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const email = req.params.email;
+        const user = await User.findOne({ email: email });
 
         if (user) {
-            user.name = req.body.name;
-            user.age = req.body.age;
-            user.email = req.body.email;
+            user.twoFAType = req.body.twoFAType;
 
             await user.save();
             res.status(200).json('User updated!');
+        } else {
+            res.status(404).json('User not found');
         }
-        else {
-            res.status(400).json('User not found');
-        }
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
         res.status(500).json('Internal Server Error');
     }
-}
-);
+});
 
 router.delete('/del/:id', async (req, res) => {
     try {
@@ -118,22 +115,6 @@ router.get('/:email/:password', (req, res) => {
 });
 
 
-
-app.post('/update2FAType', (req, res) => {
-    const new2FAType = req.body.twoFAType;
-    const collection = db.collection('users');  
-    collection.updateOne(
-        { _id: userId },
-        { $set: { twoFAType: new2FAType } },
-        (err, result) => {
-            if (err) {
-                res.status(500).send({ message: 'Error updating 2FA type' });
-                return;
-            }
-            res.send({ message: '2FA type updated successfully' });
-        }
-    );
-});
 
 
 module.exports = router;
