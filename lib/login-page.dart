@@ -60,11 +60,11 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 SizedBox(
-                  height: getScaledSize(context, 15),
+                  height: getScaledSizeY(context, 15),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  height: MediaQuery.of(context).size.height / 6,
+                  width: getScaledSizeX(context, 185),
+                  height: getScaledSizeY(context, 180),
                   decoration: BoxDecoration(
                     color: const Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(31),
@@ -76,32 +76,32 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 4),
+                  height: getScaledSizeY(context, 4),
                 ),
                 Text(
                   'Welcome!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF313131),
-                    fontSize: getScaledSize(context, 40),
+                    fontSize: getScaledSizeX(context, 40),
                     fontFamily: 'Outfit',
                     fontWeight: FontWeight.w700,
                     height: 0,
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 30),
+                  height: getScaledSizeY(context, 30),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSize(context, 35),
+                    horizontal: getScaledSizeX(context, 35),
                   ),
                   child: SizedBox(
-                    height: getScaledSize(context, 50),
+                    height: getScaledSizeX(context, 50),
                     child: TextField(
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal: getScaledSize(context, 20),
+                          horizontal: getScaledSizeX(context, 20),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -113,14 +113,14 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 20),
+                  height: getScaledSizeY(context, 20),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSize(context, 35),
+                    horizontal: getScaledSizeX(context, 35),
                   ), // Adds padding of 20 pixels to the left and right
                   child: SizedBox(
-                    height: getScaledSize(context, 50),
+                    height: getScaledSizeX(context, 50),
                     child: TextField(
                       obscureText: showPassword,
                       decoration: InputDecoration(
@@ -128,7 +128,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal: getScaledSize(context, 20),
+                          horizontal: getScaledSizeX(context, 20),
                         ),
                         hintText: 'Password',
                         suffixIcon: IconButton(
@@ -149,11 +149,11 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 5),
+                  height: getScaledSizeY(context, 5),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSize(context, 35),
+                    horizontal: getScaledSizeX(context, 35),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -164,7 +164,7 @@ class _LoginState extends State<Login> {
                           "Username or Password is Invalid!",
                           style: TextStyle(
                             color: Color.fromARGB(255, 255, 0, 0),
-                            fontSize: getScaledSize(context, 15),
+                            fontSize: getScaledSizeX(context, 15),
                             fontFamily: 'Outfit',
                             fontWeight: FontWeight.w400,
                           ),
@@ -175,7 +175,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSize(context, 22),
+                    horizontal: getScaledSizeX(context, 22),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
                             'Remember Me',
                             style: TextStyle(
                               color: Color(0xFF323232),
-                              fontSize: getScaledSize(context, 15),
+                              fontSize: getScaledSizeX(context, 15),
                               fontFamily: 'Outfit',
                               fontWeight: FontWeight.w400,
                               height: 0.06,
@@ -229,28 +229,28 @@ class _LoginState extends State<Login> {
                             'Forgot Password?',
                             style: TextStyle(
                               color: Color(0xFF323232),
-                              fontSize: getScaledSize(context, 15),
+                              fontSize: getScaledSizeX(context, 15),
                               fontFamily: 'Outfit',
                               fontWeight: FontWeight.bold,
                               height: 0.06,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: getScaledSizeY(context, 10)),
                         ],
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 10),
+                  height: getScaledSizeY(context, 10),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSize(context, 35),
+                    horizontal: getScaledSizeX(context, 35),
                   ),
                   child: SizedBox(
                     width: double.infinity,
-                    height: getScaledSize(context, 47),
+                    height: getScaledSizeX(context, 47),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
@@ -290,7 +290,7 @@ class _LoginState extends State<Login> {
                         "Sign In",
                         style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: getScaledSize(context, 15),
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.bold,
                           height: 0.06,
@@ -300,83 +300,83 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 50),
+                  height: getScaledSizeY(context, 50),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(left: getScaledSize(context, 37.5), right: getScaledSize(context, 25)),
+                        margin: EdgeInsets.only(left: getScaledSizeX(context, 37.5), right: getScaledSizeX(context, 25)),
                         child: const Divider(),
                       ),
                     ),
                     Text("or",
                       style: TextStyle(
-                        fontSize: getScaledSize(context, 16),
+                        fontSize: getScaledSizeX(context, 16),
                         fontWeight: FontWeight.w500, // Make text bold
                       ),
                     ),
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(left: getScaledSize(context, 25), right: getScaledSize(context, 37.5)),
+                        margin: EdgeInsets.only(left: getScaledSizeX(context, 25), right: getScaledSizeX(context, 37.5)),
                         child: const Divider(),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 32),
+                  height: getScaledSizeY(context, 32),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: getScaledSize(context, 10)), // Add horizontal padding
+                          horizontal: getScaledSizeX(context, 10)), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
                           appleSignIn(context);
                         },
                         icon: Image.asset('assets/apple.png',
-                            width: getScaledSize(context, 40), height: getScaledSize(context, 40)),
+                            width: getScaledSizeX(context, 40), height: getScaledSizeX(context, 40)),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: getScaledSize(context, 10)), // Add horizontal padding
+                          horizontal: getScaledSizeX(context, 10)), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
                           AuthMethods().signInWithGoogle(context);
                         },
                         icon: Image.asset('assets/google.png',
-                            width: getScaledSize(context, 54), height: getScaledSize(context, 54)),
+                            width: getScaledSizeX(context, 54), height: getScaledSizeX(context, 54)),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: getScaledSize(context, 10)),
+                      padding: EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 10)),
                       child: IconButton(
                         onPressed: () {
                           // Add your onPressed logic here
                         },
                         icon: Image.asset('assets/facebook.png',
-                            width: getScaledSize(context, 36), height: getScaledSize(context, 36)),
+                            width: getScaledSizeX(context, 36), height: getScaledSizeX(context, 36)),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: getScaledSize(context, 30),
+                  height: getScaledSizeY(context, 30),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: getScaledSize(context, 10),
+                      height: getScaledSizeY(context, 10),
                       child: Text(
                         "Don't have an account?",
                         style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: getScaledSize(context, 15),
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
                           height: 0.06,
@@ -384,11 +384,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(
-                      width: getScaledSize(context, 5)
+                      width: getScaledSizeY(context, 5)
                     ),
                     SizedBox(
-                      width: getScaledSize(context, 58.5),
-                      height: getScaledSize(context, 10),
+                      width: getScaledSizeX(context, 58.5),
+                      height: getScaledSizeY(context, 10),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, '/signUp');
@@ -397,7 +397,7 @@ class _LoginState extends State<Login> {
                           "Sign up",
                           style: TextStyle(
                             color: Color(0xFF323232),
-                            fontSize: getScaledSize(context, 15),
+                            fontSize: getScaledSizeX(context, 15),
                             fontFamily: 'Outfit',
                             fontWeight: FontWeight.bold,
                             height: 0.06,

@@ -39,11 +39,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-double getScaledSize(BuildContext context, double desiredSize) {
+double getScaledSizeX(BuildContext context, double desiredSize) {
   const double screenWidth = 430; //1290 pixels
-  const double screenHeight = 932;
   
   double factor = screenWidth / desiredSize;
 
   return MediaQuery.of(context).size.width/factor;
 }
+
+double getScaledSizeY(BuildContext context, double desiredSize) {
+  const double screenHeight = 932;
+  
+  double factor = screenHeight / desiredSize;
+
+  return MediaQuery.of(context).size.height/factor;
+}
+

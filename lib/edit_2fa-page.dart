@@ -49,7 +49,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 35),
                       decoration: BoxDecoration(
-                        color: isFaceID? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                        color: isFaceID? Color(0xFFBCBCE0): Color.fromARGB(255, 255, 253, 253),
                         shape: BoxShape.circle,
                         boxShadow: const [
                           BoxShadow(
@@ -96,7 +96,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
                       decoration:  ShapeDecoration(
-                        color: isSMS? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                        color: isSMS? Color(0xFFBCBCE0) : Color.fromARGB(255, 255, 253, 253),
                         shape: const OvalBorder(),
                         shadows: const [
                           BoxShadow(
@@ -143,7 +143,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       height: 120,
                       margin: const EdgeInsets.only(top: 50),
                       decoration:  ShapeDecoration(
-                        color: is6digit? Color.fromARGB(255, 215, 213, 213) : Color.fromARGB(255, 255, 253, 253),
+                        color: is6digit? Color(0xFFBCBCE0) : Color.fromARGB(255, 255, 253, 253),
                         shape: const OvalBorder(),
                         shadows: const [
                           BoxShadow(
