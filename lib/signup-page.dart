@@ -40,7 +40,7 @@ postData(String firstName, String lastName, String email, String phoneNumber,
   isPasswordSame = false;
   try {
     print('In PostData');
-    var url = Uri.http('localhost:5000', '/test/add');
+    var url = Uri.http('localhost:5001', '/test/add');
     var response = await http.post(
       url,
       headers: <String, String>{

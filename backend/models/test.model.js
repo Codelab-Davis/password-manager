@@ -24,9 +24,12 @@ const userSchema = new Schema({
     password: {
         type: String,
     },
-    signUpType: {
+    signUpType: {    
         type: String,
-    }
+    },
+    twoFAType: {
+        type: String,
+    }, 
 }, { versionKey: false });
 
 // Export the model, adjusting the names to match your data
