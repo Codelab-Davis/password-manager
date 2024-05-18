@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/3rd_party_signin.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
