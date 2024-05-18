@@ -9,7 +9,7 @@ final Logger _logger = Logger('NetworkService');
 
 Future<void> fetchData() async {
   try {
-    final response = await http.get(Uri.parse('http://localhost:5000/test/'));
+    final response = await http.get(Uri.parse('http://localhost:5001/test/'));
     if (response.statusCode == 200) {
       _logger.info('Data from backend: ${response.body}');
     } else {
@@ -29,7 +29,7 @@ postData(String firstName, String lastName, String email, String phoneNumber,
   // 1 user per email acc
   try {
     print('In PostData');
-    var url = Uri.http('localhost:5000', '/test/add');
+    var url = Uri.http('localhost:5001', '/test/add');
     var response = await http.post(
       url,
       headers: <String, String>{
@@ -55,7 +55,7 @@ postData(String firstName, String lastName, String email, String phoneNumber,
 Future<void> updateTwoFAType(String email, String twoFAType) async {
   try {
     print('In UpdateData');
-    var url = Uri.http('localhost:5000', '/test/update/$email');
+    var url = Uri.http('localhost:5001', '/test/update/$email');
     var response = await http.put(
       url,
       headers: <String, String>{
@@ -65,8 +65,8 @@ Future<void> updateTwoFAType(String email, String twoFAType) async {
         'twoFAType': twoFAType,
       }),
     );
-    print('Response status: ${response.statusCode}'); 
-    print('Response body: ${response.body}'); 
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   } catch (e) {
     print(e);
   }

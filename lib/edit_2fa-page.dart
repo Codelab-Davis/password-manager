@@ -22,7 +22,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
   Future<void> updateTwoFAType(String email, String twoFAType) async {
     try {
       print('In UpdateData');
-      var url = Uri.http('localhost:5000', '/test/update/$email');
+      var url = Uri.http('localhost:5001', '/test/update/$email');
       var response = await put(
         url,
         headers: <String, String>{
