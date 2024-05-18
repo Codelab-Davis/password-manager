@@ -82,7 +82,7 @@ class _AccountsPageState extends State<AccountsPage> {
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, BuildContext context) {
     setState(() {
       _selectedIndex = index;
     });
@@ -91,9 +91,8 @@ class _AccountsPageState extends State<AccountsPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                GenerateTOTPPage(secret: Global.result?.code ?? ''),
-          ),
+              builder: (context) =>
+                  GenerateTOTPPage(secret: Global.result?.code ?? '')),
         );
         break;
       case 1:
@@ -103,10 +102,10 @@ class _AccountsPageState extends State<AccountsPage> {
         );
         break;
       case 2:
-        // Handle profile navigation
+        // Do nothing for the third index since it has no corresponding navigation
         break;
       case 3:
-       Navigator.pushReplacement(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const UserProfilePage(),
@@ -123,231 +122,236 @@ class _AccountsPageState extends State<AccountsPage> {
       appBar: AppBar(
         title: const Text("Accounts Page"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SearchBar(
-              leading: const Icon(Icons.search),
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xffF7EDEC)),
-              hintText: "Search passwords...",
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ElevatedButton(
-                    style: getStyle(firstTap),
-                    onPressed: () => changeButtons(1),
-                    child: const Text('Recently Added'),
+                  SearchBar(
+                    leading: const Icon(Icons.search),
+                    backgroundColor:
+                        MaterialStateProperty.all(const Color(0xffF7EDEC)),
+                    hintText: "Search passwords...",
                   ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: getStyle(secondTap),
-                    onPressed: () => changeButtons(2),
-                    child: const Text('Most Used'),
+                  const SizedBox(
+                    height: 15,
                   ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: getStyle(thirdTap),
-                    onPressed: () => changeButtons(3),
-                    child: const Text('Least Used'),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 20),
+                    height: 50,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ElevatedButton(
+                          style: getStyle(firstTap),
+                          onPressed: () => changeButtons(1),
+                          child: const Text('Recently Added'),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          style: getStyle(secondTap),
+                          onPressed: () => changeButtons(2),
+                          child: const Text('Most Used'),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          style: getStyle(thirdTap),
+                          onPressed: () => changeButtons(3),
+                          child: const Text('Least Used'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        "Welcome, " + widget.user[0]['firstName'] + '🔒',
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: MasonryView(
+                        listOfItem: items,
+                        numberOfColumn: 2,
+                        itemBuilder: (item) {
+                          count += 1;
+                          if (count == 2) {
+                            final addPassword = Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                              child: SizedBox(
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NewAccount(user: widget.user)),
+                                      );
+                                      _addAccount();
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        const Color(0xffBCBCE0)),
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.black), // Text color
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          side: const BorderSide(
+                                              color: Color(0xffC0C2E9)) // BorderRadius
+                                          ),
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 6)), // Padding
+                                  ),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.add),
+                                      Text(
+                                        "Add Password",
+                                        style: TextStyle(
+                                          fontFamily: 'Outfit',
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                            items[1] = addPassword;
+                            items.add(const SizedBox(
+                              height: 0,
+                            ));
+                            return addPassword;
+                          }
+                          return item;
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Text(
-                  "Welcome, " + widget.user[0]['firstName'] + '🔒',
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontFamily: 'Outfit',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height - 412,
-              child: SingleChildScrollView(
-                child: MasonryView(
-                  listOfItem: items,
-                  numberOfColumn: 2,
-                  itemBuilder: (item) {
-                    count += 1;
-                    if (count == 2) {
-                      final addPassword = Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NewAccount(user: widget.user)),
-                                );
-                                _addAccount();
-                              });
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color(0xffBCBCE0)),
-                              foregroundColor: MaterialStateProperty.all(
-                                  Colors.black), // Text color
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                        color: Color(0xffC0C2E9)) // BorderRadius
-                                    ),
-                              ),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 6)), // Padding
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(Icons.add),
-                                Text(
-                                  "Add Password",
-                                  style: TextStyle(
-                                    fontFamily: 'Outfit',
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                      items[1] = addPassword;
-                      items.add(const SizedBox(
-                        height: 0,
-                      ));
-                      return addPassword;
-                    }
-                    return item;
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-      floatingActionButton: Container(
-        width: 345,
-        height: 59,
-        margin: const EdgeInsets.only(left: 50, right: 25),
-        decoration: BoxDecoration(
-          color: const Color(0xFF374375),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.home,
-                  size: 35,
-                  color: _selectedIndex == 0 ? const Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                  });
-                  _onItemTapped(0);
-                },
+          BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.qr_code,
-                  size: 35,
-                  color: _selectedIndex == 1 ? const Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                  _onItemTapped(1);
-                },
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.key_sharp,
-                  size: 35,
-                  color: _selectedIndex == 2 ? const Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                  _onItemTapped(2);
-                },
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.person,
-                  size: 35,
-                  color: _selectedIndex == 3 ? const Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 3;
-                  });
-                  _onItemTapped(3);
-                },
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
               ),
             ],
+            currentIndex: _selectedIndex,
+            onTap: (index) => _onItemTapped(index, context),
           ),
-        ),
+          Container(
+            width: 365,
+            height: 59,
+            margin: const EdgeInsets.only(left: 50, right: 18),
+            decoration: BoxDecoration(
+              color: const Color(0xFF374375),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.home,
+                      size: 35,
+                      color: _selectedIndex == 0 ? const Color(0xFFE4E4F9) : Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 0;
+                      });
+                      _onItemTapped(0, context);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.qr_code,
+                      size: 35,
+                      color: _selectedIndex == 1 ? const Color(0xFFE4E4F9) : Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 1;
+                      });
+                      _onItemTapped(1, context);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.key_sharp,
+                      size: 35,
+                      color: _selectedIndex == 2 ? const Color(0xFFE4E4F9) : Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 2;
+                      });
+                      _onItemTapped(2, context);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.person,
+                      size: 35,
+                      color: _selectedIndex == 3 ? const Color(0xFFE4E4F9) : Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 3;
+                      });
+                      _onItemTapped(3, context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
