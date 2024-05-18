@@ -22,7 +22,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
   Future<void> updateTwoFAType(String email, String twoFAType) async {
     try {
       print('In UpdateData');
-      var url = Uri.http('localhost:5001', '/test/update/$email');
+      var url = Uri.http('localhost:5000', '/test/update/$email');
       var response = await put(
         url,
         headers: <String, String>{
@@ -32,8 +32,8 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
           'twoFAType': twoFAType,
         }),
       );
-      print('Response status: ${response.statusCode}'); // Helpful for debugging
-      print('Response body: ${response.body}'); // Helpful for debugging
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
     } catch (e) {
       print(e);
     }
@@ -65,7 +65,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isSMS = false;
                         is6digit = false;
                       });
-                     await updateTwoFAType('testing@gmail.com', 'FaceID');
+                      await updateTwoFAType('testing@gmail.com', 'FaceID');
                     },
                     child: Container(
                       width: 120,
@@ -115,7 +115,8 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isFaceID = false;
                         is6digit = false;
                       });
-                      await updateTwoFAType('testing@gmail.com', 'SMS Passcode');
+                      await updateTwoFAType(
+                          'testing@gmail.com', 'SMS Passcode');
                     },
                     child: Container(
                       width: 120,
@@ -165,7 +166,8 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                         isFaceID = false;
                         isSMS = false;
                       });
-                     await updateTwoFAType('testing@gmail.com', '6-Digit Passcode');
+                      await updateTwoFAType(
+                          'testing@gmail.com', '6-Digit Passcode');
                     },
                     child: Container(
                       width: 120,
