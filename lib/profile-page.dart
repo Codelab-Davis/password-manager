@@ -277,7 +277,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       floatingActionButton: Container(
         width: 365,
         height: 59,
-        margin: const EdgeInsets.only(left: 15, right: 18),
+        margin: const EdgeInsets.only(left: 50, right: 18),
         decoration: BoxDecoration(
           color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
@@ -373,15 +373,11 @@ void _onItemTapped(int index, BuildContext context) {
     case 3:
       break;
     case 2:
-      Navigator.pushReplacement(
-        context as BuildContext,
+       Navigator.push(
+        context,
         MaterialPageRoute(
-          builder: (context) => const AccountsPage(
-            user: null,
-          ),
-        ),
-      );
-
+        builder: (context) => AccountsPage(user: Global.user),
+        ));
       break;
   }
 }

@@ -191,7 +191,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
       floatingActionButton: Container(
         width: 365,
         height: 59,
-        margin: const EdgeInsets.only(left: 15, right: 18),
+        margin: const EdgeInsets.only(left: 50, right: 18),
         decoration: BoxDecoration(
           color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
@@ -280,18 +280,18 @@ class _QRScannerPageState extends State<QRScannerPage> {
       case 1:
         break;
       case 2:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const AccountsPage(
-                    user: null,
-                  )),
-        );
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+        builder: (context) => AccountsPage(user: Global.user),
+        ));
         break;
       case 3:
-        Navigator.pushReplacement(
+         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AccountsPage(user: Global.user)),
+          MaterialPageRoute(
+            builder: (context) => const UserProfilePage(),
+          ),
         );
         break;
     }
