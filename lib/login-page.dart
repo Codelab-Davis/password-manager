@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'accounts.dart';
 import 'dart:convert';
+import 'global.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'signup_page.dart';
@@ -18,8 +19,6 @@ class _LoginState extends State<Login> {
   bool checked = false;
   bool showPassword = true;
   bool showError = false;
-
-  dynamic currentUser;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -41,7 +40,7 @@ class _LoginState extends State<Login> {
       if (response.body == "[]") {
         return false;
       }
-      currentUser = jsonDecode(response.body);
+      Global.user = jsonDecode(response.body);
       return true;
     } catch (e) {
       return false;
@@ -242,8 +241,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    AccountsPage(user: currentUser),
+                                builder: (context) => AccountsPage(user: Global.user),
                               ));
                         } else {
                           setState(() {

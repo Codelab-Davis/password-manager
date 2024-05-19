@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:password_manager/passbook-page.dart';
+import 'package:password_manager/accounts.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 

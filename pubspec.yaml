@@ -53,6 +53,8 @@ dependencies:
   flutter_native_splash: ^2.4.0
 
   flutter_secure_storage: ^9.0.0
+  empty_widget: ^0.0.5
+  image_picker: ^1.1.1
   sign_in_with_apple: ^6.1.0
   cloud_firestore: ^4.17.0
   flutter_svg: ^2.0.9
@@ -91,6 +93,9 @@ flutter:
     - assets/apple.png
     - assets/facebook.png
     - assets/google.png
+    - assets/add_icon.svg
+    - assets/confirm_changes.svg
+    - assets/delete_entry.svg
     - assets/paisley.jpg
     - assets/paisleyIcon.jpg
     - assets/appLogo.png

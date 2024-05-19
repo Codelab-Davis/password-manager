@@ -114,7 +114,30 @@ router.get('/:email/:password', (req, res) => {
     return;
 });
 
+router.put('/updateAccounts/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
 
+        if (user) {
+            _appName = req.body.appName;
+            _username = req.body.username;
+            _password = req.body.password;
+            _notes = req.body.notes;
 
+            user.accounts.push({appName: _appName, username: _username, password: _password, notes: _notes});
+
+            await user.save();
+            res.status(200).json('User updated!');
+        }
+        else {
+            res.status(400).json('User not found');
+        }
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json('Internal Server Error');
+    }
+}
+);
 
 module.exports = router;

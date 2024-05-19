@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
-import 'package:password_manager/passbook-page.dart';
+import 'package:password_manager/global.dart';
+import 'package:password_manager/accounts.dart';
 
 
 class GenerateTOTPPage extends StatefulWidget {
@@ -95,7 +96,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       floatingActionButton: Container(
         width: 365,
         height: 59,
-        margin: const EdgeInsets.only(left: 15, right: 18),
+        margin: const EdgeInsets.only(left: 50, right: 18),
         decoration: BoxDecoration(
           color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
@@ -177,21 +178,20 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         break;
       case 1:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(builder: (context) => QRScannerPage()),
         );
         break;
       case 2:
-        Navigator.pushReplacement(
-          context as BuildContext,
-          MaterialPageRoute(
-            builder: (context) => const AccountsPage(user: null,),
-          ),
-        );
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+        builder: (context) => AccountsPage(user: Global.user),
+        ));
         break;
       case 3:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(
             builder: (context) => const UserProfilePage(),
           ),
