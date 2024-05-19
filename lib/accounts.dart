@@ -41,7 +41,8 @@ class _AccountsPageState extends State<AccountsPage> {
           height: 175,
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 220, 220, 220),
-            borderRadius: BorderRadius.circular(10.0), // Add a border radius for rounded corners
+            borderRadius: BorderRadius.circular(
+                10.0), // Add a border radius for rounded corners
           ),
           child: const Center(),
         ),
@@ -170,7 +171,10 @@ class _AccountsPageState extends State<AccountsPage> {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: Text(
-                        "Welcome, " + widget.user[0]['firstName'] + '🔒',
+                        "Welcome, " +
+                            (widget.user != null && widget.user.isNotEmpty
+                                ? widget.user[0]['firstName'] + '🔒'
+                                : '🔒'),
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                           fontFamily: 'Outfit',
@@ -201,7 +205,8 @@ class _AccountsPageState extends State<AccountsPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => NewAccount(user: widget.user)),
+                                            builder: (context) =>
+                                                NewAccount(user: widget.user)),
                                       );
                                       _addAccount();
                                     });
@@ -213,17 +218,21 @@ class _AccountsPageState extends State<AccountsPage> {
                                         Colors.black), // Text color
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           side: const BorderSide(
-                                              color: Color(0xffC0C2E9)) // BorderRadius
+                                              color: Color(
+                                                  0xffC0C2E9)) // BorderRadius
                                           ),
                                     ),
                                     padding: MaterialStateProperty.all(
                                         const EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 6)), // Padding
+                                            horizontal: 16,
+                                            vertical: 6)), // Padding
                                   ),
                                   child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Icon(Icons.add),
                                       Text(
@@ -253,105 +262,83 @@ class _AccountsPageState extends State<AccountsPage> {
               ),
             ),
           ),
-          BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+        ],
+      ),
+      floatingActionButton: Container(
+        width: 365,
+        height: 59,
+        margin: const EdgeInsets.only(left: 50, right: 18),
+        decoration: BoxDecoration(
+          color: Color(0xFF374375),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 35,
+                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  _onItemTapped(0, context);
+                },
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
+              IconButton(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 35,
+                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  _onItemTapped(1, context);
+                },
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
+              IconButton(
+                icon: Icon(
+                  Icons.key_sharp,
+                  size: 35,
+                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  _onItemTapped(2, context);
+                },
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
+              IconButton(
+                icon: Icon(
+                  Icons.person,
+                  size: 35,
+                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                  _onItemTapped(3, context);
+                },
               ),
             ],
-            currentIndex: _selectedIndex,
-            onTap: (index) => _onItemTapped(index, context),
           ),
-          Container(
-            width: 365,
-            height: 59,
-            margin: const EdgeInsets.only(left: 50, right: 18),
-            decoration: BoxDecoration(
-              color: const Color(0xFF374375),
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.home,
-                      size: 35,
-                      color: _selectedIndex == 0 ? const Color(0xFFE4E4F9) : Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 0;
-                      });
-                      _onItemTapped(0, context);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.qr_code,
-                      size: 35,
-                      color: _selectedIndex == 1 ? const Color(0xFFE4E4F9) : Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                      _onItemTapped(1, context);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.key_sharp,
-                      size: 35,
-                      color: _selectedIndex == 2 ? const Color(0xFFE4E4F9) : Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
-                      _onItemTapped(2, context);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.person,
-                      size: 35,
-                      color: _selectedIndex == 3 ? const Color(0xFFE4E4F9) : Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 3;
-                      });
-                      _onItemTapped(3, context);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
