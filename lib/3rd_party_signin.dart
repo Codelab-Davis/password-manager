@@ -48,7 +48,7 @@ class AuthMethods {
         String lastName = getLastName(name);
 
         await postData(firstName, lastName, email ?? "", phoneNumber ?? "", id,
-            signUpType);
+            signUpType,"");
 
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => AccountsPage(user: User)));
@@ -92,7 +92,7 @@ void appleSignIn(BuildContext context) async {
 
         String signUpType = "Apple";
 
-        await postData(firstName, lastName, email ?? "", "Not Given for Apple", id ?? "", signUpType);
+        await postData(firstName, lastName, email ?? "", "Not Given for Apple", id ?? "", signUpType, "");
 
         Navigator.push(
           context,
