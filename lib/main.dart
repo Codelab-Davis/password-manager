@@ -5,7 +5,7 @@ import 'package:password_manager/splash-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
-import 'signup_page.dart';
+import 'signup-page.dart';
 
 
 void main() async {
