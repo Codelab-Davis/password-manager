@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: SMSPasscodePage(),
-  ));
-}
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:password_manager/six-digit-passcode.dart';
 
 class SMSPasscodePage extends StatefulWidget {
   const SMSPasscodePage({Key? key}) : super(key: key);
@@ -19,33 +17,6 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
   PhoneNumber number = PhoneNumber(isoCode: 'US');
   bool isValid = false;
   PhoneNumber? validPhoneNumber;
-
-  void savePhoneNumber() {
-    if (number.phoneNumber != null && number.phoneNumber!.length == 10) {
-      setState(() {
-        isValid = true;
-        validPhoneNumber = number;
-      });
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Invalid Number'),
-            content: Text('Please enter a valid 10-digit phone number.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +59,8 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                     height: 15,
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment:
+                        MainAxisAlignment.start, // Align the input to the start
                     children: [
                       SizedBox(
                         width: 350,
@@ -104,8 +76,8 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: BorderSide(
-                                color: Colors.green,
-                                width: 2.0,
+                                color: Colors.red, // Border color
+                                width: 2.0, // Border width
                               ),
                             ),
                           ),
@@ -115,9 +87,7 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                             });
                           },
                           textFieldController: controller,
-                          initialValue: PhoneNumber(
-                            isoCode: 'US',// Example valid US phone number
-                          ),
+                          initialValue: PhoneNumber(isoCode: 'US'),
                           selectorConfig: SelectorConfig(
                             selectorType: PhoneInputSelectorType.DIALOG,
                           ),
@@ -126,17 +96,15 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: savePhoneNumber,
-                    child: Text('Save Number'),
-                  ),
-                  if (isValid)
-                    Text(
-                      'Valid Number: ${validPhoneNumber!.phoneNumber}',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SixDigitPasscodePage()),
+                    );
+                  },
+                  child: const Text('Sign Up Stuff'),
+                ),
                 ],
               ),
             ),
