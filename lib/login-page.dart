@@ -214,7 +214,8 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AccountsPage(user: Global.user),
+                                builder: (context) =>
+                                    AccountsPage(user: Global.user),
                               ));
                         } else {
                           setState(() {

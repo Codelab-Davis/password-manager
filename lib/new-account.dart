@@ -4,10 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'dart:typed_data';
+import 'dart:async';
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
@@ -25,63 +22,9 @@ class _NewAccountState extends State<NewAccount> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController notesController = TextEditingController();
 
-  late File _imageFile;
+  Timer? _debounce;
 
-  String _imageData = '';
-
-  bool imagePicked = false;
-
-  Future<void> _getImage() async {
-    final imageSource = await showCupertinoModalPopup<ImageSource>(
-      context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            child: const Text('Take a Picture'),
-            onPressed: () {
-              Navigator.pop(context, ImageSource.camera);
-            },
-          ),
-          CupertinoActionSheetAction(
-            child: const Text('Choose from Gallery'),
-            onPressed: () {
-              Navigator.pop(context, ImageSource.gallery);
-            },
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          child: const Text('Cancel'),
-          isDefaultAction: true,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-    );
-
-    if (imageSource == null) {
-      return;
-    }
-
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: imageSource);
-
-    if (pickedFile == null) {
-      return;
-    }
-
-    File imageFile = File(pickedFile.path);
-    Uint8List bytes = await imageFile.readAsBytes();
-
-    String base64String = base64.encode(bytes);
-
-    setState(() {
-      _imageFile = File(pickedFile.path);
-      _imageData = base64String;
-      print(_imageData);
-      imagePicked = true;
-    });
-  }
+  String currAppName = "";
 
   void updateUser(
       String appName, String username, String password, String notes) async {
@@ -114,6 +57,13 @@ class _NewAccountState extends State<NewAccount> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    appNameController.dispose();
+    _debounce?.cancel();
+    super.dispose();
   }
 
   @override
@@ -173,6 +123,17 @@ class _NewAccountState extends State<NewAccount> {
                     child: SizedBox(
                       height: 45,
                       child: TextField(
+                        onChanged: (text) async {
+                          if (_debounce?.isActive ?? false) _debounce?.cancel();
+                          _debounce = Timer(
+                            const Duration(seconds: 1),
+                            () {
+                              setState(() {
+                                currAppName = text;
+                              });
+                            },
+                          );
+                        },
                         controller: appNameController,
                         style: const TextStyle(
                           color: Color(0xFF323232),
@@ -472,61 +433,34 @@ class _NewAccountState extends State<NewAccount> {
             child: SizedBox(
               width: 100,
               height: 100,
-              child: GestureDetector(
-                onTap: _getImage,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _getImage,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            const Color(0xFFE4E4F9),
-                          ),
-                          foregroundColor: MaterialStateProperty.all(
-                              Colors.black), // Text color
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              side: const BorderSide(
-                                color: Color.fromARGB(200, 0, 0, 0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        child: Container(),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors
+                            .black, // Color of the borderhickness of the border
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          15), // Radius of the rounded corners
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        'https://logo.clearbit.com/${currAppName.replaceAll(' ', '')}.com', // URL of the image
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          // You can return any widget here to display in case of an error
+                          return Container();
+                        },
                       ),
                     ),
-                    Positioned.fill(
-                      child: imagePicked
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.file(
-                                _imageFile,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/add_icon.svg'),
-                                const Text(
-                                  'Add Icon',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF313131),
-                                    fontSize: 12,
-                                    fontFamily: 'Outfit',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
