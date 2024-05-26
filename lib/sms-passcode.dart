@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/main.dart';
-import 'package:password_manager/six-digit-passcode.dart';
+import 'package:password_manager/sms-verification.dart';
 
 class SMSPasscodePage extends StatefulWidget {
   const SMSPasscodePage({Key? key}) : super(key: key);
@@ -29,13 +29,15 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(bottom: 400, right: 20),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getScaledSizeX(context, 16),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        width: 275,
+                      SizedBox(
+                        width: double.infinity,
                         child: Text(
                           'Registration',
                           style: TextStyle(
@@ -59,13 +61,13 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 15,
+                        height: 20,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width: 345,
+                            width: double.infinity,
                             height: 50,
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             clipBehavior: Clip.antiAlias,
@@ -76,14 +78,6 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                                     width: 1, color: Color(0x7F303030)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                ),
-                              ],
                             ),
                             child: SizedBox(
                               height: 46,
@@ -111,18 +105,7 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SixDigitPasscodePage(),
-                              ),
-                            ),
-                            child: const Text('Six-digit Passcode'),
-                          )
+                          const SizedBox(height: 150),
                         ],
                       ),
                     ],
@@ -135,10 +118,10 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: getScaledSizeX(context, 35),
+                horizontal: getScaledSizeX(context, 16),
               ),
               child: Container(
-                margin: const EdgeInsets.only(bottom: 50),
+                margin: const EdgeInsets.only(bottom: 100),
                 child: SizedBox(
                   width: double.infinity,
                   height: getScaledSizeX(context, 47),
@@ -161,7 +144,14 @@ class _SMSPasscodePageState extends State<SMSPasscodePage> {
                           const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 6)),
                     ),
-                    onPressed: null,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SMSVerificationPage(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Continue',
                       style: TextStyle(

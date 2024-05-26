@@ -5,14 +5,14 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/main.dart';
 
-class SixDigitPasscodePage extends StatefulWidget {
-  const SixDigitPasscodePage({Key? key}) : super(key: key);
+class SMSVerificationPage extends StatefulWidget {
+  const SMSVerificationPage({Key? key}) : super(key: key);
 
   @override
-  _SixDigitPasscodePageState createState() => _SixDigitPasscodePageState();
+  _SMSVerificationPageState createState() => _SMSVerificationPageState();
 }
 
-class _SixDigitPasscodePageState extends State<SixDigitPasscodePage> {
+class _SMSVerificationPageState extends State<SMSVerificationPage> {
   final TextEditingController pinController = TextEditingController();
 
   @override
@@ -35,7 +35,7 @@ class _SixDigitPasscodePageState extends State<SixDigitPasscodePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          'Registration',
+                          'Verification Code',
                           style: TextStyle(
                             color: Color(0xFF313131),
                             fontSize: 25,
@@ -46,7 +46,7 @@ class _SixDigitPasscodePageState extends State<SixDigitPasscodePage> {
                       ),
                       SizedBox(
                         child: Text(
-                          'Enter your six digit passcode for two-factor\nauthentication',
+                          'Enter the code sent to +000 000 0000',
                           style: TextStyle(
                             color: Color(0xFF323232),
                             fontSize: 16,
@@ -75,16 +75,15 @@ class _SixDigitPasscodePageState extends State<SixDigitPasscodePage> {
                           height: getScaledSizeX(context, 78),
                           child: PinCodeTextField(
                             appContext: context,
-                            length: 6,
+                            length: 4,
                             controller: pinController,
                             onChanged: (value) {
                               print(value);
                             },
                             pinTheme: PinTheme(
-                              shape: PinCodeFieldShape
-                                  .underline, 
-                              fieldHeight: getScaledSizeX(context, 50),
-                              fieldWidth: getScaledSizeX(context, 50),
+                              shape: PinCodeFieldShape.circle,
+                              fieldHeight: getScaledSizeX(context, 78),
+                              fieldWidth: getScaledSizeX(context, 78),
                               activeFillColor: Colors.white,
                               inactiveFillColor: Colors.white,
                               selectedFillColor: Colors.white,
@@ -160,8 +159,39 @@ class _SixDigitPasscodePageState extends State<SixDigitPasscodePage> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 15),
+                  const SizedBox(
+                    width: double.infinity,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Didn’t receive the code?',
+                            style: TextStyle(
+                              color: Color(0xFF323232),
+                              fontSize: 16,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w400,
+                              height: 0.07,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '  Resend Code',
+                            style: TextStyle(
+                              color: Color(0xFF323232),
+                              fontSize: 16,
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w600,
+                              height: 0.07,
+                            ),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   SizedBox(
-                    height: 100,
+                    height: 85,
                   )
                 ],
               ),

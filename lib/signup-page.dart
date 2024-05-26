@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/six-digit-passcode.dart';
 import 'package:password_manager/sms-passcode.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
@@ -382,52 +383,63 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      if (passwordController.text !=
-                          confirmPasswordController.text) {
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        if (passwordController.text !=
+                            confirmPasswordController.text) {
+                          setState(() {
+                            isPasswordSame = true;
+                          });
+                          return;
+                        }
                         setState(() {
-                          isPasswordSame = true;
+                          isPasswordSame = false;
                         });
-                        return;
-                      }
-                      setState(() {
-                        isPasswordSame = false;
-                      });
-                      postData(
-                          firstNameController.text,
-                          lastNameController.text,
-                          emailController.text,
-                          phoneNumberController.text,
-                          passwordController.text);
+                        postData(
+                            firstNameController.text,
+                            lastNameController.text,
+                            emailController.text,
+                            phoneNumberController.text,
+                            passwordController.text);
+                      },
+                      child: const Text("Sign Up")),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GenerateTOTPPage(
+                                secret: Global.result?.code ?? '')),
+                      );
                     },
-                    child: const Text("Sign Up")),
-                const SizedBox(height: 50),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GenerateTOTPPage(
-                              secret: Global.result?.code ?? '')),
-                    );
-                  },
-                  child: const Text('Generate TOTP'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SMSPasscodePage()),
-                    );
-                  },
-                  child: const Text('Sign Up Stuff'),
-                ),
-              ],
+                    child: const Text('Generate TOTP'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SMSPasscodePage()),
+                      );
+                    },
+                    child: const Text('SMS Passcode'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SixDigitPasscodePage()),
+                      );
+                    },
+                    child: const Text('Six Digit Passcode'),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 65),
           ],
