@@ -1,12 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:password_manager/main.dart';
+import 'package:password_manager/qrscanner-page.dart';
 import 'accounts.dart';
 import 'dart:convert';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'signup_page.dart';
+import 'signup-page.dart';
 import '3rd_party_signin.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -47,6 +51,41 @@ class _LoginState extends State<Login> {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  String? userEmail;
+  String? userFullName;
+
+  Future<void> signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      // Print the credentials for debugging purposes
+      print(credential);
+      // Handle user information
+      userEmail = credential.email;
+      userFullName =
+          credential.givenName != null && credential.familyName != null
+              ? '${credential.givenName} ${credential.familyName}'
+              : null;
+
+      // If email and full name are null, fetch from your backend/local storage
+      if (userEmail == null || userFullName == null) {
+        print("One is NULL");
+      } else {
+        // Store user information in your backend or local storage
+        // For example: storeUserInfoInBackend(userEmail, userFullName);
+      }
+
+      setState(() {});
+    } catch (error) {
+      print('Error signing in with Apple: $error');
     }
   }
 
@@ -94,7 +133,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSizeX(context, 35),
+                    horizontal: getScaledSizeX(context, 16),
                   ),
                   child: SizedBox(
                     height: getScaledSizeX(context, 50),
@@ -117,7 +156,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSizeX(context, 35),
+                    horizontal: getScaledSizeX(context, 16),
                   ), // Adds padding of 20 pixels to the left and right
                   child: SizedBox(
                     height: getScaledSizeX(context, 50),
@@ -153,7 +192,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSizeX(context, 35),
+                    horizontal: getScaledSizeX(context, 16),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -175,7 +214,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSizeX(context, 22),
+                    horizontal: getScaledSizeX(context, 10),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,20 +225,17 @@ class _LoginState extends State<Login> {
                             data: ThemeData(
                               checkboxTheme: CheckboxThemeData(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2),
+                                  borderRadius: BorderRadius.circular(4),
                                   side: BorderSide(
                                     color:
                                         const Color.fromRGBO(158, 158, 158, 1),
-                                    width: 0.1,
+                                    width: 0.0, // Adjust the border width here
                                   ),
                                 ),
+                                visualDensity: VisualDensity.compact, // Adjust the size here
                               ),
                             ),
                             child: Checkbox(
-                              visualDensity: VisualDensity(
-                                vertical: 0.1,
-                                horizontal: 0.1,
-                              ),
                               fillColor:
                                   MaterialStateProperty.resolveWith(getColor),
                               checkColor: Colors.white,
@@ -246,7 +282,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getScaledSizeX(context, 35),
+                    horizontal: getScaledSizeX(context, 16),
                   ),
                   child: SizedBox(
                     width: double.infinity,
@@ -287,7 +323,7 @@ class _LoginState extends State<Login> {
                         }
                       },
                       child: Text(
-                        "Sign In",
+                        'Sign In',
                         style: TextStyle(
                           color: Color(0xFF323232),
                           fontSize: getScaledSizeX(context, 15),
@@ -306,11 +342,14 @@ class _LoginState extends State<Login> {
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(left: getScaledSizeX(context, 37.5), right: getScaledSizeX(context, 25)),
+                        margin: EdgeInsets.only(
+                            left: getScaledSizeX(context, 37.5),
+                            right: getScaledSizeX(context, 25)),
                         child: const Divider(),
                       ),
                     ),
-                    Text("or",
+                    Text(
+                      "or",
                       style: TextStyle(
                         fontSize: getScaledSizeX(context, 16),
                         fontWeight: FontWeight.w500, // Make text bold
@@ -318,7 +357,9 @@ class _LoginState extends State<Login> {
                     ),
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(left: getScaledSizeX(context, 25), right: getScaledSizeX(context, 37.5)),
+                        margin: EdgeInsets.only(
+                            left: getScaledSizeX(context, 25),
+                            right: getScaledSizeX(context, 37.5)),
                         child: const Divider(),
                       ),
                     ),
@@ -332,34 +373,44 @@ class _LoginState extends State<Login> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: getScaledSizeX(context, 10)), // Add horizontal padding
+                          horizontal: getScaledSizeX(
+                              context, 10)), // Add horizontal padding
                       child: IconButton(
-                        onPressed: () {
-                          appleSignIn(context);
+                        onPressed: () async {
+                          signInWithApple();
                         },
                         icon: Image.asset('assets/apple.png',
-                            width: getScaledSizeX(context, 40), height: getScaledSizeX(context, 40)),
+                            width: getScaledSizeX(context, 40),
+                            height: getScaledSizeX(context, 40)),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: getScaledSizeX(context, 10)), // Add horizontal padding
+                          horizontal: getScaledSizeX(
+                              context, 10)), // Add horizontal padding
                       child: IconButton(
                         onPressed: () {
                           AuthMethods().signInWithGoogle(context);
                         },
                         icon: Image.asset('assets/google.png',
-                            width: getScaledSizeX(context, 54), height: getScaledSizeX(context, 54)),
+                            width: getScaledSizeX(context, 54),
+                            height: getScaledSizeX(context, 54)),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 10)),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getScaledSizeX(context, 10)),
                       child: IconButton(
                         onPressed: () {
-                          // Add your onPressed logic here
+                          Navigator.pushReplacement(
+                            context as BuildContext,
+                            MaterialPageRoute(
+                                builder: (context) => QRScannerPage()),
+                          );
                         },
                         icon: Image.asset('assets/facebook.png',
-                            width: getScaledSizeX(context, 36), height: getScaledSizeX(context, 36)),
+                            width: getScaledSizeX(context, 36),
+                            height: getScaledSizeX(context, 36)),
                       ),
                     ),
                   ],
@@ -383,9 +434,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: getScaledSizeY(context, 5)
-                    ),
+                    SizedBox(width: getScaledSizeY(context, 5)),
                     SizedBox(
                       width: getScaledSizeX(context, 58.5),
                       height: getScaledSizeY(context, 10),

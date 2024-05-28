@@ -39,7 +39,6 @@ class AuthMethods {
     if (userDetails != null) {
       String? email = userDetails.email;
       String? name = userDetails.displayName;
-      String? phoneNumber = userDetails.phoneNumber;
       String id = userDetails.uid;
       String signUpType = "Google";
 
@@ -47,7 +46,7 @@ class AuthMethods {
         String firstName = getFirstName(name);
         String lastName = getLastName(name);
 
-        await postData(firstName, lastName, email ?? "", phoneNumber ?? "", id,
+        await postData(firstName, lastName, email ?? "", id,
             signUpType,"");
 
         Navigator.push(context,
@@ -92,7 +91,7 @@ void appleSignIn(BuildContext context) async {
 
         String signUpType = "Apple";
 
-        await postData(firstName, lastName, email ?? "", "Not Given for Apple", id ?? "", signUpType, "");
+        await postData(firstName, lastName, email ?? "", id ?? "", signUpType, "");
 
         Navigator.push(
           context,

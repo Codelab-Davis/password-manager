@@ -197,53 +197,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 35),
                   Container(
                     child: Column(
                       children: [
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Phone Number',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF323232),
-                                fontSize: 16,
-                                fontFamily: 'Outfit',
-                                fontWeight: FontWeight.w600,
-                                height: 0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Container(
-                            decoration: ShapeDecoration(
-                              color: Color(0xFFFFFDFC),
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Color(0x7F303030)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: '(123)-456-7890',
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
-                                ),
-                                controller: PhoneController,
-                              ),
-                            ),
-                          ),
-                        ),
                         SizedBox(height: 55),
                         Container(
                           width: 313,

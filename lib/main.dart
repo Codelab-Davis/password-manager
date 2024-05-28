@@ -5,7 +5,7 @@ import 'package:password_manager/splash-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
-import 'signup_page.dart';
+import 'signup-page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,11 +26,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/signUp': (context) => const MyHomePage(title: "Sign Up"),
+        '/signUp': (context) => const MyHomePage(title: ""),
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFFFFFCFC),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFFFFFCFC), // Match AppBar color to background
+          elevation: 0, // Optional: Remove shadow for a flat look
+        ),
         useMaterial3: true,
       ),
       home: WelcomeScreen(),

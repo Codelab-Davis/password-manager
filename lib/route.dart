@@ -21,7 +21,7 @@ Future<void> fetchData() async {
   }
 }
 
-postData(String firstName, String lastName, String email, String phoneNumber,
+postData(String firstName, String lastName, String email,
     String password, String signUpType, String TwoFAType) async {
   //Create if conditon for whether or not user is already logged in the data base, to prevent multiple users
   // Using password should work for 3rd party since its a unique code for each new user
@@ -39,7 +39,6 @@ postData(String firstName, String lastName, String email, String phoneNumber,
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'phoneNumber': phoneNumber,
         'password': password,
         'signUpType': signUpType,
         'TwoFAType': TwoFAType,
