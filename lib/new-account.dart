@@ -45,17 +45,8 @@ class _NewAccountState extends State<NewAccount> {
         body: account,
       );
       widget.user[0]['accounts'].add(account);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account successfully saved!'),
-        ),
-      );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error saving account information! Please try again.'),
-        ),
-      );
+      print(e);
     }
   }
 

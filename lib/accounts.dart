@@ -22,36 +22,37 @@ class _AccountsPageState extends State<AccountsPage> {
 
   var count = 0;
 
-  final List<dynamic> items = [
-    Container(
-      height: 175,
-      color: const Color.fromARGB(255, 220, 220, 220),
-      child: const Center(),
-    ),
-    Container(),
-  ];
-
-  void _addAccount() {
-    /*
-    if (count == 2) {
-      items.add(Container());
-      print(count);
-    } else {
-      */
-    items.add(
-      Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-        child: Container(
-          height: 175,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 220, 220, 220),
-            borderRadius: BorderRadius.circular(
-                10.0), // Add a border radius for rounded corners
-          ),
-          child: const Center(),
-        ),
-      ),
-    );
+  Widget account(String appName, String username, String password) {
+    return Container(
+       height: 175,
+       decoration: BoxDecoration(
+         color: const Color.fromARGB(255, 255, 255, 255),
+         borderRadius: BorderRadius.circular(
+             10.0), // Add a border radius for rounded corners
+       ),
+       child: Column(
+         children: [
+           ClipRRect(
+             borderRadius: BorderRadius.circular(15),
+             child: Image.network(
+               'https://logo.clearbit.com/${appName.replaceAll(' ', '')}.com', // URL of the image
+               fit: BoxFit.cover,
+               errorBuilder: (BuildContext context, Object exception,
+                   StackTrace? stackTrace) {
+                 // You can return any widget here to display in case of an error
+                 return Container();
+               },
+             ),
+           ),
+           const Divider(
+             color: Colors.black, // Color of the divider
+             thickness: 2,
+           ),
+           Text(username),
+           Text(password)
+         ],
+       ),
+     );
   }
 
   changeButtons(button) {
@@ -155,15 +156,22 @@ class _AccountsPageState extends State<AccountsPage> {
               height: 15,
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 412,
+              height: MediaQuery.of(context).size.height - 413,
               child: SingleChildScrollView(
                 child: MasonryView(
-                  listOfItem: items,
+                  listOfItem: List.generate(widget.user[0]['accounts'].length + 1, (index) => index),
                   numberOfColumn: 2,
                   itemBuilder: (item) {
-                    count += 1;
-                    if (count == 2) {
-                      final addPassword = Padding(
+                    final accounts =  widget.user[0]['accounts'];
+                    if(item == 0) {
+                      final currAccount = accounts[item];
+                      final currApp = currAccount['appName'];
+                      final currUser =  currAccount['username'];
+                      final currPass = currAccount['password'];
+                      return account(currApp, currUser, currPass);
+                    }
+                    else if (item == 1) {
+                      return Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                         child: SizedBox(
                           height: 50,
@@ -175,7 +183,6 @@ class _AccountsPageState extends State<AccountsPage> {
                                   MaterialPageRoute(
                                       builder: (context) => NewAccount(user: widget.user)),
                                 );
-                                _addAccount();
                               });
                             },
                             style: ButtonStyle(
@@ -210,13 +217,14 @@ class _AccountsPageState extends State<AccountsPage> {
                           ),
                         ),
                       );
-                      items[1] = addPassword;
-                      items.add(const SizedBox(
-                        height: 0,
-                      ));
-                      return addPassword;
                     }
-                    return item;
+                    else {
+                      final currAccount = accounts[item - 1];
+                      final currApp = currAccount['appName'];
+                      final currUser = currAccount['username'];
+                      final currPass = currAccount['password'];
+                      return account(currApp, currUser, currPass);
+                    }
                   },
                 ),
               ),
