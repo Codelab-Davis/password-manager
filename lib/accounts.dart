@@ -222,11 +222,18 @@ class _AccountsPageState extends State<AccountsPage> {
               child: SingleChildScrollView(
                 child: MasonryView(
                   listOfItem: List.generate(
-                      widget.user[0]['accounts'].length + 1, (index) => index),
+                    (widget.user[0]['accounts'].length == 0
+                        ? 3
+                        : widget.user[0]['accounts'].length + 2),
+                    (index) => index,
+                  ),
                   numberOfColumn: 2,
                   itemBuilder: (item) {
                     final accounts = widget.user[0]['accounts'];
                     if (item == 0) {
+                      if (accounts.length == 0) {
+                        return const Center();
+                      }
                       final currAccount = accounts[item];
                       final currApp = currAccount['appName'];
                       final currUser = currAccount['username'];
@@ -244,8 +251,10 @@ class _AccountsPageState extends State<AccountsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        NewAccount(user: widget.user, addAccount: addAccount,),
+                                    builder: (context) => NewAccount(
+                                      user: widget.user,
+                                      addAccount: addAccount,
+                                    ),
                                   ),
                                 ).then((result) {
                                   if (result != null) {
@@ -254,7 +263,6 @@ class _AccountsPageState extends State<AccountsPage> {
                                     });
                                   }
                                 });
-
                               });
                             },
                             style: ButtonStyle(
@@ -290,8 +298,11 @@ class _AccountsPageState extends State<AccountsPage> {
                           ),
                         ),
                       );
-                    } else {
-                      final currAccount = accounts[item - 1];
+                    } else if(item == 2) {
+                      return const Center();
+                    }
+                    else {
+                      final currAccount = accounts[item - 2];
                       final currApp = currAccount['appName'];
                       final currUser = currAccount['username'];
                       final currPass = currAccount['password'];
