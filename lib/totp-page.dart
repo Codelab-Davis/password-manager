@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/global.dart';
 import 'package:password_manager/accounts.dart';
-
 
 class GenerateTOTPPage extends StatefulWidget {
   final String secret;
@@ -19,13 +17,10 @@ class GenerateTOTPPage extends StatefulWidget {
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
-  int reloadTimer = 30; 
+  int reloadTimer = 30;
   Timer? countdownTimer;
   int _selectedIndex = 0;
-  bool isHidden = true;
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  bool _showDialog = false;
 
   @override
   void initState() {
@@ -41,56 +36,93 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final bool? shouldShowDialog = ModalRoute.of(context)?.settings.arguments as bool?;
+    if (shouldShowDialog == true) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        showTOTPDialog(context);
+      });
+    }
+  }
+
+  void showTOTPDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Generated TOTP'),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    otp.substring(0, 3) + " " + otp.substring(3),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Reload in $reloadTimer seconds',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      generateOTP();
+                      resetReloadTimer();
+                      setState(() {});
+                    },
+                    child: const Text('Reload'),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-        'TOTP Generator',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+          'TOTP Generator',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      )
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Generated TOTP:',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              otp.substring(0, 3) + " " + otp.substring(3),
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Reload in $reloadTimer seconds',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                generateOTP();
-                resetReloadTimer();
-              },
-              child: const Text('Reload'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                FlutterClipboard.copy(otp).then((_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('OTP copied to clipboard')),
-                  );
-                });
-              },
-              child: const Text('Copy'),
-            ),
-            const SizedBox(height: 10),
-          ],
+        child: ElevatedButton(
+          onPressed: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const QRScannerPage(),
+              ),
+            );
+            if (result != null && result) {
+              setState(() {
+                _showDialog = true;
+              });
+            }
+          },
+          child: const Text('QR Scanner'),
         ),
       ),
       floatingActionButton: Container(
@@ -180,14 +212,21 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => QRScannerPage()),
-        );
+        ).then((result) {
+          if (result != null && result) {
+            setState(() {
+              _showDialog = true;
+            });
+          }
+        });
         break;
       case 2:
         Navigator.push(
-        context,
-        MaterialPageRoute(
-        builder: (context) => AccountsPage(user: Global.user),
-        ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => AccountsPage(user: Global.user),
+          ),
+        );
         break;
       case 3:
         Navigator.pushReplacement(
@@ -201,20 +240,18 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   void generateOTP() {
-  final now = DateTime.now();
-  
-  setState(() {
-    otp = OTP.generateTOTPCodeString(
-      widget.secret,
-      now.millisecondsSinceEpoch,
-      length: 6,
-      interval: 30,
-      algorithm: Algorithm.SHA1,
-      isGoogle: true,
-    );
-  });
-}
-
+    final now = DateTime.now();
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        widget.secret,
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
 
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -222,8 +259,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         if (reloadTimer > 0) {
           reloadTimer--;
         } else {
-          generateOTP(); 
-          reloadTimer = 30; 
+          generateOTP();
+          reloadTimer = 30;
         }
       });
     });
@@ -231,7 +268,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void resetReloadTimer() {
     setState(() {
-      reloadTimer = 30; 
+      reloadTimer = 30;
     });
   }
 }
