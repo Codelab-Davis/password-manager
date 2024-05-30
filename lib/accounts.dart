@@ -157,6 +157,7 @@ class _AccountsPageState extends State<AccountsPage> {
       backgroundColor: const Color(0xFFF8F8F9),
       appBar: AppBar(
         title: const Text("Accounts Page"),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
@@ -236,6 +237,7 @@ class _AccountsPageState extends State<AccountsPage> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                         child: SizedBox(
                           height: 50,
+                          //
                           child: ElevatedButton(
                             onPressed: () {
                               setState(() {

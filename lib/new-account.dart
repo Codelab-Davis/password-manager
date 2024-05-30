@@ -55,6 +55,9 @@ class _NewAccountState extends State<NewAccount> {
   @override
   void dispose() {
     appNameController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    notesController.dispose();
     _debounce?.cancel();
     super.dispose();
   }
@@ -70,12 +73,10 @@ class _NewAccountState extends State<NewAccount> {
             left: 20,
             child: IconButton(
               onPressed: () {
-                setState(() {
-                  
-                });
-                Navigator.pop(
+                Navigator.pushReplacement(
                   context,
-                  (user: widget.user)
+                  MaterialPageRoute(
+                      builder: (context) => AccountsPage(user: widget.user)),
                 );
               },
               icon: const Icon(Icons.arrow_back),
