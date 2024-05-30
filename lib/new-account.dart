@@ -339,12 +339,7 @@ class _NewAccountState extends State<NewAccount> {
                             usernameController.text,
                             passwordController.text,
                             notesController.text);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AccountsPage(user: widget.user)),
-                        );
+                        Navigator.pop(context, widget.user[0]['accounts']);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -390,12 +385,7 @@ class _NewAccountState extends State<NewAccount> {
                                 horizontal: 16, vertical: 6)),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AccountsPage(user: widget.user)),
-                        );
+                        Navigator.pop(context, widget.user[0]['accounts']);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

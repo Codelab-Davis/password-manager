@@ -244,11 +244,17 @@ class _AccountsPageState extends State<AccountsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NewAccount(
-                                            user: widget.user,
-                                            addAccount: addAccount,
-                                          )),
-                                );
+                                    builder: (context) =>
+                                        NewAccount(user: widget.user, addAccount: addAccount,),
+                                  ),
+                                ).then((result) {
+                                  if (result != null) {
+                                    setState(() {
+                                      widget.user[0]['accounts'] = result;
+                                    });
+                                  }
+                                });
+
                               });
                             },
                             style: ButtonStyle(
