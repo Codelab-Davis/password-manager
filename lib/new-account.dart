@@ -46,7 +46,7 @@ class _NewAccountState extends State<NewAccount> {
         },
         body: account,
       );
-      widget.addAccount(appName, username, password);
+      widget.addAccount(appName, username, password, notes);
     } catch (e) {
       print(e);
     }

@@ -24,12 +24,13 @@ class _AccountsPageState extends State<AccountsPage> {
 
   var count = 0;
 
-  void addAccount(String appName, String username, String password) {
+  void addAccount(String appName, String username, String password, String notes) {
     setState(() {
       widget.user[0]['accounts'].add({
         'appName': appName,
         'username': username,
         'password': password,
+        'notes': notes
       });
     });
   }
