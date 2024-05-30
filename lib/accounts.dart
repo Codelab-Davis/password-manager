@@ -20,39 +20,100 @@ class _AccountsPageState extends State<AccountsPage> {
   var secondTap = false;
   var thirdTap = false;
 
+  var showPassword = true;
+
   var count = 0;
+
+  void addAccount(String appName, String username, String password) {
+    setState(() {
+      widget.user[0]['accounts'].add({
+        'appName': appName,
+        'username': username,
+        'password': password,
+      });
+    });
+  }
 
   Widget account(String appName, String username, String password) {
     return Container(
-       height: 175,
-       decoration: BoxDecoration(
-         color: const Color.fromARGB(255, 255, 255, 255),
-         borderRadius: BorderRadius.circular(
-             10.0), // Add a border radius for rounded corners
-       ),
-       child: Column(
-         children: [
-           ClipRRect(
-             borderRadius: BorderRadius.circular(15),
-             child: Image.network(
-               'https://logo.clearbit.com/${appName.replaceAll(' ', '')}.com', // URL of the image
-               fit: BoxFit.cover,
-               errorBuilder: (BuildContext context, Object exception,
-                   StackTrace? stackTrace) {
-                 // You can return any widget here to display in case of an error
-                 return Container();
-               },
-             ),
-           ),
-           const Divider(
-             color: Colors.black, // Color of the divider
-             thickness: 2,
-           ),
-           Text(username),
-           Text(password)
-         ],
-       ),
-     );
+      height: 200,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1.0,
+        ),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Container(
+              width: 75,
+              height: 75,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  'https://logo.clearbit.com/${appName.replaceAll(' ', '')}.com', // URL of the image
+                  fit: BoxFit.cover,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    // You can return any widget here to display in case of an error
+                    return Container();
+                  },
+                ),
+              ),
+            ),
+          ),
+          Text(
+            appName,
+            style: const TextStyle(
+              color: Color(0xFF323232),
+              fontSize: 18,
+              fontFamily: 'Outfit',
+              fontWeight: FontWeight.w500,
+              height: 0,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Divider(
+              color: Colors.grey, // Color of the divider
+              thickness: 1,
+            ),
+          ),
+          Text(
+            '@' + username,
+            style: const TextStyle(
+              color: Color(0xFF323232),
+              fontSize: 16,
+              fontFamily: 'Outfit',
+              fontWeight: FontWeight.w400,
+              height: 0,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  password,
+                  style: const TextStyle(
+                    color: Color(0xFF323232),
+                    fontSize: 14,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   changeButtons(button) {
@@ -159,18 +220,18 @@ class _AccountsPageState extends State<AccountsPage> {
               height: MediaQuery.of(context).size.height - 413,
               child: SingleChildScrollView(
                 child: MasonryView(
-                  listOfItem: List.generate(widget.user[0]['accounts'].length + 1, (index) => index),
+                  listOfItem: List.generate(
+                      widget.user[0]['accounts'].length + 1, (index) => index),
                   numberOfColumn: 2,
                   itemBuilder: (item) {
-                    final accounts =  widget.user[0]['accounts'];
-                    if(item == 0) {
+                    final accounts = widget.user[0]['accounts'];
+                    if (item == 0) {
                       final currAccount = accounts[item];
                       final currApp = currAccount['appName'];
-                      final currUser =  currAccount['username'];
+                      final currUser = currAccount['username'];
                       final currPass = currAccount['password'];
                       return account(currApp, currUser, currPass);
-                    }
-                    else if (item == 1) {
+                    } else if (item == 1) {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                         child: SizedBox(
@@ -181,7 +242,10 @@ class _AccountsPageState extends State<AccountsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NewAccount(user: widget.user)),
+                                      builder: (context) => NewAccount(
+                                            user: widget.user,
+                                            addAccount: addAccount,
+                                          )),
                                 );
                               });
                             },
@@ -194,7 +258,8 @@ class _AccountsPageState extends State<AccountsPage> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: const BorderSide(
-                                        color: Color(0xffC0C2E9)) // BorderRadius
+                                        color:
+                                            Color(0xffC0C2E9)) // BorderRadius
                                     ),
                               ),
                               padding: MaterialStateProperty.all(
@@ -217,8 +282,7 @@ class _AccountsPageState extends State<AccountsPage> {
                           ),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       final currAccount = accounts[item - 1];
                       final currApp = currAccount['appName'];
                       final currUser = currAccount['username'];

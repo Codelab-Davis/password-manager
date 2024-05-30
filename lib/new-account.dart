@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:password_manager/accounts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,7 +9,8 @@ import 'dart:async';
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
-  const NewAccount({super.key, required this.user});
+  final dynamic addAccount;
+  const NewAccount({super.key, required this.user, required this.addAccount});
 
   @override
   State<NewAccount> createState() => _NewAccountState();
@@ -44,7 +46,7 @@ class _NewAccountState extends State<NewAccount> {
         },
         body: account,
       );
-      widget.user[0]['accounts'].add(account);
+      widget.addAccount(appName, username, password);
     } catch (e) {
       print(e);
     }
@@ -68,10 +70,12 @@ class _NewAccountState extends State<NewAccount> {
             left: 20,
             child: IconButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                setState(() {
+                  
+                });
+                Navigator.pop(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => AccountsPage(user: widget.user)),
+                  (user: widget.user)
                 );
               },
               icon: const Icon(Icons.arrow_back),
