@@ -5,6 +5,7 @@ import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/global.dart';
+import 'package:password_manager/main.dart';
 import 'package:password_manager/accounts.dart';
 
 
@@ -44,10 +45,10 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
         'TOTP Generator',
         style: TextStyle(
-          fontSize: 24,
+          fontSize: getScaledSizeX(context, 24),
           fontWeight: FontWeight.bold,
         ),
       )
@@ -56,21 +57,21 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'Generated TOTP:',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: getScaledSizeX(context, 20)),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: getScaledSizeY(context, 10)),
             Text(
               otp.substring(0, 3) + " " + otp.substring(3),
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: getScaledSizeX(context, 20)),
             Text(
               'Reload in $reloadTimer seconds',
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: getScaledSizeX(context, 20)),
             ElevatedButton(
               onPressed: () {
                 generateOTP();
@@ -78,7 +79,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               },
               child: const Text('Reload'),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: getScaledSizeX(context, 10)),
             ElevatedButton(
               onPressed: () {
                 FlutterClipboard.copy(otp).then((_) {
@@ -89,14 +90,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               },
               child: const Text('Copy'),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: getScaledSizeX(context, 10)),
           ],
         ),
       ),
       floatingActionButton: Container(
-        width: 365,
-        height: 59,
-        margin: const EdgeInsets.only(left: 50, right: 18),
+        width: getScaledSizeX(context, 365),
+        height: getScaledSizeY(context, 59),
+        margin: EdgeInsets.only(left: getScaledSizeX(context, 50), right: getScaledSizeX(context, 18)),
         decoration: BoxDecoration(
           color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),

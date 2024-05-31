@@ -5,6 +5,7 @@ import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:password_manager/global.dart';
+import 'package:password_manager/main.dart';
 import 'package:flutter_masonry_view/flutter_masonry_view.dart';
 
 class AccountsPage extends StatefulWidget {
@@ -190,8 +191,8 @@ class _AccountsPageState extends State<AccountsPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: getScaledSizeY(context, 15),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -204,7 +205,7 @@ class _AccountsPageState extends State<AccountsPage> {
                             final addPassword = Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                               child: SizedBox(
-                                height: 50,
+                                height: getScaledSizeY(context, 50),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
@@ -271,9 +272,9 @@ class _AccountsPageState extends State<AccountsPage> {
         ],
       ),
       floatingActionButton: Container(
-        width: 365,
-        height: 59,
-        margin: const EdgeInsets.only(left: 50, right: 18),
+        width: getScaledSizeX(context, 365),
+        height: getScaledSizeY(context, 59),
+        margin: EdgeInsets.only(left: getScaledSizeX(context, 50), right: getScaledSizeX(context, 18)),
         decoration: BoxDecoration(
           color: Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),

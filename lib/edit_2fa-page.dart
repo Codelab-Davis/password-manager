@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
+import 'package:password_manager/main.dart';
 import 'package:password_manager/profile-page.dart';
 
 class Edit2FAPage extends StatefulWidget {
@@ -43,10 +43,10 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           '2FA Preference',
           style: TextStyle(
-            fontSize: 24,
+            fontSize: getScaledSizeX(context, 24),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -68,8 +68,8 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       await updateTwoFAType('testing@gmail.com', 'FaceID');
                     },
                     child: Container(
-                      width: 120,
-                      height: 120,
+                      width: getScaledSizeX(context, 120),
+                      height: getScaledSizeY(context, 120),
                       margin: const EdgeInsets.only(top: 35),
                       decoration: BoxDecoration(
                         color: isFaceID
@@ -92,12 +92,12 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
+                  Padding(
+                    padding: EdgeInsets.only(top: getScaledSizeY(context, 10)),
                     child: Text(
                       'Face ID',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: getScaledSizeX(context, 18),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -119,9 +119,9 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                           'testing@gmail.com', 'SMS Passcode');
                     },
                     child: Container(
-                      width: 120,
-                      height: 120,
-                      margin: const EdgeInsets.only(top: 50),
+                      width: getScaledSizeX(context, 120),
+                      height: getScaledSizeY(context, 120),
+                      margin: EdgeInsets.only(top: getScaledSizeX(context, 50)),
                       decoration: ShapeDecoration(
                         color: isSMS
                             ? Color.fromARGB(255, 215, 213, 213)
@@ -143,12 +143,12 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
+                  Padding(
+                    padding: EdgeInsets.only(top: getScaledSizeY(context, 10)),
                     child: Text(
                       'SMS Passcode',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: getScaledSizeX(context, 18),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -170,9 +170,9 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                           'testing@gmail.com', '6-Digit Passcode');
                     },
                     child: Container(
-                      width: 120,
-                      height: 120,
-                      margin: const EdgeInsets.only(top: 50),
+                      width: getScaledSizeX(context, 120),
+                      height: getScaledSizeY(context, 120),
+                      margin: EdgeInsets.only(top: getScaledSizeX(context, 50)),
                       decoration: ShapeDecoration(
                         color: is6digit
                             ? Color.fromARGB(255, 215, 213, 213)
@@ -208,8 +208,8 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
               ),
             ),
             Container(
-              width: 140,
-              height: 50,
+              width: getScaledSizeX(context, 140),
+              height: getScaledSizeY(context, 50),
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -222,7 +222,7 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   )
                 ],
               ),
-              margin: const EdgeInsets.only(top: 55),
+              margin: EdgeInsets.only(top: getScaledSizeY(context, 55)),
               child: ElevatedButton(
                 onPressed: () {
                   showDialog(
@@ -272,11 +272,11 @@ class _Edit2FAPageState extends State<Edit2FAPage> {
                   ),
                   shadowColor: const Color(0x3F000000),
                 ),
-                child: const Text(
+                child:Text(
                   'Confirm',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: getScaledSizeX(context, 16),
                     fontFamily: 'Outfit',
                     fontWeight: FontWeight.w500,
                     height: 0,

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:password_manager/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:typed_data';
 
@@ -123,8 +124,8 @@ class _NewAccountState extends State<NewAccount> {
       body: Stack(
         children: [
           Positioned(
-            top: 50,
-            left: 20,
+            top: getScaledSizeY(context, 50),
+            left: getScaledSizeX(context, 20),
             child: IconButton(
               onPressed: () {
                 Navigator.pushReplacement(
@@ -149,7 +150,7 @@ class _NewAccountState extends State<NewAccount> {
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(40, 50, 0, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -157,41 +158,41 @@ class _NewAccountState extends State<NewAccount> {
                         'Application Name',
                         style: TextStyle(
                           color: Color(0xFF313131),
-                          fontSize: 16,
+                          fontSize: getScaledSizeX(context, 16),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w400,
-                          height: 0.12,
+                          height: getScaledSizeY(context, 0.12),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: getScaledSizeY(context, 15),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                    padding: EdgeInsets.only(left: getScaledSizeX(context, 40), right:getScaledSizeX(context, 40)),
                     child: SizedBox(
-                      height: 45,
+                      height: getScaledSizeY(context, 45),
                       child: TextField(
                         controller: appNameController,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
                           height: 0,
                         ),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Enter application name',
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 20)),
+                                vertical: getScaledSizeY(context, 5), horizontal: getScaledSizeX(context, 20))),
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -199,41 +200,41 @@ class _NewAccountState extends State<NewAccount> {
                         'Username',
                         style: TextStyle(
                           color: Color(0xFF313131),
-                          fontSize: 16,
+                          fontSize: getScaledSizeX(context, 16),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w400,
-                          height: 0.12,
+                          height: getScaledSizeY(context, 0.12),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: getScaledSizeY(context, 15),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                    padding: EdgeInsets.only(left: getScaledSizeX(context, 40), right: getScaledSizeX(context, 40)),
                     child: SizedBox(
-                      height: 50,
+                      height: getScaledSizeY(context, 15),
                       child: TextField(
                         controller: usernameController,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
                           height: 0,
                         ),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Enter username',
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 20)),
+                                vertical: getScaledSizeY(context, 5), horizontal: getScaledSizeX(context, 20))),
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -241,26 +242,26 @@ class _NewAccountState extends State<NewAccount> {
                         'Password',
                         style: TextStyle(
                           color: Color(0xFF313131),
-                          fontSize: 16,
+                          fontSize: getScaledSizeX(context, 16),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w400,
-                          height: 0.12,
+                          height: getScaledSizeY(context, 0.12),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: getScaledSizeY(context, 15),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                    padding: EdgeInsets.only(left: getScaledSizeX(context, 40), right: getScaledSizeX(context, 40)),
                     child: SizedBox(
-                      height: 50,
+                      height: getScaledSizeY(context, 50),
                       child: TextField(
                         controller: passwordController,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
                           height: 0,
@@ -277,7 +278,7 @@ class _NewAccountState extends State<NewAccount> {
                                   children: [
                                     IconButton(
                                       constraints:
-                                          const BoxConstraints(maxWidth: 15),
+                                          BoxConstraints(maxWidth: getScaledSizeX(context, 15)),
                                       icon: Icon(showPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off),
@@ -308,12 +309,12 @@ class _NewAccountState extends State<NewAccount> {
                                     ),
                                   ]),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 20)),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: getScaledSizeY(context, 5), horizontal: getScaledSizeX(context, 20))),
                       ),
                     ),
                   ),
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -321,45 +322,45 @@ class _NewAccountState extends State<NewAccount> {
                         'Additional Notes',
                         style: TextStyle(
                           color: Color(0xFF313131),
-                          fontSize: 16,
+                          fontSize: getScaledSizeX(context, 16),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w400,
-                          height: 0.12,
+                          height: getScaledSizeY(context, 0.12),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: getScaledSizeY(context, 15),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                    padding: EdgeInsets.only(left: getScaledSizeX(context, 40), right: getScaledSizeX(context, 40)),
                     child: SizedBox(
-                      height: 200,
+                      height: getScaledSizeY(context, 200),
                       child: TextField(
                         controller: notesController,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF323232),
-                          fontSize: 15,
+                          fontSize: getScaledSizeX(context, 15),
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
                         ),
                         keyboardType: TextInputType.multiline,
                         minLines: 6,
                         maxLines: 6,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Insert notes...',
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20)),
+                                vertical: getScaledSizeY(context, 10), horizontal: getScaledSizeX(context, 20))),
                       ),
                     ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 80,
-                    height: 45,
+                    height: getScaledSizeY(context, 45),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
@@ -393,29 +394,29 @@ class _NewAccountState extends State<NewAccount> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset('assets/confirm_changes.svg'),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: getScaledSizeX(context, 10),
                           ),
-                          const Text(
+                          Text(
                             'Confirm Changes',
                             style: TextStyle(
                               color: Color(0xFF313131),
-                              fontSize: 16,
+                              fontSize: getScaledSizeX(context, 16),
                               fontFamily: 'Outfit',
                               fontWeight: FontWeight.w500,
-                              height: 0.12,
+                              height: getScaledSizeY(context, 0.12),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: getScaledSizeY(context, 20),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 80,
-                    height: 45,
+                    height: getScaledSizeY(context, 40),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
@@ -429,8 +430,8 @@ class _NewAccountState extends State<NewAccount> {
                           ),
                         ),
                         padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6)),
+                            EdgeInsets.symmetric(
+                                horizontal: getScaledSizeX(context, 16), vertical: getScaledSizeY(context, 6))),
                       ),
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -444,17 +445,17 @@ class _NewAccountState extends State<NewAccount> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset('assets/delete_entry.svg'),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: getScaledSizeX(context, 10),
                           ),
-                          const Text(
+                          Text(
                             'Delete Entry',
                             style: TextStyle(
                               color: Color(0xFF313131),
-                              fontSize: 16,
+                              fontSize: getScaledSizeX(context, 16),
                               fontFamily: 'Outfit',
                               fontWeight: FontWeight.w500,
-                              height: 0.12,
+                              height: getScaledSizeY(context, 0.12),
                             ),
                           ),
                         ],
@@ -466,12 +467,12 @@ class _NewAccountState extends State<NewAccount> {
             ),
           ),
           Positioned(
-            top: 70,
+            top: getScaledSizeY(context, 70),
             right: MediaQuery.of(context).size.width - 247.5,
             left: MediaQuery.of(context).size.width - 247.5,
             child: SizedBox(
-              width: 100,
-              height: 100,
+              width: getScaledSizeX(context, 100),
+              height: getScaledSizeY(context, 100),
               child: GestureDetector(
                 onTap: _getImage,
                 child: Stack(
@@ -512,12 +513,12 @@ class _NewAccountState extends State<NewAccount> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset('assets/add_icon.svg'),
-                                const Text(
+                                Text(
                                   'Add Icon',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color(0xFF313131),
-                                    fontSize: 12,
+                                    fontSize: getScaledSizeX(context, 12),
                                     fontFamily: 'Outfit',
                                     fontWeight: FontWeight.w700,
                                   ),

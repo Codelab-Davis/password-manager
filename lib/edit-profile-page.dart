@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/main.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/edit_2fa-page.dart';
 
@@ -20,25 +21,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Account Settings',
           style: TextStyle(
-            fontSize: 24,
+            fontSize: getScaledSizeX(context, 24),
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 10.0),
+            padding: EdgeInsets.only(right: getScaledSizeX(context, 10)),
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: Text(
                   'Save',
                   style: TextStyle(
                     color: Color(0xFF374375),
-                    fontSize: 18,
+                    fontSize: getScaledSizeX(context, 18),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -52,8 +53,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: 167,
-              height: 167,
+              width: getScaledSizeX(context, 167),
+              height: getScaledSizeY(context, 167),
               margin: const EdgeInsets.only(top: 50),
               decoration: const ShapeDecoration(
                 color: Color(0xFFD9D9D9),
@@ -70,10 +71,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 7.0, right: 5.0),
+                  padding: EdgeInsets.only(top: getScaledSizeY(context, 7), right: getScaledSizeX(context, 5)),
                   child: Container(
-                      width: 38,
-                      height: 38,
+                      width: getScaledSizeX(context, 38),
+                      height: getScaledSizeY(context, 38),
                       decoration: const ShapeDecoration(
                           color: Color(0xFFE4E4F9),
                           shape: OvalBorder(),
@@ -95,22 +96,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 50, left: 25, right: 25),
+              margin: EdgeInsets.only(top: getScaledSizeY(context, 50), left: getScaledSizeX(context, 25), right: getScaledSizeX(context, 25)),
               child: Column(
                 children: [
                   Container(
                     child: Column(
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
+                            padding: EdgeInsets.only(left: getScaledSizeX(context, 20)),
                             child: Text(
                               'Name',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xFF323232),
-                                fontSize: 16,
+                                fontSize: getScaledSizeX(context, 16),
                                 fontFamily: 'Outfit',
                                 fontWeight: FontWeight.w600,
                                 height: 0,
@@ -118,9 +119,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: getScaledSizeY(context, 10)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 20)),
                           child: Container(
                             decoration: ShapeDecoration(
                               color: Color(0xFFFFFDFC),
@@ -131,13 +132,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              padding: EdgeInsets.only(left: getScaledSizeX(context, 5), right: getScaledSizeX(context, 5)),
                               child: TextField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Paisley Penguin',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                      EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 10)),
                                 ),
                                 controller: NameController,
                               ),
@@ -147,20 +148,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 35),
+                  SizedBox(height: getScaledSizeY(context, 35)),
                   Container(
                     child: Column(
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
+                            padding: EdgeInsets.only(left: getScaledSizeX(context, 20)),
                             child: Text(
                               'Email Address',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xFF323232),
-                                fontSize: 16,
+                                fontSize: getScaledSizeX(context, 16),
                                 fontFamily: 'Outfit',
                                 fontWeight: FontWeight.w600,
                                 height: 0,
@@ -168,9 +169,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: getScaledSizeY(context, 10)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: EdgeInsets.symmetric(horizontal: getScaledSizeY(context, 20)),
                           child: Container(
                             decoration: ShapeDecoration(
                               color: Color(0xFFFFFDFC),
@@ -181,13 +182,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              padding: EdgeInsets.only(left: getScaledSizeX(context, 5), right:getScaledSizeX(context, 5)),
                               child: TextField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'paisleypenguin@gmail.com',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                      EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 10)),
                                 ),
                                 controller: EmailController,
                               ),
@@ -197,20 +198,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 35),
+                  SizedBox(height: getScaledSizeY(context, 35)),
                   Container(
                     child: Column(
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
+                            padding: EdgeInsets.only(left: getScaledSizeX(context, 20)),
                             child: Text(
                               'Phone Number',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xFF323232),
-                                fontSize: 16,
+                                fontSize: getScaledSizeX(context, 16),
                                 fontFamily: 'Outfit',
                                 fontWeight: FontWeight.w600,
                                 height: 0,
@@ -218,9 +219,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: getScaledSizeX(context, 10)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 20)),
                           child: Container(
                             decoration: ShapeDecoration(
                               color: Color(0xFFFFFDFC),
@@ -233,18 +234,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 5, right: 5),
                               child: TextField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: '(123)-456-7890',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                      EdgeInsets.symmetric(horizontal: getScaledSizeX(context, 10)),
                                 ),
                                 controller: PhoneController,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 55),
+                        SizedBox(height: getScaledSizeY(context, 55)),
                         Container(
                           width: 313,
                           height: 55,
@@ -275,18 +276,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 6),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getScaledSizeX(context, 16), vertical: getScaledSizeY(context, 6)),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Two-Factor Authentication Method',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: getScaledSizeX(context, 16),
                                 fontFamily: 'Outfit',
                                 fontWeight: FontWeight.w600,
-                                height: 0.04,
+                                height: getScaledSizeY(context, 0.04),
                               ),
                             ),
                           ),

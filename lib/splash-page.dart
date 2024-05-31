@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/main.dart';
 import 'package:password_manager/new-account.dart';
 import 'login-page.dart';
 import 'dart:async';
@@ -45,17 +46,17 @@ class _WelcomeScreenState extends State
               children: [
                 Image.asset(
                   'assets/icon.png',
-                  width: 240,
-                  height: 230,
+                  width: getScaledSizeX(context, 240),
+                  height: getScaledSizeY(context, 230),
                 ),
                 Container(
                   //margin: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: const Text(
+                  child: Text(
                     'PassPal',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF313131),
-                      fontSize: 40,
+                      fontSize: getScaledSizeX(context, 40),
                       fontFamily: 'Outfit',
                       fontWeight: FontWeight.w700,
                       height: 0,
