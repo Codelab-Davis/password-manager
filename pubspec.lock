@@ -360,6 +360,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gen_art_bg:
+    dependency: "direct main"
+    description:
+      name: gen_art_bg
+      sha256: "6bd6066de06ff15b424dd12f94c007d539c5131c9e8f48acc2b2566469a6d3b1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   google_identity_services_web:
     dependency: transitive
     description:
