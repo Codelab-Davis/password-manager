@@ -40,7 +40,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
     super.didChangeDependencies();
     final bool? shouldShowDialog = ModalRoute.of(context)?.settings.arguments as bool?;
     if (shouldShowDialog == true) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         showTOTPDialog(context);
       });
     }
