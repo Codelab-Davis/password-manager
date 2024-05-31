@@ -20,7 +20,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   int reloadTimer = 30;
   Timer? countdownTimer;
   int _selectedIndex = 0;
-  bool _showDialog = false;
 
   @override
   void initState() {
@@ -36,66 +35,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final bool? shouldShowDialog = ModalRoute.of(context)?.settings.arguments as bool?;
-    if (shouldShowDialog == true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showTOTPDialog(context);
-      });
-    }
-  }
-
-  void showTOTPDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Generated TOTP'),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    otp.substring(0, 3) + " " + otp.substring(3),
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Reload in $reloadTimer seconds',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      generateOTP();
-                      resetReloadTimer();
-                      setState(() {});
-                    },
-                    child: const Text('Reload'),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -108,21 +47,42 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         ),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const QRScannerPage(),
-              ),
-            );
-            if (result != null && result) {
-              setState(() {
-                _showDialog = true;
-              });
-            }
-          },
-          child: const Text('QR Scanner'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              otp.isNotEmpty ? otp.substring(0, 3) + " " + otp.substring(3) : '',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Reload in $reloadTimer seconds',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                generateOTP();
+                resetReloadTimer();
+              },
+              child: const Text('Reload'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QRScannerPage(),
+                  ),
+                );
+                if (result != null && result) {
+                  generateOTP(); // Generate OTP when returning from QR scanner
+                }
+              },
+              child: const Text('QR Scanner'),
+            ),
+          ],
         ),
       ),
       floatingActionButton: Container(
@@ -130,7 +90,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         height: 59,
         margin: const EdgeInsets.only(left: 50, right: 18),
         decoration: BoxDecoration(
-          color: Color(0xFF374375),
+          color: const Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -149,7 +109,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.home,
                   size: 35,
-                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 0 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -162,7 +122,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.qr_code,
                   size: 35,
-                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 1 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -175,7 +135,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.key_sharp,
                   size: 35,
-                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 2 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -188,7 +148,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.person,
                   size: 35,
-                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 3 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -211,12 +171,10 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => QRScannerPage()),
+          MaterialPageRoute(builder: (context) => const QRScannerPage()),
         ).then((result) {
           if (result != null && result) {
-            setState(() {
-              _showDialog = true;
-            });
+            generateOTP();
           }
         });
         break;
