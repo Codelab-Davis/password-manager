@@ -96,6 +96,9 @@ flutter:
     - assets/paisleyIcon.jpg
     - assets/appLogo.png
     - assets/icon.png
+    - assets/add_icon.svg
+    - assets/confirm_changes.svg
+    - assets/delete_entry.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

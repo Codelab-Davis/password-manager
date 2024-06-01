@@ -18,6 +18,7 @@ class NewAccount extends StatefulWidget {
 
 class _NewAccountState extends State<NewAccount> {
   bool showPassword = false;
+  bool enableOtp = false;
 
   TextEditingController appNameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -88,7 +89,7 @@ class _NewAccountState extends State<NewAccount> {
               decoration: ShapeDecoration(
                 color: const Color(0xFFFFFBFB),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
               height: MediaQuery.of(context).size.height - 150,
@@ -314,6 +315,40 @@ class _NewAccountState extends State<NewAccount> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Enable Timed One-Time Password?',
+                          style: TextStyle(
+                            color: Color(0xFF313131),
+                            fontSize: 16,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Switch(
+                          value: enableOtp,
+                          onChanged: (value) {
+                            setState(() {
+                              enableOtp = value;
+                            });
+                          },
+                          activeTrackColor: const Color(
+                              0xFF374375), // Background color when switch is on
+                          activeColor: const Color(
+                              0xFFE4E4F9), // Circle color when switch is on
+                          inactiveTrackColor: Colors
+                              .white, // Background color when switch is off
+                          inactiveThumbColor: const Color(
+                              0xFF374375), // Circle color when switch is off
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 80,
                     height: 45,
@@ -412,12 +447,11 @@ class _NewAccountState extends State<NewAccount> {
               ),
             ),
           ),
-          Positioned(
+         Positioned(
             top: 70,
-            right: MediaQuery.of(context).size.width - 247.5,
-            left: MediaQuery.of(context).size.width - 247.5,
+            left: MediaQuery.of(context).size.width / 2 - 50, // Center the box horizontally
             child: SizedBox(
-              width: 100,
+              width: 100, // Increase the width to 150
               height: 100,
               child: Stack(
                 children: [
