@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/sms-passcode.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:timezone/data/latest.dart' as timezone;
 import 'dart:convert';
@@ -415,6 +416,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   child: const Text('Generate TOTP'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SMSPasscodePage()),
+                    );
+                  },
+                  child: const Text('Sign Up Stuff'),
                 ),
               ],
             ),

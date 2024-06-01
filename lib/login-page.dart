@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'global.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'signup_page.dart';
+import 'signup-page.dart';
 import '3rd_party_signin.dart';
 
 class Login extends StatefulWidget {
