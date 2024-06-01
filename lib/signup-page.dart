@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   SizedBox(height: getScaledSizeY(context, 10)),
                   Text(
-                    'Sign up to Passpal',
+                    'Sign up to PassPal',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Color(0xFF323232),
@@ -601,7 +601,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
                 if (isReadyToSend == true) {
                   postData(firstName, lastName, emailController.text,
-                      passwordController.text, 'Passpal', faType);
+                      passwordController.text, 'PassPal', faType);
                   //Now handle each 2fa type
                 }
               },

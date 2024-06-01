@@ -24,7 +24,8 @@ class _AccountsPageState extends State<AccountsPage> {
 
   var count = 0;
 
-  void addAccount(String appName, String username, String password, String notes) {
+  void addAccount(
+      String appName, String username, String password, String notes) {
     setState(() {
       widget.user[0]['accounts'].add({
         'appName': appName,
@@ -139,37 +140,103 @@ class _AccountsPageState extends State<AccountsPage> {
 
   getStyle(buttonTap) {
     return ButtonStyle(
+      elevation: MaterialStateProperty.all(0), 
       backgroundColor: MaterialStateProperty.all(
-          buttonTap ? const Color(0xff374375) : Colors.white),
+        buttonTap ? const Color(0xFFBCBCE0) : Colors.white,
+      ),
       foregroundColor: MaterialStateProperty.all(
-          buttonTap ? Colors.white : Colors.black), // Text color
-      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        buttonTap ? const Color(0xFF323232) : const Color(0xFF323232),
+      ),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(35),
-          side: const BorderSide(color: Colors.black) // BorderRadius
-          )),
+          side: const BorderSide(color: Color(0xFFBCBCE0)),
+        ),
+      ),
       padding: MaterialStateProperty.all(
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 6)), // Padding
+        const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F9),
-      appBar: AppBar(
-        title: const Text("Accounts Page"),
-        automaticallyImplyLeading: false,
-      ),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      //appBar: AppBar(
+      // title: const Text("Accounts Page"),
+      //automaticallyImplyLeading: false,
+      //),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchBar(
-              leading: const Icon(Icons.search),
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xffF7EDEC)),
-              hintText: "Search passwords...",
+            const SizedBox(height: 50), // Space from the top
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      'PassPal',
+                      style: TextStyle(
+                        color: Color(0xFF323232),
+                        fontSize: 14,
+                        fontFamily: 'Outfit',
+                        fontWeight: FontWeight.w600,
+                        height: 0,
+                      ),
+                    ),
+                    const SizedBox(width: 10), // Space between text and icon
+                    Image.asset(
+                      'assets/icon.png',
+                      height: 24, // Adjust the height as needed
+                    ),
+                  ],
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.settings_rounded,
+                    color: Color(0xFF283044), // Set the color of the gear icon
+                  ),
+                  onPressed: () {
+                    // Handle the settings icon press
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserProfilePage()),
+                    );
+                  },
+                )
+              ],
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFBCBCE0),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 0), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: SearchBar(
+                      elevation: MaterialStateProperty.all(0), 
+                leading: const Icon(Icons.search),
+                backgroundColor: MaterialStateProperty.all(
+                    const Color(0xFFFFFCFC)), // Background color
+                hintText: "Search passwords...",
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: const BorderSide(
+                        color: Color(0xFFBCBCE0), width: 1.0), // Border
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               height: 15,
@@ -183,7 +250,13 @@ class _AccountsPageState extends State<AccountsPage> {
                   ElevatedButton(
                     style: getStyle(firstTap),
                     onPressed: () => changeButtons(1),
-                    child: const Text('Recently Added'),
+                    child: const Text('Latest'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    style: getStyle(thirdTap),
+                    onPressed: () => changeButtons(3),
+                    child: const Text('Earliest'),
                   ),
                   const SizedBox(width: 10),
                   ElevatedButton(
@@ -200,6 +273,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ],
               ),
             ),
+            const SizedBox(height: 10),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: FittedBox(
@@ -244,7 +318,7 @@ class _AccountsPageState extends State<AccountsPage> {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                         child: SizedBox(
-                          height: 50,
+                          height: 60,
                           //
                           child: ElevatedButton(
                             onPressed: () {
@@ -270,7 +344,7 @@ class _AccountsPageState extends State<AccountsPage> {
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
-                                  const Color(0xffBCBCE0)),
+                                  const Color(0xFF374375)),
                               foregroundColor: MaterialStateProperty.all(
                                   Colors.black), // Text color
                               shape: MaterialStateProperty.all(
@@ -288,12 +362,18 @@ class _AccountsPageState extends State<AccountsPage> {
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(Icons.add),
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.white,  
+                                  size: 20,
+                                ),
                                 Text(
                                   "Add Password",
                                   style: TextStyle(
                                     fontFamily: 'Outfit',
-                                    color: Colors.black,
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
                               ],
@@ -301,10 +381,9 @@ class _AccountsPageState extends State<AccountsPage> {
                           ),
                         ),
                       );
-                    } else if(item == 2) {
+                    } else if (item == 2) {
                       return const Center();
-                    }
-                    else {
+                    } else {
                       final currAccount = accounts[item - 2];
                       final currApp = currAccount['appName'];
                       final currUser = currAccount['username'];

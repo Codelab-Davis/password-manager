@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:gen_art_bg/gen_art_bg.dart';
@@ -32,12 +33,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors
-                .black, // Set the color to black or any other color you prefer
+            color: Colors.black,
           ),
         ),
         iconTheme: IconThemeData(
-            color: Colors.black), // Set the icon color to match the text
+          color: Colors.black, 
+          // Set the icon color to black
+        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
+        
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
