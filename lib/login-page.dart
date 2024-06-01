@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:password_manager/global.dart';
 import 'package:password_manager/main.dart';
 import 'package:password_manager/qrscanner-page.dart';
 import 'accounts.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'signup-page.dart';
 import '3rd_party_signin.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:password_manager/accounts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -47,7 +49,7 @@ class _LoginState extends State<Login> {
       if (response.body == "[]") {
         return false;
       }
-      currentUser = jsonDecode(response.body);
+      Global.user = jsonDecode(response.body);
       return true;
     } catch (e) {
       return false;
@@ -232,7 +234,8 @@ class _LoginState extends State<Login> {
                                     width: 0.0, // Adjust the border width here
                                   ),
                                 ),
-                                visualDensity: VisualDensity.compact, // Adjust the size here
+                                visualDensity: VisualDensity
+                                    .compact, // Adjust the size here
                               ),
                             ),
                             child: Checkbox(
@@ -311,11 +314,13 @@ class _LoginState extends State<Login> {
                         if (await verifyCredentials(
                             emailController.text, passwordController.text)) {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    AccountsPage(user: currentUser),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AccountsPage(
+                                user: Global.user,
+                              ),
+                            ),
+                          );
                         } else {
                           setState(() {
                             showError = true;
