@@ -413,7 +413,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => GenerateTOTPPage(
-                                secret: Global.result?.code ?? '')),
+                                secret: Global.qr_result?.code ?? '')),
                       );
                     },
                     child: const Text('Generate TOTP'),

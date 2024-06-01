@@ -93,7 +93,7 @@ class _AccountsPageState extends State<AccountsPage> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  GenerateTOTPPage(secret: Global.result?.code ?? '')),
+                  GenerateTOTPPage(secret: Global.qr_result?.code ?? '')),
         );
         break;
       case 1:

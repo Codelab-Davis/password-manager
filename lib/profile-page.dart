@@ -361,7 +361,7 @@ void _onItemTapped(int index, BuildContext context) {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                GenerateTOTPPage(secret: Global.result?.code ?? '')),
+                GenerateTOTPPage(secret: Global.qr_result?.code ?? '')),
       );
       break;
     case 1:
