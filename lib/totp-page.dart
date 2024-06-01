@@ -50,22 +50,48 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              otp.isNotEmpty ? otp.substring(0, 3) + " " + otp.substring(3) : '',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Reload in $reloadTimer seconds',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                generateOTP();
-                resetReloadTimer();
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QRScannerPage(),
+                  ),
+                );
+                if (result != null && result) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('OTP Generated'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              otp.isNotEmpty ? otp.substring(0, 3) + " " + otp.substring(3) : '',
+                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Reload in $reloadTimer seconds',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                generateOTP();
+                                resetReloadTimer();
+                              },
+                              child: const Text('Reload'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
               },
-              child: const Text('Reload'),
+              child: const Text('QR Scanner'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
