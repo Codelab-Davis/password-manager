@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/qrscanner-page.dart';
+import 'package:password_manager/global.dart';
 import 'package:password_manager/accounts.dart';
-
 
 class GenerateTOTPPage extends StatefulWidget {
   final String secret;
@@ -18,13 +17,9 @@ class GenerateTOTPPage extends StatefulWidget {
 
 class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   String otp = "";
-  int reloadTimer = 30; 
+  int reloadTimer = 30;
   Timer? countdownTimer;
   int _selectedIndex = 0;
-  bool isHidden = true;
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -44,60 +39,82 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-        'TOTP Generator',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+          'TOTP Generator',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      )
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Generated TOTP:',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              otp.substring(0, 3) + " " + otp.substring(3),
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Reload in $reloadTimer seconds',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                generateOTP();
-                resetReloadTimer();
-              },
-              child: const Text('Reload'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                FlutterClipboard.copy(otp).then((_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('OTP copied to clipboard')),
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QRScannerPage(),
+                  ),
+                );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('OTP Generated'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              otp.isNotEmpty ? otp.substring(0, 3) + " " + otp.substring(3) : '',
+                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Reload in $reloadTimer seconds',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                generateOTP();
+                                resetReloadTimer();
+                              },
+                              child: const Text('Reload'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   );
-                });
               },
-              child: const Text('Copy'),
+              child: const Text('QR Scanner'),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QRScannerPage(),
+                  ),
+                );
+                if (result != null && result) {
+                  generateOTP(); // Generate OTP when returning from QR scanner
+                }
+              },
+              child: const Text('QR Scanner'),
+            ),
           ],
         ),
       ),
       floatingActionButton: Container(
         width: 365,
         height: 59,
-        margin: const EdgeInsets.only(left: 15, right: 18),
+        margin: const EdgeInsets.only(left: 50, right: 18),
         decoration: BoxDecoration(
-          color: Color(0xFF374375),
+          color: const Color(0xFF374375),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -116,7 +133,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.home,
                   size: 35,
-                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 0 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -129,7 +146,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.qr_code,
                   size: 35,
-                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 1 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -142,7 +159,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.key_sharp,
                   size: 35,
-                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 2 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -155,7 +172,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 icon: Icon(
                   Icons.person,
                   size: 35,
-                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
+                  color: _selectedIndex == 3 ? const Color(0xFFE4E4F9) : Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -177,21 +194,25 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         break;
       case 1:
         Navigator.pushReplacement(
-          context as BuildContext,
-          MaterialPageRoute(builder: (context) => QRScannerPage()),
-        );
+          context,
+          MaterialPageRoute(builder: (context) => const QRScannerPage()),
+        ).then((result) {
+          if (result != null && result) {
+            generateOTP();
+          }
+        });
         break;
       case 2:
-        Navigator.pushReplacement(
-          context as BuildContext,
+        Navigator.push(
+          context,
           MaterialPageRoute(
-            builder: (context) => const AccountsPage(user: null,),
+            builder: (context) => AccountsPage(user: Global.user),
           ),
         );
         break;
       case 3:
         Navigator.pushReplacement(
-          context as BuildContext,
+          context,
           MaterialPageRoute(
             builder: (context) => const UserProfilePage(),
           ),
@@ -201,20 +222,18 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
   }
 
   void generateOTP() {
-  final now = DateTime.now();
-  
-  setState(() {
-    otp = OTP.generateTOTPCodeString(
-      widget.secret,
-      now.millisecondsSinceEpoch,
-      length: 6,
-      interval: 30,
-      algorithm: Algorithm.SHA1,
-      isGoogle: true,
-    );
-  });
-}
-
+    final now = DateTime.now();
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        widget.secret,
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
 
   void startReloadTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -222,8 +241,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
         if (reloadTimer > 0) {
           reloadTimer--;
         } else {
-          generateOTP(); 
-          reloadTimer = 30; 
+          generateOTP();
+          reloadTimer = 30;
         }
       });
     });
@@ -231,7 +250,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
 
   void resetReloadTimer() {
     setState(() {
-      reloadTimer = 30; 
+      reloadTimer = 30;
     });
   }
 }
