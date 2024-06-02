@@ -89,7 +89,7 @@ class _NewAccountState extends State<NewAccount> {
     final now = DateTime.now();
     setState(() {
       otp = OTP.generateTOTPCodeString(
-        Global.secret,
+        widget.secret,
         now.millisecondsSinceEpoch,
         length: 6,
         interval: 30,
