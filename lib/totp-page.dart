@@ -55,7 +55,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const QRScannerPage(),
+                    builder: (context) => const GenerateTOTPPage(secret: '',),
                   ),
                 );
                 showDialog(
