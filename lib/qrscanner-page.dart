@@ -1,3 +1,4 @@
+import 'package:password_manager/global.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -199,9 +200,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
         });
         Uri uri = Uri.parse(result!.code!);
         String? secret = uri.queryParameters['secret'];
+        Global.secret = secret;
 
         if (secret != null) {
-          Navigator.pop(context, secret);
+          Navigator.pop(context);
         } else {
           _resetScanner();
         }

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:password_manager/global.dart';
 import 'dart:async';
 import 'package:password_manager/qrscanner-page.dart';
 
@@ -88,7 +89,7 @@ class _NewAccountState extends State<NewAccount> {
     final now = DateTime.now();
     setState(() {
       otp = OTP.generateTOTPCodeString(
-        widget.secret,
+        Global.secret,
         now.millisecondsSinceEpoch,
         length: 6,
         interval: 30,
