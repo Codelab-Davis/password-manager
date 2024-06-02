@@ -85,38 +85,7 @@ class _NewAccountState extends State<NewAccount> {
     startReloadTimer();
   }
 
-  void generateOTP() {
-    final now = DateTime.now();
-    setState(() {
-      otp = OTP.generateTOTPCodeString(
-        widget.secret,
-        now.millisecondsSinceEpoch,
-        length: 6,
-        interval: 30,
-        algorithm: Algorithm.SHA1,
-        isGoogle: true,
-      );
-    });
-  }
-
-  void startReloadTimer() {
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (reloadTimer > 0) {
-          reloadTimer--;
-        } else {
-          generateOTP();
-          reloadTimer = 30;
-        }
-      });
-    });
-  }
-
-  void resetReloadTimer() {
-    setState(() {
-      reloadTimer = 30;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -387,7 +356,7 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         Switch(
                           value: enableOtp,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             setState(() {
                               enableOtp = value;
                             });
@@ -398,12 +367,7 @@ class _NewAccountState extends State<NewAccount> {
                                   MaterialPageRoute(
                                       builder: (context) => QRScannerPage()),
                                 );
-                                if(result != null){
-                                  setState(() {
-                                    Global.secret = result;
-                                  });
-                                };
-                                
+                              if(result != null && result){
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -445,6 +409,7 @@ class _NewAccountState extends State<NewAccount> {
                               }
 
                               scanQR();
+                              }
                             }
                           },
                           activeTrackColor: const Color(
@@ -598,5 +563,37 @@ class _NewAccountState extends State<NewAccount> {
         ],
       ),
     );
+  }
+  void generateOTP() {
+    final now = DateTime.now();
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        widget.secret,
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
+
+  void startReloadTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (reloadTimer > 0) {
+          reloadTimer--;
+        } else {
+          generateOTP();
+          reloadTimer = 30;
+        }
+      });
+    });
+  }
+
+  void resetReloadTimer() {
+    setState(() {
+      reloadTimer = 30;
+    });
   }
 }

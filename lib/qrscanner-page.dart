@@ -200,10 +200,11 @@ class _QRScannerPageState extends State<QRScannerPage> {
         });
         Uri uri = Uri.parse(result!.code!);
         String? secret = uri.queryParameters['secret'];
-        Global.secret = secret;
+
 
         if (secret != null) {
-          Navigator.pop(context,Global.secret);
+          Navigator.pop(context,secret);
+          _resetScanner();
         } else {
           _resetScanner();
         }
