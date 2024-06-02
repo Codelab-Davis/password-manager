@@ -330,7 +330,7 @@ class _AccountsPageState extends State<AccountsPage> {
                                   MaterialPageRoute(
                                     builder: (context) => NewAccount(
                                       user: widget.user,
-                                      addAccount: addAccount,
+                                      addAccount: addAccount, secret: '',
                                     ),
                                   ),
                                 ).then((result) {

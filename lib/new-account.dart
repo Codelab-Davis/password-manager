@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:otp/otp.dart';
 import 'package:password_manager/accounts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
 import 'dart:async';
+import 'package:password_manager/qrscanner-page.dart';
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
   final dynamic addAccount;
-  const NewAccount({super.key, required this.user, required this.addAccount});
+  final String secret;
+  const NewAccount(
+      {super.key,
+      required this.user,
+      required this.addAccount,
+      required this.secret});
 
   @override
   State<NewAccount> createState() => _NewAccountState();
@@ -59,8 +66,55 @@ class _NewAccountState extends State<NewAccount> {
     usernameController.dispose();
     passwordController.dispose();
     notesController.dispose();
+    countdownTimer?.cancel();
     _debounce?.cancel();
     super.dispose();
+  }
+
+  //TOTP STUFF
+
+  String otp = "";
+  int reloadTimer = 30;
+  Timer? countdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    generateOTP();
+    startReloadTimer();
+  }
+
+  void generateOTP() {
+    final now = DateTime.now();
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        widget.secret,
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
+
+  void startReloadTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (reloadTimer > 0) {
+          reloadTimer--;
+        } else {
+          generateOTP();
+          reloadTimer = 30;
+        }
+      });
+    });
+  }
+
+  void resetReloadTimer() {
+    setState(() {
+      reloadTimer = 30;
+    });
   }
 
   @override
@@ -336,6 +390,49 @@ class _NewAccountState extends State<NewAccount> {
                             setState(() {
                               enableOtp = value;
                             });
+                            if (value) {
+                              final result =  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const QRScannerPage(),
+                                ),
+                              );
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('OTP Generated'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          otp.isNotEmpty
+                                              ? otp.substring(0, 3) + " " + otp.substring(3)
+                                              : '',
+                                          style: const TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Text(
+                                          'Reload in $reloadTimer seconds',
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            generateOTP();
+                                            resetReloadTimer();
+                                          },
+                                          child: const Text('Reload'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
                           },
                           activeTrackColor: const Color(
                               0xFF374375), // Background color when switch is on
@@ -447,9 +544,10 @@ class _NewAccountState extends State<NewAccount> {
               ),
             ),
           ),
-         Positioned(
+          Positioned(
             top: 70,
-            left: MediaQuery.of(context).size.width / 2 - 50, // Center the box horizontally
+            left: MediaQuery.of(context).size.width / 2 -
+                50, // Center the box horizontally
             child: SizedBox(
               width: 100, // Increase the width to 150
               height: 100,
