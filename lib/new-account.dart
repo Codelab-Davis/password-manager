@@ -6,11 +6,14 @@ import 'package:otp/otp.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:http/http.dart' as http;
+import 'package:password_manager/qrscanner-page.dart';
 import 'dart:convert';
+import 'qr_scanner_page.dart'; // Ensure you import your QRScannerPage
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
   final dynamic addAccount;
+
   const NewAccount({super.key, required this.user, required this.addAccount});
 
   @override
@@ -97,17 +100,56 @@ class _NewAccountState extends State<NewAccount> {
     });
   }
 
-  void toggleOtpGeneration(bool value) {
-    setState(() {
-      enableOtp = value;
-      if (enableOtp) {
+  Future<void> toggleOtpGeneration(bool value) async {
+    if (value) {
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const QRScannerPage(),
+        ),
+      );
+
+      if (result != null) {
         generateOTP();
         startReloadTimer();
-      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('OTP Generated'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    otp.isNotEmpty ? otp.substring(0, 3) + " " + otp.substring(3) : '',
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Reload in $reloadTimer seconds',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      generateOTP();
+                      resetReloadTimer();
+                    },
+                    child: const Text('Reload'),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }
+    } else {
+      setState(() {
+        enableOtp = value;
         countdownTimer?.cancel();
         otp = "";
-      }
-    });
+      });
+    }
   }
 
   void updateUser(String appName, String username, String password, String notes) async {
@@ -282,51 +324,24 @@ class _NewAccountState extends State<NewAccount> {
                           fontWeight: FontWeight.w500,
                           height: 0,
                         ),
-                        obscureText: showPassword,
+                        obscureText: !showPassword,
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Enter password',
-                            suffixIcon: SizedBox(
-                              child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      constraints:
-                                          const BoxConstraints(maxWidth: 15),
-                                      icon: Icon(showPassword
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                      onPressed: () {
-                                        setState(
-                                          () {
-                                            showPassword = !showPassword;
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    IconButton(
-                                      padding: EdgeInsets.zero,
-                                      onPressed: () {
-                                        FlutterClipboard.copy(
-                                                passwordController.text)
-                                            .then((_) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                  'Password copied to clipboard'),
-                                            ),
-                                          );
-                                        });
-                                      },
-                                      icon: const Icon(Icons.copy),
-                                    ),
-                                  ]),
-                            ),
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 20)),
+                                vertical: 5.0, horizontal: 20),
+                            suffixIcon: IconButton(
+                              icon: Icon(showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                            )),
                       ),
                     ),
                   ),
@@ -395,60 +410,6 @@ class _NewAccountState extends State<NewAccount> {
                     value: enableOtp,
                     onChanged: toggleOtpGeneration,
                   ),
-                  if (enableOtp)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'OTP',
-                            style: TextStyle(
-                              color: Color(0xFF313131),
-                              fontSize: 16,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
-                              height: 0.12,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  otp,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  FlutterClipboard.copy(otp).then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('OTP copied to clipboard'),
-                                      ),
-                                    );
-                                  });
-                                },
-                                icon: const Icon(Icons.copy),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Regenerating in $reloadTimer seconds',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                 ],
               ),
             ),
