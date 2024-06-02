@@ -391,47 +391,53 @@ class _NewAccountState extends State<NewAccount> {
                               enableOtp = value;
                             });
                             if (value) {
-                              final result =  Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const QRScannerPage(),
-                                ),
-                              );
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('OTP Generated'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          otp.isNotEmpty
-                                              ? otp.substring(0, 3) + " " + otp.substring(3)
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
+                              Future<void> scanQR() async {
+                                final result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QRScannerPage()),
+                                );
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('OTP Generated'),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            otp.isNotEmpty
+                                                ? otp.substring(0, 3) +
+                                                    " " +
+                                                    otp.substring(3)
+                                                : '',
+                                            style: const TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        Text(
-                                          'Reload in $reloadTimer seconds',
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            generateOTP();
-                                            resetReloadTimer();
-                                          },
-                                          child: const Text('Reload'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
+                                          const SizedBox(height: 20),
+                                          Text(
+                                            'Reload in $reloadTimer seconds',
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              generateOTP();
+                                              resetReloadTimer();
+                                            },
+                                            child: const Text('Reload'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+
+                              scanQR();
                             }
                           },
                           activeTrackColor: const Color(
