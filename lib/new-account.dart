@@ -398,6 +398,12 @@ class _NewAccountState extends State<NewAccount> {
                                   MaterialPageRoute(
                                       builder: (context) => QRScannerPage()),
                                 );
+                                if(result != null){
+                                  setState(() {
+                                    Global.secret = result;
+                                  });
+                                };
+                                
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
