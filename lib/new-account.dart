@@ -8,7 +8,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:password_manager/qrscanner-page.dart';
 import 'dart:convert';
-import 'qr_scanner_page.dart'; // Ensure you import your QRScannerPage
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
