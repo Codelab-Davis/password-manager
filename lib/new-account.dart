@@ -32,7 +32,7 @@ class _NewAccountState extends State<NewAccount> {
   void updateUser(
       String appName, String username, String password, String notes) async {
     final id = widget.user[0]['_id'];
-    var url = Uri.http('172.16.40.41:5001', '/test/updateAccounts/$id');
+    var url = Uri.http('10.0.0.155:5001', '/test/updateAccounts/$id');
     final account = jsonEncode({
       'appName': appName,
       'username': username,

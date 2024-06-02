@@ -26,7 +26,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       appBar: AppBar(
         backgroundColor: Color(0xFFBCBCE0),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
