@@ -546,7 +546,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 String faType = twoFaType();
                 String firstName = getFirstName(nameController.text);
                 String lastName = getLastName(nameController.text);
-
+                                                                                      
                 if (nameController.text.isEmpty) {
                   setState(() {
                     isNameEntered = true;
