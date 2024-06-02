@@ -1,4 +1,5 @@
 import 'package:password_manager/global.dart';
+import 'package:password_manager/new-account.dart';
 import 'package:password_manager/profile-page.dart';
 import 'package:password_manager/totp-page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -6,11 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/accounts.dart';
 
 class QRScannerPage extends StatefulWidget {
-  const QRScannerPage({super.key});
+  final Function(String, String, String, String) addAccount;
+
+  const QRScannerPage({Key? key, required this.addAccount}) : super(key: key);
 
   @override
   _QRScannerPageState createState() => _QRScannerPageState();
 }
+
 
 class _QRScannerPageState extends State<QRScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -190,27 +194,36 @@ class _QRScannerPageState extends State<QRScannerPage> {
     );
   }
 
-  Future<void> _onQRViewCreated(QRViewController controller) async {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      if (isScanning) {
-        setState(() {
-          result = scanData;
-          isScanning = false;
-        });
-        Uri uri = Uri.parse(result!.code!);
-        String? secret = uri.queryParameters['secret'];
+Future<void> _onQRViewCreated(QRViewController controller) async {
+  this.controller = controller;
+  controller.scannedDataStream.listen((scanData) {
+    if (isScanning) {
+      setState(() {
+        result = scanData;
+        isScanning = false;
+      });
+      Uri uri = Uri.parse(result!.code!);
+      String? secret = uri.queryParameters['secret'];
 
-
-        if (secret != null) {
-          Navigator.pop(context,secret);
-          _resetScanner();
-        } else {
-          _resetScanner();
-        }
+      if (secret != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewAccount(
+              secret: secret,
+              addAccount: widget.addAccount,
+              user: Global.user,
+            ),
+          ),
+        );
+        _resetScanner();
+      } else {
+        _resetScanner();
       }
-    });
-  }
+    }
+  });
+}
+
 
   void _resetScanner() {
     if (controller != null) {

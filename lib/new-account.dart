@@ -85,8 +85,6 @@ class _NewAccountState extends State<NewAccount> {
     startReloadTimer();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -356,18 +354,19 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         Switch(
                           value: enableOtp,
-                          onChanged: (value) async {
+                          onChanged: (value) {
                             setState(() {
                               enableOtp = value;
                             });
-                            if (value) {
-                              Future<void> scanQR() async {
-                                final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QRScannerPage()),
-                                );
-                              if(result != null && result){
+                            Future<void> scanQR() async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QRScannerPage(
+                                      addAccount: widget.addAccount,
+                                    )),
+                              );
+                              if (result != null && result) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -409,7 +408,6 @@ class _NewAccountState extends State<NewAccount> {
                               }
 
                               scanQR();
-                              }
                             }
                           },
                           activeTrackColor: const Color(
@@ -564,6 +562,7 @@ class _NewAccountState extends State<NewAccount> {
       ),
     );
   }
+
   void generateOTP() {
     final now = DateTime.now();
     setState(() {

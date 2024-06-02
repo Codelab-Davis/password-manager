@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/new-account.dart';
 import 'package:password_manager/profile-page.dart';
-import 'package:password_manager/qrscanner-page.dart';
-import 'package:password_manager/totp-page.dart';
-import 'package:password_manager/global.dart';
+
 import 'package:flutter_masonry_view/flutter_masonry_view.dart';
 
 class AccountsPage extends StatefulWidget {
@@ -140,7 +138,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   getStyle(buttonTap) {
     return ButtonStyle(
-      elevation: MaterialStateProperty.all(0), 
+      elevation: MaterialStateProperty.all(0),
       backgroundColor: MaterialStateProperty.all(
         buttonTap ? const Color(0xFFBCBCE0) : Colors.white,
       ),
@@ -224,7 +222,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ],
               ),
               child: SearchBar(
-                      elevation: MaterialStateProperty.all(0), 
+                elevation: MaterialStateProperty.all(0),
                 leading: const Icon(Icons.search),
                 backgroundColor: MaterialStateProperty.all(
                     const Color(0xFFFFFCFC)), // Background color
@@ -330,7 +328,8 @@ class _AccountsPageState extends State<AccountsPage> {
                                   MaterialPageRoute(
                                     builder: (context) => NewAccount(
                                       user: widget.user,
-                                      addAccount: addAccount, secret: '',
+                                      addAccount: addAccount,
+                                      secret: '',
                                     ),
                                   ),
                                 ).then((result) {
@@ -364,7 +363,7 @@ class _AccountsPageState extends State<AccountsPage> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: Colors.white,  
+                                  color: Colors.white,
                                   size: 20,
                                 ),
                                 Text(
@@ -397,61 +396,6 @@ class _AccountsPageState extends State<AccountsPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scanner',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: 3,
-        selectedItemColor: const Color.fromARGB(255, 112, 175, 238),
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                GenerateTOTPPage(secret: Global.result?.code ?? ''),
-          ),
-        );
-        break;
-      case 1:
-        Navigator.pushReplacement(
-          context as BuildContext,
-          MaterialPageRoute(builder: (context) => QRScannerPage()),
-        );
-        break;
-      case 2:
-        Navigator.pushReplacement(
-          context as BuildContext,
-          MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
-          ),
-        );
-        // Handle profile navigation
-        break;
-      case 3:
-        break;
-    }
   }
 }

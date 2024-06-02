@@ -405,13 +405,7 @@ class _LoginState extends State<Login> {
                     padding: EdgeInsets.symmetric(
                         horizontal: getScaledSizeX(context, 10)),
                     child: IconButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context as BuildContext,
-                          MaterialPageRoute(
-                              builder: (context) => QRScannerPage()),
-                        );
-                      },
+                      onPressed: null,
                       icon: Image.asset('assets/facebook.png',
                           width: getScaledSizeX(context, 36),
                           height: getScaledSizeX(context, 36)),
