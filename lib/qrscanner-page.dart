@@ -203,7 +203,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
         Global.secret = secret;
 
         if (secret != null) {
-          Navigator.pop(context);
+          Navigator.pop(context,Global.secret);
         } else {
           _resetScanner();
         }
