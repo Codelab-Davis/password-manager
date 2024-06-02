@@ -357,57 +357,52 @@ class _NewAccountState extends State<NewAccount> {
                           onChanged: (value) {
                             setState(() {
                               enableOtp = value;
-
-                              Future<void> scanQR() async {
-                                final result = await Navigator.push(
+                              scanQR() {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => QRScannerPage(
                                             addAccount: widget.addAccount,
                                           )),
                                 );
-                                if (result != null && result) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('OTP Generated'),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              otp.isNotEmpty
-                                                  ? otp.substring(0, 3) +
-                                                      " " +
-                                                      otp.substring(3)
-                                                  : '',
-                                              style: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('OTP Generated'),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            otp.isNotEmpty
+                                                ? otp.substring(0, 3) +
+                                                    " " +
+                                                    otp.substring(3)
+                                                : '',
+                                            style: const TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            const SizedBox(height: 20),
-                                            Text(
-                                              'Reload in $reloadTimer seconds',
-                                              style:
-                                                  const TextStyle(fontSize: 16),
-                                            ),
-                                            const SizedBox(height: 20),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                generateOTP();
-                                                resetReloadTimer();
-                                              },
-                                              child: const Text('Reload'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-
-                                scanQR();
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Text(
+                                            'Reload in $reloadTimer seconds',
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              generateOTP();
+                                              resetReloadTimer();
+                                            },
+                                            child: const Text('Reload'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               }
                             });
                           },
