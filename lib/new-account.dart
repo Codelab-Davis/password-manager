@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:password_manager/accounts.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:otp/otp.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:clipboard/clipboard.dart';
-import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class NewAccount extends StatefulWidget {
   final dynamic user;
@@ -29,8 +30,87 @@ class _NewAccountState extends State<NewAccount> {
 
   String currAppName = "";
 
-  void updateUser(
-      String appName, String username, String password, String notes) async {
+  // TOTP related variables
+  String otp = "";
+  int reloadTimer = 30;
+  Timer? countdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    appNameController.addListener(updateCurrAppName);
+  }
+
+  @override
+  void dispose() {
+    appNameController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    notesController.dispose();
+    _debounce?.cancel();
+    countdownTimer?.cancel();
+    super.dispose();
+  }
+
+  void updateCurrAppName() {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(
+      const Duration(seconds: 1),
+      () {
+        setState(() {
+          currAppName = appNameController.text;
+        });
+      },
+    );
+  }
+
+  void generateOTP() {
+    final now = DateTime.now();
+    setState(() {
+      otp = OTP.generateTOTPCodeString(
+        "YourSecretKeyHere",
+        now.millisecondsSinceEpoch,
+        length: 6,
+        interval: 30,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+    });
+  }
+
+  void startReloadTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (reloadTimer > 0) {
+          reloadTimer--;
+        } else {
+          generateOTP();
+          reloadTimer = 30;
+        }
+      });
+    });
+  }
+
+  void resetReloadTimer() {
+    setState(() {
+      reloadTimer = 30;
+    });
+  }
+
+  void toggleOtpGeneration(bool value) {
+    setState(() {
+      enableOtp = value;
+      if (enableOtp) {
+        generateOTP();
+        startReloadTimer();
+      } else {
+        countdownTimer?.cancel();
+        otp = "";
+      }
+    });
+  }
+
+  void updateUser(String appName, String username, String password, String notes) async {
     final id = widget.user[0]['_id'];
     var url = Uri.http('172.16.40.41:5001', '/test/updateAccounts/$id');
     final account = jsonEncode({
@@ -51,16 +131,6 @@ class _NewAccountState extends State<NewAccount> {
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  void dispose() {
-    appNameController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    notesController.dispose();
-    _debounce?.cancel();
-    super.dispose();
   }
 
   @override
@@ -120,17 +190,6 @@ class _NewAccountState extends State<NewAccount> {
                     child: SizedBox(
                       height: 45,
                       child: TextField(
-                        onChanged: (text) async {
-                          if (_debounce?.isActive ?? false) _debounce?.cancel();
-                          _debounce = Timer(
-                            const Duration(seconds: 1),
-                            () {
-                              setState(() {
-                                currAppName = text;
-                              });
-                            },
-                          );
-                        },
                         controller: appNameController,
                         style: const TextStyle(
                           color: Color(0xFF323232),
@@ -276,7 +335,7 @@ class _NewAccountState extends State<NewAccount> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Additional Notes',
+                        'Notes',
                         style: TextStyle(
                           color: Color(0xFF313131),
                           fontSize: 16,
@@ -293,194 +352,138 @@ class _NewAccountState extends State<NewAccount> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
-                      height: 200,
+                      height: 100,
                       child: TextField(
                         controller: notesController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        expands: true,
                         style: const TextStyle(
                           color: Color(0xFF323232),
                           fontSize: 15,
                           fontFamily: 'Outfit',
                           fontWeight: FontWeight.w500,
+                          height: 0,
                         ),
-                        keyboardType: TextInputType.multiline,
-                        minLines: 6,
-                        maxLines: 6,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: 'Insert notes...',
+                            hintText: 'Enter notes',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20)),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 0.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Enable Timed One-Time Password?',
-                          style: TextStyle(
-                            color: Color(0xFF313131),
-                            fontSize: 14,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                          ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Enable OTP',
+                        style: TextStyle(
+                          color: Color(0xFF313131),
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w400,
+                          height: 0.12,
                         ),
-                        Switch(
-                          value: enableOtp,
-                          onChanged: (value) {
-                            setState(() {
-                              enableOtp = value;
-                            });
-                          },
-                          activeTrackColor: const Color(
-                              0xFF374375), // Background color when switch is on
-                          activeColor: const Color(
-                              0xFFE4E4F9), // Circle color when switch is on
-                          inactiveTrackColor: Colors
-                              .white, // Background color when switch is off
-                          inactiveThumbColor: const Color(
-                              0xFF374375), // Circle color when switch is off
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color(0xFFE4E4F9),
-                        ),
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6)),
-                      ),
-                      onPressed: () {
-                        updateUser(
-                            appNameController.text,
-                            usernameController.text,
-                            passwordController.text,
-                            notesController.text);
-                        Navigator.pop(context, widget.user[0]['accounts']);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  Switch(
+                    value: enableOtp,
+                    onChanged: toggleOtpGeneration,
+                  ),
+                  if (enableOtp)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                      child: Column(
                         children: [
-                          SvgPicture.asset('assets/confirm_changes.svg'),
-                          const SizedBox(
-                            width: 10,
-                          ),
                           const Text(
-                            'Confirm Changes',
+                            'OTP',
                             style: TextStyle(
                               color: Color(0xFF313131),
                               fontSize: 16,
                               fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               height: 0.12,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  otp,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  FlutterClipboard.copy(otp).then((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text('OTP copied to clipboard'),
+                                      ),
+                                    );
+                                  });
+                                },
+                                icon: const Icon(Icons.copy),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Regenerating in $reloadTimer seconds',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color(0xFFE4E4F9),
-                        ),
-                        foregroundColor: MaterialStateProperty.all(
-                            Colors.black), // Text color
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6)),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context, widget.user[0]['accounts']);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/delete_entry.svg'),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            'Delete Entry',
-                            style: TextStyle(
-                              color: Color(0xFF313131),
-                              fontSize: 16,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w500,
-                              height: 0.12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
-         Positioned(
-            top: 70,
-            left: MediaQuery.of(context).size.width / 2 - 50, // Center the box horizontally
+          Positioned(
+            bottom: 20,
+            left: 40,
+            right: 40,
             child: SizedBox(
-              width: 100, // Increase the width to 150
-              height: 100,
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors
-                            .black, // Color of the borderhickness of the border
-                      ),
-                      borderRadius: BorderRadius.circular(
-                          15), // Radius of the rounded corners
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.network(
-                        'https://logo.clearbit.com/${currAppName.replaceAll(' ', '')}.com', // URL of the image
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          // You can return any widget here to display in case of an error
-                          return Container();
-                        },
-                      ),
-                    ),
+              width: 370,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                )),
+                onPressed: () {
+                  updateUser(appNameController.text, usernameController.text,
+                      passwordController.text, notesController.text);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AccountsPage(user: widget.user)),
+                  );
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
                   ),
-                ],
+                ),
               ),
             ),
           ),
