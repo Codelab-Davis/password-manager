@@ -94,20 +94,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
               child: const Text('QR Scanner'),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const QRScannerPage(),
-                  ),
-                );
-                if (result != null && result) {
-                  generateOTP(); // Generate OTP when returning from QR scanner
-                }
-              },
-              child: const Text('QR Scanner'),
-            ),
           ],
         ),
       ),
@@ -256,3 +242,4 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
     });
   }
 }
+
