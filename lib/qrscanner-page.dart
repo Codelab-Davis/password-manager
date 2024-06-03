@@ -20,7 +20,6 @@ class _QRScannerPageState extends State<QRScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = 1;
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -188,113 +187,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
           )
         ],
       ),
-      floatingActionButton: Container(
-        width: 365,
-        height: 59,
-        margin: const EdgeInsets.only(left: 50, right: 18),
-        decoration: BoxDecoration(
-          color: Color(0xFF374375),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.home,
-                  size: 35,
-                  color: _selectedIndex == 0 ? Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                  });
-                  _onItemTapped(0, context);
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.qr_code,
-                  size: 35,
-                  color: _selectedIndex == 1 ? Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                  _onItemTapped(1, context);
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.key_sharp,
-                  size: 35,
-                  color: _selectedIndex == 2 ? Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                  _onItemTapped(2, context);
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.person,
-                  size: 35,
-                  color: _selectedIndex == 3 ? Color(0xFFE4E4F9) : Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 3;
-                  });
-                  _onItemTapped(3, context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
     );
-  }
-
-  void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  GenerateTOTPPage(secret: result?.code ?? '')),
-        );
-        break;
-      case 1:
-        break;
-      case 2:
-        Navigator.push(
-        context,
-        MaterialPageRoute(
-        builder: (context) => AccountsPage(user: Global.user),
-        ));
-        break;
-      case 3:
-         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const UserProfilePage(),
-          ),
-        );
-        break;
-    }
   }
 
   Future<void> _onQRViewCreated(QRViewController controller) async {
