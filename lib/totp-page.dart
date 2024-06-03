@@ -347,7 +347,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
