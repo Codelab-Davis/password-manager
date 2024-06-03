@@ -244,14 +244,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                        left: 40.0,
-                        right: 40.0,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40.0,
+                        vertical: 10.0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Enable Timed One-Time Password?',
                             style: TextStyle(
                               color: Color(0xFF313131),
@@ -268,7 +268,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                   builder: (context) => const QRScannerPage(),
                                 ),
                               );
+
+                              // Log result for debugging
+                              print('QR Scan result: $result');
+
                               if (result != null && result) {
+                                setState(() {
+                                  isOTPToggled = true;
+                                });
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -412,21 +419,22 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             ),
           ),
           Positioned(
-              top: 140,
-              left: MediaQuery.of(context).size.width / 2 - 55,
-              child: Container(
-                width: 110,
-                height: 110,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors
-                        .black, // Color of the borderhickness of the border
-                  ),
-                  borderRadius: BorderRadius.circular(
-                      15), // Radius of the rounded corners
+            top: 140,
+            left: MediaQuery.of(context).size.width / 2 - 55,
+            child: Container(
+              width: 110,
+              height: 110,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.black, // Color of the border
+                  width: 2, // Thickness of the border
                 ),
-              )),
+                borderRadius: BorderRadius.circular(
+                    15), // Radius of the rounded corners
+              ),
+            ),
+          ),
         ],
       ),
     );
