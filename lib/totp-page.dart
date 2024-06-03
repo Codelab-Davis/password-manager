@@ -263,62 +263,57 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                               // Log result for debugging
                               print('QR Scan result: $result');
 
-                              if (result != null && result) {
-                                setState(() {
-                                  isOTPToggled = true;
-                                });
-                                showDialog(
-                                  // ignore: use_build_context_synchronously
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(40),
-                                          bottomRight: Radius.circular(40),
+                              showDialog(
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(40),
+                                        bottomRight: Radius.circular(40),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      decoration: const ShapeDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment(0.00, -1.00),
+                                          end: Alignment(0, 1),
+                                          colors: [
+                                            Color(0xFF374375),
+                                            Color(0xFF9292CA)
+                                          ],
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(40),
+                                            bottomRight: Radius.circular(40),
+                                          ),
                                         ),
                                       ),
-                                      child: Container(
-                                        decoration: const ShapeDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment(0.00, -1.00),
-                                            end: Alignment(0, 1),
-                                            colors: [
-                                              Color(0xFF374375),
-                                              Color(0xFF9292CA)
-                                            ],
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(40),
-                                              bottomRight: Radius.circular(40),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              otp.isNotEmpty
+                                                  ? otp.substring(0, 3) +
+                                                      " " +
+                                                      otp.substring(3)
+                                                  : '',
+                                              style: const TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
                                             ),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                otp.isNotEmpty
-                                                    ? otp.substring(0, 3) +
-                                                        " " +
-                                                        otp.substring(3)
-                                                    : '',
-                                                style: const TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              }
+                                    ),
+                                  );
+                                },
+                              );
                             },
                             child:
                                 const Text('Enable Timed One-Time Password?'),
