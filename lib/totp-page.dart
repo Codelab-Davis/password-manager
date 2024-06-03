@@ -251,15 +251,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Enable Timed One-Time Password?',
-                            style: TextStyle(
-                              color: Color(0xFF313131),
-                              fontSize: 14,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
                           ElevatedButton(
                             onPressed: () async {
                               final result = await Navigator.push(
@@ -280,7 +271,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('OTP Generated'),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -294,20 +284,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            'Reload in $reloadTimer seconds',
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              generateOTP();
-                                              resetReloadTimer();
-                                            },
-                                            child: const Text('Reload'),
-                                          ),
                                         ],
                                       ),
                                     );
@@ -315,7 +291,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                 );
                               }
                             },
-                            child: const Text('Scan QR Code'),
+                            child: const Text('Enable Timed One-Time Password?'),
                           ),
                         ],
                       ),
