@@ -471,7 +471,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       });
     });
   }
-
   void resetReloadTimer() {
     setState(() {
       reloadTimer = 30;
