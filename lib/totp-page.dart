@@ -252,6 +252,21 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                const Color(0xFFE4E4F9),
+                              ),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Colors.black), // Text color
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 6)),
+                            ),
                             onPressed: () async {
                               final result = await Navigator.push(
                                 context,
