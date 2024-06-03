@@ -330,22 +330,6 @@ class _NewAccountState extends State<NewAccount> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        Switch(
-                          value: enableOtp,
-                          onChanged: (value) {
-                            setState(() {
-                              enableOtp = value;
-                            });
-                          },
-                          activeTrackColor: const Color(
-                              0xFF374375), // Background color when switch is on
-                          activeColor: const Color(
-                              0xFFE4E4F9), // Circle color when switch is on
-                          inactiveTrackColor: Colors
-                              .white, // Background color when switch is off
-                          inactiveThumbColor: const Color(
-                              0xFF374375), // Circle color when switch is off
-                        ),
                       ],
                     ),
                   ),
