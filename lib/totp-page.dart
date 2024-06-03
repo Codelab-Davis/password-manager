@@ -244,14 +244,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
+                      padding: EdgeInsets.only(
                         left: 40.0,
                         right: 40.0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Enable Timed One-Time Password?',
                             style: TextStyle(
                               color: Color(0xFF313131),
@@ -260,9 +260,8 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Switch(
-                            value: isOTPToggled,
-                            onChanged: (value) async {
+                          ElevatedButton(
+                            onPressed: () async {
                               final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -270,11 +269,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                 ),
                               );
                               if (result != null && result) {
-                                setState(() {
-                                  isOTPToggled = value;
-                                  generateOTP();
-                                  resetReloadTimer();
-                                });
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -314,14 +308,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                 );
                               }
                             },
-                            activeTrackColor: const Color(
-                                0xFF374375), // Background color when switch is on
-                            activeColor: const Color(
-                                0xFFE4E4F9), // Circle color when switch is on
-                            inactiveTrackColor: Colors
-                                .white, // Background color when switch is off
-                            inactiveThumbColor: const Color(
-                                0xFF374375), // Circle color when switch is off
+                            child: const Text('Scan QR Code'),
                           ),
                         ],
                       ),
@@ -350,14 +337,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                         onPressed: () {
                           // Save
                         },
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.save),
-                            const SizedBox(
+                            Icon(Icons.save),
+                            SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               'Confirm Changes',
                               style: TextStyle(
                                 color: Color(0xFF313131),
@@ -395,14 +382,14 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                         onPressed: () {
                           // Cancel
                         },
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.cancel),
-                            const SizedBox(
+                            Icon(Icons.cancel),
+                            SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               'Delete Entry',
                               style: TextStyle(
                                 color: Color(0xFF313131),
@@ -471,6 +458,7 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
       });
     });
   }
+
   void resetReloadTimer() {
     setState(() {
       reloadTimer = 30;
