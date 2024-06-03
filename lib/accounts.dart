@@ -224,7 +224,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ],
               ),
               child: SearchBar(
-                      elevation: MaterialStateProperty.all(0), 
+                elevation: MaterialStateProperty.all(0), 
                 leading: const Icon(Icons.search),
                 backgroundColor: MaterialStateProperty.all(
                     const Color(0xFFFFFCFC)), // Background color
@@ -292,8 +292,7 @@ class _AccountsPageState extends State<AccountsPage> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height - 413,
+            Expanded(
               child: SingleChildScrollView(
                 child: MasonryView(
                   listOfItem: List.generate(
@@ -319,7 +318,6 @@ class _AccountsPageState extends State<AccountsPage> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                         child: SizedBox(
                           height: 60,
-                          //
                           child: ElevatedButton(
                             onPressed: () {
                               print(widget.user);
@@ -351,8 +349,7 @@ class _AccountsPageState extends State<AccountsPage> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: const BorderSide(
-                                        color:
-                                            Color(0xffC0C2E9)) // BorderRadius
+                                        color: Color(0xffC0C2E9)) // BorderRadius
                                     ),
                               ),
                               padding: MaterialStateProperty.all(
@@ -364,7 +361,7 @@ class _AccountsPageState extends State<AccountsPage> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: Colors.white,  
+                                  color: Colors.white,
                                   size: 20,
                                 ),
                                 Text(

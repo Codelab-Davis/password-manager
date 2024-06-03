@@ -316,18 +316,42 @@ class _NewAccountState extends State<NewAccount> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 0.0),
+                    padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Enable Timed One-Time Password?',
-                          style: TextStyle(
-                            color: Color(0xFF313131),
-                            fontSize: 14,
-                            fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
+                        SizedBox(
+                          width: double
+                              .infinity, 
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(
+                                Color(0xFFE4E4F9),
+                              ),
+                              foregroundColor: WidgetStateProperty.all(
+                                Colors.black,
+                              ), 
+                              shape: WidgetStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                              ),
+                            ),
+                            onPressed: null,
+                            child: const Text(
+                              'Enable Timed One-Time Password?',
+                              textAlign: TextAlign.center, // Center the text
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -360,14 +384,14 @@ class _NewAccountState extends State<NewAccount> {
                             notesController.text);
                         Navigator.pop(context, widget.user[0]['accounts']);
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/confirm_changes.svg'),
-                          const SizedBox(
+                          Icon(Icons.check),
+                          SizedBox(
                             width: 10,
                           ),
-                          const Text(
+                          Text(
                             'Confirm Changes',
                             style: TextStyle(
                               color: Color(0xFF313131),
@@ -406,14 +430,14 @@ class _NewAccountState extends State<NewAccount> {
                       onPressed: () {
                         Navigator.pop(context, widget.user[0]['accounts']);
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/delete_entry.svg'),
-                          const SizedBox(
+                          Icon(Icons.delete),
+                          SizedBox(
                             width: 10,
                           ),
-                          const Text(
+                          Text(
                             'Delete Entry',
                             style: TextStyle(
                               color: Color(0xFF313131),
@@ -431,9 +455,10 @@ class _NewAccountState extends State<NewAccount> {
               ),
             ),
           ),
-         Positioned(
+          Positioned(
             top: 70,
-            left: MediaQuery.of(context).size.width / 2 - 50, // Center the box horizontally
+            left: MediaQuery.of(context).size.width / 2 -
+                50, // Center the box horizontally
             child: SizedBox(
               width: 100, // Increase the width to 150
               height: 100,
