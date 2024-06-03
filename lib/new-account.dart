@@ -293,7 +293,7 @@ class _NewAccountState extends State<NewAccount> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: SizedBox(
-                      height: 200,
+                      height: 150,
                       child: TextField(
                         controller: notesController,
                         style: const TextStyle(
@@ -315,45 +315,42 @@ class _NewAccountState extends State<NewAccount> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 0.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: double
-                              .infinity, // Make the button stretch to the full width
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                const Color(0xFFE4E4F9),
-                              ),
-                              foregroundColor: MaterialStateProperty.all(
-                                  Colors.black), // Text color
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 12),
-                              ),
-                            ),
-                            onPressed: null,
-                            child: const Text(
-                              'Enable Timed One-Time Password?',
-                              textAlign: TextAlign.center, // Center the text
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 80,
+                    height: 45,// Make the button stretch to the full width
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          const Color(0xFFE4E4F9),
+                        ),
+                        foregroundColor: MaterialStateProperty.all(
+                            Colors.black), // Text color
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                      ],
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                        ),
+                      ),
+                      onPressed: null,
+                      child: const Text(
+                        'Enable Timed One-Time Password?',
+                        textAlign: TextAlign.center, // Center the text
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 80,

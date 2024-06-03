@@ -163,10 +163,6 @@ class _AccountsPageState extends State<AccountsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      //appBar: AppBar(
-      // title: const Text("Accounts Page"),
-      //automaticallyImplyLeading: false,
-      //),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
         child: Column(
@@ -224,7 +220,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ],
               ),
               child: SearchBar(
-                      elevation: MaterialStateProperty.all(0), 
+                elevation: MaterialStateProperty.all(0), 
                 leading: const Icon(Icons.search),
                 backgroundColor: MaterialStateProperty.all(
                     const Color(0xFFFFFCFC)), // Background color
@@ -292,8 +288,7 @@ class _AccountsPageState extends State<AccountsPage> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height - 413,
+            Expanded( // Use Expanded to fill remaining space
               child: SingleChildScrollView(
                 child: MasonryView(
                   listOfItem: List.generate(
