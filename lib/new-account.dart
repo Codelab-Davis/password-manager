@@ -316,31 +316,29 @@ class _NewAccountState extends State<NewAccount> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
+                    padding: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
                           width: double
-                              .infinity, 
+                              .infinity, // Make the button stretch to the full width
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                Color(0xFFE4E4F9),
+                              backgroundColor: MaterialStateProperty.all(
+                                const Color(0xFFE4E4F9),
                               ),
-                              foregroundColor: WidgetStateProperty.all(
-                                Colors.black,
-                              ), 
-                              shape: WidgetStateProperty.all(
+                              foregroundColor: MaterialStateProperty.all(
+                                  Colors.black), // Text color
+                              shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                               padding: MaterialStateProperty.all(
                                 const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
-                                ),
+                                    horizontal: 16, vertical: 12),
                               ),
                             ),
                             onPressed: null,
@@ -384,14 +382,14 @@ class _NewAccountState extends State<NewAccount> {
                             notesController.text);
                         Navigator.pop(context, widget.user[0]['accounts']);
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.check),
-                          SizedBox(
+                          SvgPicture.asset('assets/confirm_changes.svg'),
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
+                          const Text(
                             'Confirm Changes',
                             style: TextStyle(
                               color: Color(0xFF313131),
@@ -430,14 +428,14 @@ class _NewAccountState extends State<NewAccount> {
                       onPressed: () {
                         Navigator.pop(context, widget.user[0]['accounts']);
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.delete),
-                          SizedBox(
+                          SvgPicture.asset('assets/delete_entry.svg'),
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
+                          const Text(
                             'Delete Entry',
                             style: TextStyle(
                               color: Color(0xFF313131),
