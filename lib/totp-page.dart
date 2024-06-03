@@ -264,7 +264,6 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                               print('QR Scan result: $result');
 
                               showDialog(
-                                // ignore: use_build_context_synchronously
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Dialog(
@@ -296,6 +295,16 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
+                                            const Text(
+                                              'TOTP Generated',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(height: 20),
                                             Text(
                                               otp.isNotEmpty
                                                   ? otp.substring(0, 3) +
@@ -303,9 +312,10 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                                                       otp.substring(3)
                                                   : '',
                                               style: const TextStyle(
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ],
                                         ),
