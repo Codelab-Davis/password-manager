@@ -248,146 +248,157 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
                         horizontal: 40.0,
                         vertical: 10.0,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                const Color(0xFFE4E4F9),
-                              ),
-                              foregroundColor: MaterialStateProperty.all(
-                                  Colors.black), // Text color
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 6)),
+                      child: SizedBox(
+                        width: double
+                            .infinity, // Make the button stretch to the full width
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              const Color(0xFFE4E4F9),
                             ),
-                            onPressed: () async {
-                              final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const QRScannerPage(),
-                                ),
-                              );
-
-                              // Log result for debugging
-                              print('QR Scan result: $result');
-
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(40),
-                                        bottomRight: Radius.circular(40),
-                                      ),
-                                    ),
-                                    child: Container(
-                                      decoration: const ShapeDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment(0.00, -1.00),
-                                          end: Alignment(0, 1),
-                                          colors: [
-                                            Color(0xFF374375),
-                                            Color(0xFF9292CA)
-                                          ],
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(40),
-                                            bottomRight: Radius.circular(40),
-                                          ),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const Text(
-                                              'TOTP Generated',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const SizedBox(height: 20),
-                                            Text(
-                                              otp.isNotEmpty
-                                                  ? otp.substring(0, 3) +
-                                                      " " +
-                                                      otp.substring(3)
-                                                  : '',
-                                              style: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child:
-                                const Text('Enable Timed One-Time Password?'),
+                            foregroundColor: MaterialStateProperty.all(
+                                Colors.black), // Text color
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                            ),
                           ),
-                        ],
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const QRScannerPage(),
+                              ),
+                            );
+
+                            // Log result for debugging
+                            print('QR Scan result: $result');
+
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(40),
+                                      bottomRight: Radius.circular(40),
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: const ShapeDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment(0.00, -1.00),
+                                        end: Alignment(0, 1),
+                                        colors: [
+                                          Color(0xFF374375),
+                                          Color(0xFF9292CA),
+                                        ],
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(40),
+                                          bottomRight: Radius.circular(40),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'TOTP Generated',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Text(
+                                            otp.isNotEmpty
+                                                ? otp.substring(0, 3) +
+                                                    " " +
+                                                    otp.substring(3)
+                                                : '',
+                                            style: const TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: const Text(
+                            'Enable Timed One-Time Password?',
+                            textAlign: TextAlign.center, // Center the text
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    //const SizedBox(
+                    //height: 10,
+                    //),
                     Padding(
-                      padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            const Color(0xFFE4E4F9),
-                          ),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: SizedBox(
+                        width: double
+                            .infinity, // Make the button stretch to the full width
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              const Color(0xFFE4E4F9),
                             ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 6)),
-                        ),
-                        onPressed: () {
-                          // Save
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.save),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Confirm Changes',
-                              style: TextStyle(
-                                color: Color(0xFF313131),
-                                fontSize: 16,
-                                fontFamily: 'Outfit',
-                                fontWeight: FontWeight.w500,
-                                height: 0.12,
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.black),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                          ],
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                            ),
+                          ),
+                          onPressed: () {
+                            // Save
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.save),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Confirm Changes',
+                                style: TextStyle(
+                                  color: Color(0xFF313131),
+                                  fontSize: 16,
+                                  fontFamily: 'Outfit',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0.12,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -445,13 +456,15 @@ class _GenerateTOTPPageState extends State<GenerateTOTPPage> {
             ),
           ),
           Positioned(
-            top: 140,
-            left: MediaQuery.of(context).size.width / 2 - 55,
+            top:
+                80, // Adjust this value as needed to position the container closer to the top
+            left: (MediaQuery.of(context).size.width - 110) /
+                2, // Center horizontally
             child: Container(
               width: 110,
               height: 110,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color.fromARGB(255, 255, 255, 255),
                 border: Border.all(
                   color: Colors.black, // Color of the border
                   width: 2, // Thickness of the border
